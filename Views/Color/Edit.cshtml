@@ -1,0 +1,77 @@
+﻿@model Ret.ColorModel
+
+@{
+    Layout = "~/Views/Shared/_admin.cshtml";    
+}
+    
+<div class="page-header">
+    <div class="card">
+        <div class="card-block bg-primary">
+            <div class="row ">
+                <div class="col-lg-4">
+                    <h5 class="text-uppercase font-weight-bold">Update Color</h5>
+                </div>
+                <div class="col-lg-8 align-items-end">
+                    <div class="page-header-breadcrumb">
+                        <ul class="breadcrumb-title">
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("Index", "Dashboard")"> <i class="icofont icofont-home" style="color:white"></i> </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("Index", "Color")" style="color:white">Home / Masters / Update Color</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row animate bounceInDown">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-9 col-9"><h3>@ViewData["PageTitle"]</h3></div>
+                    <div class="col-md-3 col-3">
+                        <a href="@Url.Action("Index", "Color")" class="btn btn-primary btn-outline-primary float-right">
+                            <i class="icofont icofont-user-alt-3"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-block">
+                <h4 class="sub-title">Brand Update</h4>
+                @using (Html.BeginForm("Edit", "Color"))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ColorID)
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.ColorName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ColorName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ColorName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <input type="submit" value="Update" class="btn btn-primary btn-out float-right" />
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>       
+    </div>
+</div>

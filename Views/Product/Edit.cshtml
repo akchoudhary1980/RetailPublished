@@ -1,0 +1,364 @@
+﻿@model Ret.ProductModel
+@{
+    Layout = "~/Views/Shared/_admin.cshtml";
+}
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-ui-1.10.2.js"></script>
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/AjaxModules.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // check box
+        $('#GSTInclusive').change(function () {
+            if ($(this).is(":checked")) {
+                // get GST Slab value
+                var gstid = $('#GSTSlabID').val();
+
+                if (gstid == "") {
+                    alert("Please select GST percent");
+                }
+                else {
+                    // Call Ajax method
+                    var gst = GetPercent(gstid);
+                    var p = $('#Rate').val();
+                    p = ClearCulture(p);
+                    var r = parseFloat(p) * 100 / parseFloat(gst);
+                    r = ConvertToIndian(r);
+                    $('#Rate').val(r);
+                }
+            }
+            else {
+                $('#Rate').val($('#Price').val());
+            }
+        });
+
+        $("#Price").blur(function () {
+            var price = $('#Price').val();
+            price = ConvertToIndian(price);
+            $('#Rate').val(price);
+        });
+    });
+    function GetPercent(id) {
+        var gst = 0;
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: '/Product/GetGSTPercent',
+            data: "{'ID': '" + id + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                gst = response;
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });
+        return gst;
+    }
+</script>
+<script type="text/javascript">
+    function uploadImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#productPicture')
+                    .attr('src', e.target.result)
+                    .width(300)
+                    .height(200);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+<script type="text/javascript">
+    SetInputNumericIndian('MRPRate');
+    SetInputNumericIndian('Rate');
+    SetInputNumericIndian('Price');
+    SetDoubleIndian('StockMinimumLevel');
+    SetDoubleIndian('StockMaximumLevel');
+    function FormValidation() {
+        RemoveIndianCulture("MRPRate");
+        RemoveIndianCulture("Rate");
+        RemoveIndianCulture("Price");
+        RemoveIndianCulture("StockMinimumLevel");
+        RemoveIndianCulture("StockMaximumLevel");
+    }
+</script>
+<script type="text/javascript">
+    var loc;
+    var mc = "", gd = "", rm = "", ra = "", sn = "", bn = "";
+    $(function () {
+        // mc
+        $("#MaterialCenterID").change(function () {
+            mc = $('option:selected', this).text();
+            loc = mc + "/" + gd + "/" + rm + "/" + ra + "/" + sn + "/" + bn;
+            $('#Location').val(loc);
+        });
+        // gd
+        $("#GodownID").change(function () {
+            gd = $('option:selected', this).text();
+            loc = mc + "/" + gd + "/" + rm + "/" + ra + "/" + sn + "/" + bn;
+            $('#Location').val(loc);
+        });
+        // rm
+        $("#RoomNoID").change(function () {
+            rm = $('option:selected', this).text();
+            loc = mc + "/" + gd + "/" + rm + "/" + ra + "/" + sn + "/" + bn;
+            $('#Location').val(loc);
+        });
+        // ra
+        $("#RackNoID").change(function () {
+            ra = $('option:selected', this).text();
+            loc = mc + "/" + gd + "/" + rm + "/" + ra + "/" + sn + "/" + bn;
+            $('#Location').val(loc);
+        });
+        // sn
+        $("#SelfNoID").change(function () {
+            sn = $('option:selected', this).text();
+            loc = mc + "/" + gd + "/" + rm + "/" + ra + "/" + sn + "/" + bn;
+            $('#Location').val(loc);
+        });
+        // bn
+        $("#BinNoID").change(function () {
+            bn = $('option:selected', this).text();
+            loc = mc + "/" + gd + "/" + rm + "/" + ra + "/" + sn + "/" + bn;
+            $('#Location').val(loc);
+        });
+
+    });
+</script>
+
+<div class="page-header">
+    <div class="card">
+        <div class="card-block bg-primary">
+            <div class="row ">
+                <div class="col-lg-4">
+                    <h5 class="text-uppercase font-weight-bold">Update Product</h5>
+                </div>
+                <div class="col-lg-8 align-items-end">
+                    <div class="page-header-breadcrumb">
+                        <ul class="breadcrumb-title">
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("Index", "Dashboard")"> <i class="icofont icofont-home" style="color:white"></i> </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("Index", "Product")" style="color:white">Home / Masters / Update Product</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row animate bounceInDown">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-9 col-9"><h3>@ViewData["PageTitle"]</h3></div>
+                    <div class="col-md-3 col-3">
+                        <a href="@Url.Action("Index", "Product")" class="btn btn-primary btn-outline-primary float-right">
+                            <i class="icofont icofont-user-alt-3"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-block">
+                <h4 class="sub-title">Product Update</h4>
+                @using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ProductID)
+
+                    <h4 class="sub-title">Product Info</h4>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.CategoryID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(model => model.CategoryID,
+                             Ret.ProductController.GetCategoryList(), new { @class = "form-control" })
+
+                            @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.GroupID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(model => model.GroupID,
+                             Ret.ProductController.GetGroupList(), new { @class = "form-control" })
+
+                            @Html.ValidationMessageFor(model => model.GroupID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.BrandID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(model => model.BrandID,
+                             Ret.ProductController.GetBrandList(), new { @class = "form-control" })
+
+                            @Html.ValidationMessageFor(model => model.BrandID, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.ColorID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(model => model.ColorID,
+                             Ret.ProductController.GetColorList(), new { @class = "form-control" })
+
+                            @Html.ValidationMessageFor(model => model.ColorID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.UnitID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(model => model.UnitID,
+                             Ret.ProductController.GetUnitList(), new { @class = "form-control" })
+
+                            @Html.ValidationMessageFor(model => model.UnitID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <h4 class="sub-title">Product Pricing</h4>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.MRPRate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.MRPRate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MRPRate, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.GSTSlabID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(model => model.GSTSlabID,
+                             Ret.ProductController.GetGSTSlabList(), new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.GSTSlabID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+
+                        @Html.LabelFor(model => model.Rate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
+                        </div>
+
+                        @Html.LabelFor(model => model.GSTInclusive, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            <div class="checkbox">
+                                <label>@Html.CheckBoxFor(model => model.GSTInclusive)&nbsp;Yes</label>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.GSTInclusive, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <h4 class="sub-title">Product Location</h4>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.MaterialCenterID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(model => model.MaterialCenterID,
+                             Ret.ProductController.GetMaterialCenterList(), new { @class = "form-control" })
+
+                            @Html.ValidationMessageFor(model => model.MaterialCenterID, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.GodownID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(model => model.GodownID,
+                             Ret.ProductController.GetGodownList(), new { @class = "form-control" })
+
+                            @Html.ValidationMessageFor(model => model.GodownID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.RoomNoID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(model => model.RoomNoID,
+                             Ret.ProductController.GetRoomNoList(), new { @class = "form-control" })
+
+                            @Html.ValidationMessageFor(model => model.RoomNoID, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.RackNoID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(model => model.RackNoID,
+                             Ret.ProductController.GetReckNoList(), new { @class = "form-control" })
+
+                            @Html.ValidationMessageFor(model => model.RackNoID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.SelfNoID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(model => model.SelfNoID,
+                             Ret.ProductController.GetSelfNoList(), new { @class = "form-control" })
+
+                            @Html.ValidationMessageFor(model => model.SelfNoID, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.BinNoID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(model => model.BinNoID,
+                             Ret.ProductController.GetBinNoList(), new { @class = "form-control" })
+
+                            @Html.ValidationMessageFor(model => model.BinNoID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <h4 class="sub-title">Product Stock</h4>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.StockMinimumLevel, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.StockMinimumLevel, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.StockMinimumLevel, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.StockMaximumLevel, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.StockMaximumLevel, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.StockMaximumLevel, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Picture, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            <p>Product Picture 300px X 200px</p>
+                            <img id="productPicture" src="~/UploadFiles/@Url.Content(Model.Picture)" alt="" class="img-fluid img-thumbnail" />
+                        </div>
+                        <div class="col-md-4">
+                            <input type='file' name="FileUpload" onchange="uploadImage(this);" class="btn btn-success pull-right" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <input type="submit" value="Update" onclick="FormValidation();" class="btn btn-primary btn-out float-right" />
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

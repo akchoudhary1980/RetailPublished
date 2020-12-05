@@ -1,0 +1,114 @@
+﻿@model Ret.SliderModel
+@{
+    Layout = "~/Views/Shared/_admin.cshtml";
+}
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-ui-1.10.2.js"></script>
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/AjaxModules.js"></script>
+
+<script type="text/javascript">
+    function sliderImageIpload(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#sliderPicture')
+                    .attr('src', e.target.result)
+                    .width(300)
+                    .height(200);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+
+<div class="page-header animated bounceInRight">
+    <div class="card">
+        <div class="card-block bg-primary">
+            <div class="row ">
+                <div class="col-lg-4">
+                    <h5 class="text-uppercase font-weight-bold">New Slider</h5>
+                </div>
+                <div class="col-lg-8 align-items-end">
+                    <div class="page-header-breadcrumb">
+                        <ul class="breadcrumb-title">
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("Index", "Dashboard")"> <i class="icofont icofont-home" style="color:white"></i> </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("Index", "Slider")" style="color:white">Home / Masters / New Slider</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated bounceInUp">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-9 col-9"><h3>@ViewData["PageTitle"]</h3></div>
+                    <div class="col-md-3 col-3">
+                        <a href="@Url.Action("Index", "Slider")" class="btn btn-primary btn-outline-primary float-right">
+                            <i class="icofont icofont-user-alt-3"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-block">
+                <h4 class="sub-title">Add New Slider</h4>
+                @using (Html.BeginForm("Create", "Slider", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.SliderTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.SliderTitle, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SliderTitle, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.IsDisplay, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.CheckBoxFor(model => model.IsDisplay, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                            @Html.ValidationMessageFor(model => model.IsDisplay, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Picture, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            <p>Current Picture</p>
+                            <img id="sliderPicture" src="" alt="" class="img-fluid img-thumbnail" />
+                        </div>
+                        <div class="col-md-4">
+                            <input type='file' name="FileUpload" onchange="sliderImageIpload(this);" class="btn btn-success pull-right" />
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <input type="submit" value="Create" class="btn btn-primary btn-out float-right" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

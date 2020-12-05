@@ -1,0 +1,154 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Login.cshtml";
+}
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/AjaxModules.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#coount').hide();
+        SetInputNumeric('Mobile');
+        SetInputMobile('OtpCode');
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#sendOTP").click(function () {
+            $("#sendOTP").attr("disabled", "disabled");
+            $('#coount').show();
+            sendOTPCodes();
+
+            setTimeout(function () {
+                $("#sendOTP").removeAttr("disabled");
+            }, 62000);
+            var timeLeft = 62;
+            var elem = document.getElementById('coount');
+
+            var timerId = setInterval(countdown, 1000);
+
+            function countdown() {
+                if (timeLeft == 0) {
+                    clearTimeout(timerId);
+                    // doSomething();
+                    elem.innerHTML = "";
+                } else {
+                    elem.innerHTML = timeLeft + ' seconds remaining';
+                    timeLeft--;
+                }
+            }
+        });
+    });
+    function sendOTPCodes() {
+        var mess = "OTP Code for Login = ";
+        $.ajax({
+            type: "POST",
+            url: "/Login/VarifyandSendOTPCode",
+            dataType: "json",
+            data: "{'MobileNo': '" + $('#Mobile').val() + "','Message': '" + mess + "'}",
+
+            contentType: "application/json; charset=utf-8",
+            success: OnSuccess,
+            failure: function (data) {
+                alert(data.d);
+            }
+        });
+        function OnSuccess(response) {
+            alert(response);
+        }
+    }
+</script>
+<script type="text/javascript">
+    function refreshCaptcha() {
+        $.ajax({
+            type: "POST",
+            url: "/Login/RefereceCaptcha",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: OnSuccess1,
+            failure: function (data) {
+                alert(data.d);
+            }
+        });
+    }
+    function OnSuccess1(data) {
+        d = new Date();
+        $('#captcha').attr("src", "/UploadFiles/captcha.jpg?" + d.getTime());
+    }
+</script>
+<section class="login-block">
+    <!-- Container-fluid starts -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- Authentication card start -->
+                <div class="md-float-material form-material">                   
+                    <div class="auth-box card">
+                        <div class="card-block">
+                            <div class="text-center">
+                                <img src="~/UploadFiles/Common/Logo.png" class="img-fluid text-center" />                              
+                            </div>
+                            <br />
+                            <div class="row m-b-20">
+                                <div class="col-md-12">
+                                    <h4 class="text-left text-uppercase">Login - OTP</h4>
+                                </div>
+                            </div>
+                            <form method="post" enctype="multipart/form-data" asp-controller="Login" asp-action="LoginOTP">
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <input type="text" id="Mobile" name="Mobile" class="form-control" placeholder="Mobile Number" maxlength="10" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-8">
+                                        <label id="coount" style="color:red">Time Remaining</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button id="sendOTP" type="button" class="btn btn-success text-center m-b-20 float-right">Send OTP</button>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <input type="password" id="OtpCode" name="OtpCode" class="form-control" placeholder="Enter OTP" maxlength="4" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-md-4">
+                                        <img id="captcha" src="~/UploadFiles/captcha.jpg" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" id="CaptchaCode" name="CaptchaCode" class="form-control" placeholder="Captcha Code" maxlength="6" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button id="refCpatcha" type="button" onclick="refreshCaptcha();" class="btn btn-success text-center m-b-20 float-right"><i class="icofont icofont-refresh"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <input type="submit" value="Login" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" />
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="row">
+                                <div class="col-sm-6 col-6 text-left">
+                                    <a href="@Url.Action("LoginPassword", "Login")">Login with Password</a>
+                                </div>
+                                <div class="col-sm-6 col-6 text-right ">
+                                    <a href="@Url.Action("PasswordRecovery", "Login")" >Forget Password</a>
+                                </div>
+                            </div>
+                               
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of col-sm-12 -->
+        </div>
+        <!-- end of row -->
+    </div>
+    <!-- end of container-fluid -->
+</section>
+

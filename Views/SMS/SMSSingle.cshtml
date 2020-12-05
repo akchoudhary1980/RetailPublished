@@ -1,0 +1,144 @@
+﻿@model Ret.SendSMS
+
+@{
+    Layout = "~/Views/Shared/_admin.cshtml";
+}
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-ui-1.10.2.js"></script>
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/AjaxModules.js"></script>
+
+<script type="text/javascript">
+    // Get Customer Mobile Number
+    $(document).ready(function () {
+        $("#Customer").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/SMS/CustomerAutoComplete",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: request.term },
+
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.CustomerName, value: item.CustomerName, id: item.Mobile };
+                        }))
+                    },
+                })
+            },
+            select: function (event, ui) {                
+                $("#Mobile").val(ui.item.id);                
+            },
+
+            messages: {
+                noResults: "", results: ""
+            }
+        });
+    })
+</script>
+
+<script>
+    // Get Meesage from Templete
+    $(function () {
+        $("#Templete").change(function () {
+            var templeteid = $('option:selected', this).val().toString();
+            setText(templeteid);
+        });
+    });
+
+    // Get the value and set the text
+    function setText(templeteid) {
+        $.ajax({
+            type: "POST",
+            url: '/SMS/GetMessage',
+            data: "{'TempleteID': '" + templeteid + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                $('#Message').val(response);
+
+            },
+            failure: function (response) {
+                alert(response.d);
+            }
+        });
+    }
+    // End
+</script>
+
+
+
+<script type="text/javascript">
+    SetInputMobile('Mobile');
+</script>
+
+<div class="row animate bounceInDown">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-9 col-9"><h4>@ViewData["PageTitle"]</h4></div>
+                    <div class="col-md-3 col-3">
+                        <a href="@Url.Action("Index", "Dashboard")" class="btn btn-primary btn-outline-primary float-right">
+                            <i class="icofont icofont-user-alt-3"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-block">
+                <h4 class="sub-title">Send SMS</h4>
+                @using (Html.BeginForm("SMSSingle", "SMS", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Customer, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Customer, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Customer, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                            <p style="color:red">Or</p>
+                        </div>
+                        <div class="col-md-10">
+                            <hr />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Mobile, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control", @maxlength = "10" } })
+                            @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Templete, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.Templete,
+                           Ret.SMSController.GetTempleteList(), new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Templete, "", new { @class = "text-danger" })
+                        </div>
+                    </div>                    
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <input type="submit" value="Send" class="btn btn-primary btn-out float-right" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <!-- Default card end -->
+    </div>
+</div>

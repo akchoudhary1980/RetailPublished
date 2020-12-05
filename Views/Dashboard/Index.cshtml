@@ -1,0 +1,714 @@
+﻿@{   
+    Layout = "~/Views/Shared/_admin.cshtml";
+    string[] salelist = (string[])ViewData["SaleList"];   
+}
+
+<!-- C3 chart -->
+<link rel="stylesheet" href="~/adminty-master/files/bower_components/c3/css/c3.css" type="text/css" media="all">
+<!-- Style.css -->
+<link rel="stylesheet" type="text/css" href="~/adminty-master/files/assets/css/style.css">
+<link rel="stylesheet" type="text/css" href="~/adminty-master/files/assets/css/jquery.mCustomScrollbar.css">
+
+<!-- Required Jquery -->
+<script type="text/javascript" src="~/adminty-master/files/bower_components/jquery/js/jquery.min.js"></script>
+<!-- c3 chart js -->
+<script src="~/adminty-master/files/bower_components/d3/js/d3.min.js"></script>
+<script src="~/adminty-master/files/bower_components/c3/js/c3.js"></script>
+<!-- Custom js -->
+@*<script src="~/adminty-master/files/assets/pages/chart/c3/c3-custom-chart.js"></script>*@
+@*<script src="~/adminty-master/files/assets/js/pcoded.min.js"></script>
+<script src="~/adminty-master/files/assets/js/vartical-layout.min.js"></script>
+<script src="~/adminty-master/files/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>*@
+
+<!-- Pie Chart -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        /*Pie Chart*/       
+    var chart = c3.generate({
+        bindto: '#chart3',
+        data: {
+            // iris data from R
+            columns: [
+                ['Purchase', @ViewBag.PurchaseSum],                
+                ['Stock', @ViewBag.StockSum],
+                ['Sale', @ViewBag.SaleSum],
+            ],
+            type: 'pie',
+            onclick: function(d, i) { console.log("onclick", d, i); },
+            onmouseover: function(d, i) { console.log("onmouseover", d, i); },
+            onmouseout: function(d, i) { console.log("onmouseout", d, i); }
+        },
+        color: {
+            pattern: ['#1ABC9C', '#4C5667','#AB8CE4','#00C292']
+        },
+    });  
+
+ /*donut chart*/
+    var chart = c3.generate({
+        bindto: '#chart2',
+        data: {
+            columns: [
+                ['Total Payment', @ViewBag.Total],
+                ['Reciept Payment', @ViewBag.Reciept],
+                ['Pending Payment', @ViewBag.Pending],
+            ],
+            type: 'donut',
+            onclick: function(d, i) { console.log("onclick", d, i); },
+            onmouseover: function(d, i) { console.log("onmouseover", d, i); },
+            onmouseout: function(d, i) { console.log("onmouseout", d, i); }
+        },
+        color: {
+            pattern: ['#4C5667', '#1ABC9C','#3ABC25']
+        },
+        donut: {
+            title: "Payment Summary"
+        }
+    });
+
+         /*chart_bar_stacked*/
+    var chart = c3.generate({
+        bindto: '#chart1',
+        data: {
+            columns: [
+                ['Jan', @salelist[0].ToString()],
+                ['Feb', @salelist[1].ToString()],
+                ['Mar', @salelist[2].ToString()],
+                ['Apr', @salelist[3].ToString()],
+                ['May', @salelist[4].ToString()],
+                ['Jun', @salelist[5].ToString()],
+                ['Jul', @salelist[6].ToString()],
+                ['Aug', @salelist[7].ToString()],
+                ['Sep', @salelist[8].ToString()],
+                ['Oct', @salelist[9].ToString()],
+                ['Nov', @salelist[10].ToString()],
+                ['Dec', @salelist[11].ToString()],
+            ],
+            type: 'bar',
+            groups: [
+                ['data1']
+            ],
+
+        },
+        color: {
+            pattern: ['#c0392b', '#9b59b6', '#2980b9','#1abc9c','#f1c40f','#34495e','#808000','#008080','#008000','#000080','#FF00FF','#999999']
+        },
+        grid: {
+            y: {
+                lines: [{ value: 0 }]
+            }
+        }
+    });
+
+        /*Stacked Area Chart*/
+    var chart = c3.generate({
+        bindto: '#chart',
+        data: {
+            columns: [
+                ['data1', 300, 350, 500, -10, 0, 320],
+                ['data2', 130, 100, 180, 200, 150, 50]
+            ],
+            types: {
+                data1: 'area-spline',
+                data2: 'area-spline'
+                // 'line', 'spline', 'step', 'area', 'area-step' are also available to stack
+            },
+            colors: {
+                data1: 'rgba(1, 192, 200, 0.92)',
+                data2: 'rgba(26, 188, 156, 0.93)'
+            },
+            groups: [
+                ['data1', 'data2']
+            ]
+        }
+    });
+
+});
+</script>
+
+<div class="page-header animated bounceInRight">
+    <div class="card">
+        <div class="card-block bg-primary">
+            <div class="row ">
+                <div class="col-lg-4">
+                    <h5 class="text-uppercase font-weight-bold">Dashbaord</h5>
+                </div>
+                <div class="col-lg-8 align-items-end">
+                    <div class="page-header-breadcrumb">
+                        <ul class="breadcrumb-title">
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("Index", "Dashboard")"> <i class="icofont icofont-home" style="color:white"></i> </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("Index", "Dashboard")" style="color:white">Home / Dashboard</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <!-- user card  start -->
+    <!-- Enquiry Management -->
+    @*<div class="col-xl-3 col-md-6">
+            <a href="@Url.Action("Index", "PurchaseOrder")">
+                <div class="card">
+                    <div class="card-block">
+                        <div class="row align-items-center m-l-0">
+                            <div class="col-auto">
+                                <i class="feather icon-anchor f-30 text-c-lite-green"></i>
+                            </div>
+                            <div class="col-auto">
+                                <h6 class="text-muted m-b-10">Purchase Order</h6>
+                                <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(PurchaseOrderID) From PurchaseOrderModels")</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>*@
+    <div class="col-xl-3 col-md-6">
+        <a href="@Url.Action("Index", "Purchase")">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-auto">
+                            <i class="feather icon-slack f-30 text-c-green"></i>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="text-muted m-b-10">Purchase</h6>
+                            <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(PurchaseID) From PurchaseModels")</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    @*<div class="col-xl-3 col-md-6">
+            <a href="@Url.Action("Index", "PurchaseRetrun")">
+                <div class="card">
+                    <div class="card-block">
+                        <div class="row align-items-center m-l-0">
+                            <div class="col-auto">
+                                <i class="feather icon-slash f-30 text-c-pink"></i>
+                            </div>
+                            <div class="col-auto">
+                                <h6 class="text-muted m-b-10">Purchase Return</h6>
+                                <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(PurchaseRetrunID) From PurchaseRetrunModels")</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>*@
+    @*<div class="col-xl-3 col-md-6">
+            <a href="@Url.Action("Index", "Purchase")">
+                <div class="card">
+                    <div class="card-block">
+                        <div class="row align-items-center m-l-0">
+                            <div class="col-auto">
+                                <i class="feather icon-check-square f-30 text-c-blue"></i>
+                            </div>
+                            <div class="col-auto">
+                                <h6 class="text-muted m-b-10">Stock Transfer</h6>
+                                <h2 class="m-b-0">0 </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>*@
+
+    <!-- Estimate Quotation -->
+    <div class="col-xl-3 col-md-6">
+        <a href="@Url.Action("Index", "Estimate")">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-auto">
+                            <i class="feather icon-edit f-30 text-c-blue"></i>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="text-muted m-b-10">Estimate</h6>
+                            <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(EstimateID) From EstimateModels")</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <a href="@Url.Action("Index", "Quotation")">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-auto">
+                            <i class="feather icon-file-text f-30  text-c-pink"></i>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="text-muted m-b-10">Quotation</h6>
+                            <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(QuotationID) From QuotationModels")</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <a href="@Url.Action("Index", "Sale")">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-auto">
+                            <i class="feather icon-shopping-cart f-30 text-c-yellow"></i>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="text-muted m-b-10">Sale</h6>
+                            <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(SalesID) From SalesModels")</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    @*<div class="col-xl-3 col-md-6">
+        <a href="@Url.Action("Index", "SaleReturn")">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-auto">
+                            <i class="feather icon-map f-30 text-c-pink"></i>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="text-muted m-b-10">Sale Retrun</h6>
+                            <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(SalesReturnID) From SalesReturnModels")</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>*@
+
+    <!-- Basic -->
+    <div class="col-xl-3 col-md-6">
+        <a href="@Url.Action("Index", "Product")">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-auto">
+                            <i class="feather icon-box f-30 text-c-lite-green"></i>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="text-muted m-b-10">Product</h6>
+                            <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(ProductID) From ProductModels")</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <a href="@Url.Action("Index", "Service")">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-auto">
+                            <i class="feather icon-airplay f-30 text-c-green"></i>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="text-muted m-b-10">Service</h6>
+                            <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(ServiceID) From ServiceModels")</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <a href="@Url.Action("Index", "Customer")">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-auto">
+                            <i class="feather icon-award f-30 text-c-pink"></i>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="text-muted m-b-10">Customer</h6>
+                            <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(CustomerID) From CustomerModels")</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <a href="@Url.Action("Index", "Vender")">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-auto">
+                            <i class="feather icon-map f-30 text-c-yellow"></i>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="text-muted m-b-10">Vender</h6>
+                            <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(VenderID) From VenderModels")</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Material Center -->
+    <div class="col-xl-2 col-md-6">
+        <a href="@Url.Action("Index", "MaterialCenter")">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-auto">
+                            <i class="feather icon-list f-30 text-c-lite-green"></i>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="text-muted m-b-10">Material Center</h6>
+                            <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(MaterialCenterID) From MaterialCenterModels")</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-2 col-md-6">
+        <a href="@Url.Action("Index", "Godown")">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-auto">
+                            <i class="feather icon-list f-30 text-c-green"></i>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="text-muted m-b-10">Godown</h6>
+                            <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(GodownID) From GodownModels")</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-2 col-md-6">
+        <a href="@Url.Action("Index", "Room")">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-auto">
+                            <i class="feather icon-list f-30 text-c-pink"></i>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="text-muted m-b-10">Room</h6>
+                            <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(RoomID) From RoomModels")</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-2 col-md-6">
+        <a href="@Url.Action("Index", "Rack")">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-auto">
+                            <i class="feather icon-list f-30 text-c-pink"></i>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="text-muted m-b-10">Rack</h6>
+                            <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(RackID) From RackModels")</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-2 col-md-6">
+        <a href="@Url.Action("Index", "Self")">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-auto">
+                            <i class="feather icon-list f-30 text-c-pink"></i>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="text-muted m-b-10">Self</h6>
+                            <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(SelfID) From SelfModels")</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-xl-2 col-md-6">
+        <a href="@Url.Action("Index", "Bin")">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-auto">
+                            <i class="feather icon-list f-30 text-c-lite-green"></i>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="text-muted m-b-10">Bin</h6>
+                            <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(BinID) From BinModels")</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Stock Icons -->
+    <div class="col-xl-4 col-md-6">
+        <a href="@Url.Action("StockQuantityWise", "Stock")">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-auto">
+                            <i class="feather icon-codepen f-30 text-c-lite-green"></i>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="text-muted m-b-10">Stock Quantity Wise</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-4 col-md-6">
+        <a href="@Url.Action("StockValueWise", "Stock")">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-auto">
+                            <i class="feather icon-codepen f-30 text-c-green"></i>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="text-muted m-b-10">Stock Value Wise</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-4 col-md-6">
+        <a href="@Url.Action("DeadStock", "Stock")">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-auto">
+                            <i class="feather icon-codepen f-30 text-c-pink"></i>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="text-muted m-b-10">Dead Stock</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+
+    <!--Calculate the Value -->
+    <div class="col-md-12 col-xl-3">
+        <a href="@Url.Action("Index", "Site")">
+            <div class="card bg-c-yellow order-card">
+                <div class="card-block">
+                    <h6>Purchase Value</h6>
+                    @Ret.TextLib.IndianRuppes(Ret.DataLib.GetCellItems("Select SUM(PurchaseTotal) From PurchaseModels"))
+                    <p class="m-b-0">@Ret.TextLib.GetDateDDMMYYYY(System.DateTime.Today.ToString())<i class="feather icon-calendar m-l-10"></i></p>
+                    <i class="card-icon feather icon-layout"></i>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card bg-c-blue order-card">
+            <div class="card-block">
+                <h6>Estimate Value</h6>
+                @Ret.TextLib.IndianRuppes(Ret.DataLib.GetCellItems("Select SUM(EstimateTotal) From EstimateModels"))
+                <p class="m-b-0">@Ret.TextLib.GetDateDDMMYYYY(System.DateTime.Today.ToString())<i class="feather icon-calendar m-l-10"></i></p>
+                <i class="card-icon feather icon-layout"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card bg-c-green order-card">
+            <div class="card-block">
+                <h6>Quotation Value</h6>
+                @Ret.TextLib.IndianRuppes(Ret.DataLib.GetCellItems("Select SUM(QuotationTotal) From QuotationModels"))
+                <p class="m-b-0">@Ret.TextLib.GetDateDDMMYYYY(System.DateTime.Today.ToString())<i class="feather icon-calendar m-l-10"></i></p>
+                <i class="card-icon feather icon-layout"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card bg-simple-c-pink order-card">
+            <div class="card-block">
+                <h6>Sale Value</h6>
+                @Ret.TextLib.IndianRuppes(Ret.DataLib.GetCellItems("Select SUM(SaleTotal) From SalesModels"))
+                <p class="m-b-0">@Ret.TextLib.GetDateDDMMYYYY(System.DateTime.Today.ToString())<i class="feather icon-calendar m-l-10"></i></p>
+                <i class="card-icon feather icon-layout"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- History -->
+    @*<div class="col-md-12 col-lg-12">
+            <div class="card">
+                <div class="row" style="padding:15px">
+
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card user-widget-card bg-c-blue">
+                            <div class="card-block">
+                                <i class="feather icon-smartphone bg-simple-c-blue card1-icon"></i>
+                                <h4>@Ret.DataLib.GetCellItems("Select Count(SMSTransID) From SMSTransModels")</h4>
+                                <p>SMS History</p>
+                                <a href="@Url.Action("History", "SMS")" class="more-info">More Info</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card user-widget-card bg-c-pink">
+                            <div class="card-block">
+                                <i class="feather icon-mail bg-simple-c-pink card1-icon"></i>
+                                <h4>@Ret.DataLib.GetCellItems("Select Count(EmailTransID) From EmailTransModels")</h4>
+                                <p>Email History</p>
+                                <a href="@Url.Action("History", "Email")" class="more-info">More Info</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card user-widget-card bg-c-green">
+                            <div class="card-block">
+                                <i class="feather icon-phone bg-simple-c-green card1-icon"></i>
+                                <h4>@Ret.DataLib.GetCellItems("Select Count(WhatsupTransID) From WhatsupTransModels")</h4>
+                                <p>Whatsup History</p>
+                                <a href="@Url.Action("History", "Whatsup")" class="more-info">More Info</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card user-widget-card bg-c-yellow">
+                            <div class="card-block">
+                                <i class="feather icon-user-plus bg-simple-c-yellow card1-icon"></i>
+                                <h4>@Ret.DataLib.GetCellItems("Select Count(VisiterID) From VisiterModels")</h4>
+                                <p>Visitor History</p>
+                                <a href="@Url.Action("Index", "Visiter")" class="more-info">More Info</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+    <!-- user card  end -->
+    <!-- order  end -->
+    <!-- stack Area Stack  -->
+    @*<div class="col-md-12 col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Order Category Wise</h5>
+                </div>
+                <div class="card-block">
+                    <div id="chart"></div>
+                </div>
+            </div>
+        </div>*@
+
+    <!-- statustic-card start -->
+    @*<div class="col-md-12 col-lg-4">
+            <div class="card feed-card">
+                <div class="card-header">
+                    <h5>Feeds</h5>
+                </div>
+                <div class="card-block">
+                    <div class="row m-b-30">
+                        <div class="col-auto p-r-0">
+                            <i class="feather icon-bell bg-simple-c-blue feed-icon"></i>
+                        </div>
+                        <div class="col">
+                            <h6 class="m-b-5">You have 3 pending tasks. <span class="text-muted f-right f-13">Just Now</span></h6>
+                        </div>
+                    </div>
+                    <div class="row m-b-30">
+                        <div class="col-auto p-r-0">
+                            <i class="feather icon-shopping-cart bg-simple-c-pink feed-icon"></i>
+                        </div>
+                        <div class="col">
+                            <h6 class="m-b-5">New order received <span class="text-muted f-right f-13">Just Now</span></h6>
+                        </div>
+                    </div>
+                    <div class="row m-b-30">
+                        <div class="col-auto p-r-0">
+                            <i class="feather icon-file-text bg-simple-c-green feed-icon"></i>
+                        </div>
+                        <div class="col">
+                            <h6 class="m-b-5">You have 3 pending tasks. <span class="text-muted f-right f-13">Just Now</span></h6>
+                        </div>
+                    </div>
+                    <div class="row m-b-30">
+                        <div class="col-auto p-r-0">
+                            <i class="feather icon-shopping-cart bg-simple-c-pink feed-icon"></i>
+                        </div>
+                        <div class="col">
+                            <h6 class="m-b-5">New order received <span class="text-muted f-right f-13">Just Now</span></h6>
+                        </div>
+                    </div>
+                    <div class="row m-b-30">
+                        <div class="col-auto p-r-0">
+                            <i class="feather icon-file-text bg-simple-c-green feed-icon"></i>
+                        </div>
+                        <div class="col">
+                            <h6 class="m-b-5">You have 3 pending tasks. <span class="text-muted f-right f-13">Just Now</span></h6>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>*@
+    <!-- statustic-card start -->
+    <!-- Bar Stack  -->
+    <div class="col-md-12 col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5>Sale Month Wise</h5>
+            </div>
+            <div class="card-block">
+                <div id="chart1"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- statustic-card start -->
+    <!-- statustic-card start -->
+    @*<div class="col-md-12 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Payment Statistics</h5>
+
+                </div>
+                <div class="card-block">
+                    <div id="chart2"></div>
+                </div>
+            </div>
+        </div>*@
+    <div class="col-md-12 col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Stock Statistics</h5>
+            </div>
+            <div class="card-block">
+                <div id="chart3"></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Retail Solutions</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="#">
+    <meta name="keywords" content="Retail Solution Software">
+    <meta name="author" content="#">
+    <!-- Favicon icon -->
+    <link rel="icon" href="~/Themes/assets/images/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
+    <link href="~/Themes/bower_components/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Themes/bower_components/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Themes/assets/icon/themify-icons/themify-icons.css">
+    <link rel="stylesheet" type="text/css" href="~/Themes/assets/icon/icofont/css/icofont.css">
+    <link rel="stylesheet" type="text/css" href="~/Themes/assets/icon/feather/css/feather.css">
+    <link rel="stylesheet" type="text/css" href="~/Themes/assets/pages/prism/prism.css">
+    <link rel="stylesheet" type="text/css" href="~/Themes/bower_components/animate.css/css/animate.css"  />
+    <!-- Data Table Css -->
+    <link rel="stylesheet" type="text/css" href="~/Themes/bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Themes/assets/pages/data-table/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Themes/bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Themes/assets/pages/data-table/extensions/buttons/css/buttons.dataTables.min.css">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="~/Content/themes/base/jquery-ui.css"  />
+    <link rel="stylesheet" type="text/css" href="~/Themes/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="~/Themes/assets/css/jquery.mCustomScrollbar.css">
+
+    
+
+    <style>
+        .mybg {
+            background-image: url('../../UploadFiles/stacked_circles.png');
+        }
+    </style>
+    <style type="text/css">
+        fieldset {
+            display: block;
+            margin-left: 2px;
+            margin-right: 2px;
+            margin-bottom: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-left: 30px;
+            padding-right: 30px;
+            border: 1px solid silver;
+        }
+
+            fieldset legend {
+                font-size: 16px;
+                font-weight: 600;
+                padding: 10px;
+                margin: 0px;
+                width: auto;
+                text-align: center;
+                color: red;
+            }
+
+        @@media(max-width: 500px) {
+            fieldset {
+                margin-left: 0px;
+                margin-right: 0px;
+                margin-bottom: 20px;
+                padding-top: 20px;
+                padding-bottom: 20px;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+        }
+    </style>
+    <style type="text/css">
+        .formheading {
+            border-radius: 12px 12px;
+            background-color: darkcyan;
+            padding: 10px;
+            color: white;
+        }
+
+        .layout {
+            margin-top: 50px;
+            padding: 30px;
+        }
+
+        @@media(max-width: 500px) {
+            .layout {
+                margin-top: 5px;
+                padding: 5px;
+            }
+        }
+    </style>
+
+</head>
+<!-- Menu sidebar layout -->
+
+<body>
+    <script type="text/javascript">
+        // define here call here
+        function ShowMessage(message) {
+            Swal.fire({
+                title: "Success!",
+                text: message,
+                type: "success",
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+            });
+        }
+    </script>
+    @if (ViewBag.SweetMessage != null)
+    {
+        // call here
+        <script type="text/javascript">
+            @Html.Raw(ViewBag.SweetMessage)
+        </script>
+    }
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="ball-scale">
+            <div class='contain'>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+            </div>
+        </div>
+    </div>
+    <!-- Pre-loader end -->
+    <!-- Menu header start -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+            <!-- Top Menu -->
+            @Html.Partial("~/Views/Menu/AdminTopMenu.cshtml")
+            <div class="pcoded-main-container mybg">
+                <div class="pcoded-wrapper ">
+                    @RenderPage("~/Views/Menu/AdminLeftMenu.cshtml")
+                    <div class="pcoded-content ">
+                        <div class="pcoded-inner-content">
+                            <div class="main-body">
+                                <div class="page-wrapper ">
+                                    <div class="page-body">
+                                        @RenderBody()
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Required Jquery -->
+    <script type="text/javascript" src="~/Themes/bower_components/jquery/js/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Themes/bower_components/jquery-ui/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="~/Themes/bower_components/popper.js/js/popper.min.js"></script>
+    <script type="text/javascript" src="~/Themes/bower_components/bootstrap/js/bootstrap.min.js"></script>
+
+
+    <!-- Start for Sweet Alert-->
+    <link href="~/Themes/bower_components/sweets/animate.css" rel="stylesheet" />
+    <link href="~/Themes/bower_components/sweets/sweetalert2.min.css" rel="stylesheet" />
+    <script src="~/Themes/bower_components/sweets/polyfill.min.js"></script>
+    <script src="~/Themes/bower_components/sweets/sweet-alerts.js"></script>
+    <script src="~/Themes/bower_components/sweets/sweetalert2.all.min.js"></script>
+    <!-- End for Sweet Alert-->
+    <!-- jquery slimscroll js -->
+    <script type="text/javascript" src="~/Themes/bower_components/jquery-slimscroll/js/jquery.slimscroll.js"></script>
+    <!-- modernizr js -->
+    <script type="text/javascript" src="~/Themes/bower_components/modernizr/js/modernizr.js"></script>
+    <script type="text/javascript" src="~/Themes/bower_components/modernizr/js/css-scrollbars.js"></script>
+    <!-- Syntax highlighter prism js -->
+    <script type="text/javascript" src="~/Themes/assets/pages/prism/custom-prism.js"></script>
+    <!-- Custom js -->
+    <script src="~/Themes/assets/js/pcoded.min.js"></script>
+    <script src="~/Themes/assets/js/menu/menu-sidebar-fixed.js"></script>
+    <script src="~/Themes/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" src="~/Themes/assets/js/script.js"></script>
+
+    <!-- data-table js -->
+    <script src="~/Themes/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Themes/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/Themes/assets/pages/data-table/js/jszip.min.js"></script>
+    <script src="~/Themes/assets/pages/data-table/js/pdfmake.min.js"></script>
+    <script src="~/Themes/assets/pages/data-table/js/vfs_fonts.js"></script>
+    <script src="~/Themes/assets/pages/data-table/extensions/buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/Themes/assets/pages/data-table/extensions/buttons/js/buttons.flash.min.js"></script>
+    <script src="~/Themes/assets/pages/data-table/extensions/buttons/js/jszip.min.js"></script>
+    <script src="~/Themes/assets/pages/data-table/extensions/buttons/js/vfs_fonts.js"></script>
+    <script src="~/Themes/assets/pages/data-table/extensions/buttons/js/buttons.colVis.min.js"></script>
+    <script src="~/Themes/bower_components/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="~/Themes/bower_components/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/Themes/bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Themes/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Themes/bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/Themes/assets/pages/data-table/extensions/buttons/js/extension-btns-custom.js"></script>
+   
+</body>
+
+</html>

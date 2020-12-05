@@ -1,0 +1,90 @@
+﻿@{
+    Layout = "~/Views/Shared/_admin.cshtml";
+}
+@using System.Data;
+
+<div class="row animate bounceInDown">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-9 col-9"><h3>@ViewData["PageTitle"]</h3></div>
+                    <div class="col-md-3 col-3">
+                        <a href="@Url.Action("Index", "Customer")" class="btn btn-primary btn-outline-primary float-right">
+                            <i class="icofont icofont-user-alt-3"></i> Customers List
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-block">
+                <h4 class="sub-title">Upload Customers List</h4>
+                @using (Html.BeginForm("UpLoadFile", "Database", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group row">
+                        @Html.Label("Select Excel File", new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.TextBox("file", "", new { type = "file" })
+                        </div>
+                        <div class="col-md-4">
+                            @ViewBag.Message
+                        </div>
+                        <div class="col-md-2">
+                            <input type="submit" value="Upload" class="btn btn-primary btn-outline-primary float-right" />
+                        </div>
+                    </div>
+                }
+                <hr />
+                @if (Session["datatable"] != null)
+                {
+                    <h5>Data in Excel File</h5>
+                    <div class="dt-responsive table-responsive">
+                        <table id="cbtn-selectors" class="table table-striped table-bordered nowrap">
+                            @{
+                                DataTable dt = Session["datatable"] as System.Data.DataTable;
+                            }
+                            <thead>
+                                <tr>
+                                    @for (int i = 0; i < dt.Columns.Count; i++)
+                                    {
+                                        <th>@dt.Columns[i].ColumnName</th>
+
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < dt.Rows.Count; i++)
+                                {
+                                <tr>
+                                    @for (int j = 0; j < dt.Columns.Count; j++)
+                                    {
+                                        <td>@dt.Rows[i].ItemArray[j].ToString()</td>
+                                    }
+                                </tr>
+                                }                               
+                                </tbody>
+                            </table>
+                    </div>
+                }
+
+                @*@using (Html.BeginForm("UpdateList", "Customer", FormMethod.Post))
+                {
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <p>Note : MS Excel file should be in download format, and the should not break between the excel rows, it will also eliminate duplicate records Automaticaly</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <input type="submit" value="Update" class="btn btn-primary btn-out float-right" />
+                        </div>
+                    </div>
+
+                }*@
+            </div>
+        </div>
+    </div>
+</div>

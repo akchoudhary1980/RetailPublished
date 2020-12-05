@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Ret.SalePlotModel>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card layout">
+            <div class=" card-header">
+                <h2>Home Rents</h2>
+            </div>
+            <div class="card-block">
+                <p>
+                    We are not confined by traditional real estate boundaries when it comes to buying, Selling, Renting or asset management, Heans we are always finding new and innovative ways to satisfy our client's need and be at the forefront of the global properties market. Serving people with quality deals and trusted service for more than 9 years.
+                </p>
+                <h4 class="sub-title">Search Plots</h4>
+                @using (Html.BeginForm("PlotSearch", "Home", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group row">
+                        @Html.Label("Search homes", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBox("SearchKey", null, new { required = "Enter words for search", placeholder = "like place, office,commercial", @class = "form-control" })
+                            @Html.ValidationMessage("SearchKey", "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <input type="submit" value="Search" class="btn btn-primary btn-out float-right" />
+                        </div>
+                    </div>
+                }
+                <h4>New Homes for Rent</h4>
+                <hr />
+                <div class="row search-result">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-lg-3 col-md-4 col-sm-6 ">
+                            <a href="http://www.narmada-group.com/d/p/@item.SalePlotID">
+                                <div class="card">
+                                    @if (item.MainPicture == "")
+                                    {
+                                        <img class="card-img-top img-fluid" src="~/UploadFiles/nopicture.jpg" alt="pic">
+                                    }
+                                    else
+                                    {
+                                        <img class="card-img-top img-fluid" src="~/UploadFiles/@item.MainPicture" alt="pic">
+                                    }
+
+                                    <div class="card-block">
+                                        <h5 class="card-title">@item.PropertyName</h5>
+                                        <p class="card-text text-muted">@item.Amenities </p>
+                                        <p class="card-text"><small class="text-muted">@item.Location</small>  </p>
+                                        <a href="https://api.whatsapp.com/send?phone=918349472025&text=Enquiry for Plot Advertisement ID @item.SalePlotID" target="_blank">
+                                            <h5 class="card-title" style="color:darkgreen">Whatsup Chat <i class="icofont icofont-phone"></i></h5>
+                                        </a>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

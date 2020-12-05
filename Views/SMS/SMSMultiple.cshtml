@@ -1,0 +1,197 @@
+﻿@model Ret.SendSMS
+
+@{
+    Layout = "~/Views/Shared/_admin.cshtml";
+    System.Data.DataTable cus = new System.Data.DataTable();
+    cus = DataLib.GetQueryTable("Select CustomerID,CustomerName,Mobile,Address From CustomerModels");    
+}
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-ui-1.10.2.js"></script>
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/AjaxModules.js"></script>
+
+<script type="text/javascript">
+    // Get Customer Mobile Number
+    $(document).ready(function () {
+        $("#Customer").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/SMS/CustomerAutoComplete",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: request.term },
+
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.CustomerName, value: item.CustomerName, id: item.Mobile };
+                        }))
+                    },
+                })
+            },
+            select: function (event, ui) {
+                $("#Mobile").val(ui.item.id);
+            },
+
+            messages: {
+                noResults: "", results: ""
+            }
+        });
+    })
+</script>
+<script>
+    // Get Meesage from Templete
+    $(function () {
+        $("#Templete").change(function () {
+            var templeteid = $('option:selected', this).val().toString();
+            setText(templeteid);
+        });
+    });
+
+    // Get the value and set the text
+    function setText(templeteid) {
+        $.ajax({
+            type: "POST",
+            url: '/SMS/GetMessage',
+            data: "{'TempleteID': '" + templeteid + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                $('#Message').val(response);
+
+            },
+            failure: function (response) {
+                alert(response.d);
+            }
+        });
+    }
+    // End
+</script>
+<script type="text/javascript">
+    SetInputMobile('Mobile');
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var table = $('#example').DataTable({
+            'columnDefs': [{
+                'targets': 0,
+                'searchable': false,
+                'orderable': false
+            }],
+            'order': [[1, 'asc']]
+        });
+
+        // Handle click on "Select all" control
+        $('#example-select-all').on('click', function () {
+            // Get all rows with search applied
+            var rows = table.rows({ 'search': 'applied' }).nodes();
+            // Check/uncheck checkboxes for all rows in the table
+            $('input[type="checkbox"]', rows).prop('checked', this.checked);
+        });
+
+        // Handle click on checkbox to set state of "Select all" control
+        $('#example tbody').on('change', 'input[type="checkbox"]', function () {
+            // If checkbox is not checked
+            if (!this.checked) {
+                var el = $('#example-select-all').get(0);
+                // If "Select all" control is checked and has 'indeterminate' property
+                if (el && el.checked && ('indeterminate' in el)) {
+                    // Set visual state of "Select all" control
+                    // as 'indeterminate'
+                    el.indeterminate = true;
+                }
+            }
+        });
+
+    });
+</script>
+<script type="text/javascript">
+    function getCustomerList() {       
+        var selected = [];
+        $("#example input[type=checkbox]:checked").each(function () {
+            selected.push($(this).val());
+        });
+        var sel = selected.join();
+        $("#CustomerIDs").val(sel);
+        //alert(sel);
+    }
+</script>
+
+<div class="row animate bounceInDown">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-9 col-9"><h4>@ViewData["PageTitle"]</h4></div>
+                    <div class="col-md-3 col-3">
+                        <a href="@Url.Action("Index", "Dashboard")" class="btn btn-primary btn-outline-primary float-right">
+                            <i class="icofont icofont-user-alt-3"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-block">
+                <h4 class="sub-title">Send SMS</h4>
+                @using (Html.BeginForm("SMSMultiple", "SMS", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Templete, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.Templete,
+                           Ret.SMSController.GetTempleteList(), new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Templete, "", new { @class = "text-danger" })
+                            @Html.Hidden("CustomerIDs")
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <h4 class="sub-title">Select Mobile Number</h4>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <div class='dt-responsive table-responsive'>
+                                <table id='example' class='table table-striped table-bordered nowrap'>
+                                    <thead>
+                                        <tr>
+                                            <th><input type="checkbox" name="select_all" value="1" id="example-select-all" /> All</th>
+                                            <th>Name</th>
+                                            <th>Mobile</th>
+                                            <th>Address</th>
+
+                                        </tr>
+                                    </thead>
+
+                                    @foreach (System.Data.DataRow dr in cus.Rows)
+                                    {
+                                    <tr>
+                                        <td><input value="@dr["CustomerID"].ToString()" type="checkbox" name="sms" /></td>
+                                    <td>@dr["CustomerName"].ToString()</td>
+                                    <td>@dr["Mobile"].ToString()</td>
+                                    <td>@dr["Address"].ToString()</td>                                   
+                                     </tr>
+                                    }
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <input type="submit" value="Send" onclick="getCustomerList();" class="btn btn-primary btn-out float-right" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>       
+    </div>
+</div>

@@ -1,0 +1,203 @@
+﻿@{      
+    Layout = null;
+    System.Data.DataRow drCompany;
+    System.Data.DataRow drSale;
+    System.Data.DataRow drCustomer;
+    System.Data.DataTable saleTrans = new System.Data.DataTable();
+
+    drSale = DataLib.GetQueryRow("Select * from SalesModels Where SalesID =" + ViewData["id"].ToString()); // Purchase 
+    saleTrans = DataLib.GetQueryTable("Select * from SalesTransModels Where SalesID =" + ViewData["id"].ToString()); // Purchase Trans 
+    drCompany = DataLib.GetQueryRow("Select * from CompanyModels Where CompanyID =" + drSale["CompanyID"].ToString()); // Company 
+    drCustomer = DataLib.GetQueryRow("Select * from CustomerModels Where CustomerID = " + drSale["CustomerID"].ToString()); // Customer               
+
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+<!-- Basic Style Sheet -->
+<link href="../adminty-master/files/bower_components/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="../adminty-master/files/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
+<head runat="server">
+   <style type="text/css">
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;          
+        }
+
+        * {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+
+        .page {
+            width: 72mm;
+            min-height: 210mm;           
+            margin: 0mm auto;            
+            background: white;          
+        }
+
+        .subpage {            
+            width: 72mm;
+            height: 210mm;           
+        }
+
+        @@page {
+            size: 72mm 210mm;            
+            margin: 0;
+        }
+
+        @@media print {
+            html, body {
+                width: 72mm;
+                height: 210mm;
+            }
+
+            .page {
+                margin: 0;
+                border: initial;
+                border-radius: initial;
+                width: initial;
+                min-height: initial;
+                box-shadow: initial;
+                background: initial;                
+                page-break-after: always;
+            }
+        }
+
+        .SansFont{
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .font9 {
+             font-size: 12px;
+        }
+
+        .font8 {            
+            font-size: 11px;
+        }
+    </style>
+    <title>Print Invoice</title>
+</head>
+<body>   
+   <div class="book">
+        <div class="page">
+            <div class="subpage">
+            <div class="row">
+                            <div class="col-md-12">
+                                <h5 class="text-center SansFont">
+                                    @drCompany["CompanyName"].ToString()
+                                </h5>
+                                <p class="text-center font9 SansFont">
+                                    Add: @drCompany["CompanyAddress"].ToString(),<br />
+                                    Email: @drCompany["CompanyEmail"].ToString(),<br />
+                                    Mob: @drCompany["CompanyMobile"].ToString()
+                                </p>                                    
+                                <h5 class="text-center SansFont">INVOICE</h5>
+                            </div>                                
+                        </div>
+            <div class="row" style="margin-top: 10px;">
+                            <div class="col-md-12">
+                                <p class="text-right font9 SansFont"><b>Date: @Logo.TextLib.GetDateDDMMYYYY(drSale["SalesDate"].ToString())</b><br />
+                                                            <b>Inv No:@drCompany["InvoicePrefix"].ToString()/@drSale["SerialNo"].ToString()</b>
+                                </p>
+                                   
+                            </div>
+                                <div class="col-md-12">
+                                    <h6 class="text-xl-left SansFont">INVOICE TO :</h6>
+                                    <p class="font9 SansFont">
+                                        @drCustomer["CustomerName"].ToString() <br />
+                                        @drCustomer["Address"].ToString()<br />
+                                        @drCustomer["Mobile"].ToString()<br />                                        
+                                    </p>
+
+                                </div>
+                                <div class="col-md-12">
+                                <h6 class="text-center SansFont">INVOICE DETAILS</h6>
+                                </div>
+                            </div>
+            <div class="row">
+                            <div class="col-md-12">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th><p class="font9 SansFont" style="width:10px;">S.</p></th>
+                                            <th><p class="font9 SansFont" style="width:100px;">PRODUCT</p></th>
+                                            <th><p class="font9 SansFont" style="width:30px;">QTY</p></th>
+                                            <th><p class="text-right font9 SansFont" style="width:60px;">RATE</p></th>
+                                            <th><p class="text-right font9 SansFont" style="width:60px;">AMOUNT</p></th>                                                
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            double totalamount = 0;
+                                            double totalgst = 0;
+                                            double total = 0;
+                                            int counter = 0;
+
+                                            for (int i = 0; i < saleTrans.Rows.Count; i++)
+                                            {
+                                                System.Data.DataRow dr = saleTrans.Rows[i];
+                                                counter = counter + 1;
+                                                <tr style="height:16px">
+                                                    <td><p class="font9 SansFont">@counter</p></td>
+                                                    @if (dr["ItemType"].ToString() == "P")
+                                                    {
+                                                        <td><p class="font9 SansFont">@Logo.TextLib.StringFixLength(Logo.DataLib.GetCellItems("Select ProductName From ProductModels Where ProductID =" + dr["ProductID"].ToString()),15)</p></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td><p class="font9 SansFont">@Logo.TextLib.StringFixLength(Logo.DataLib.GetCellItems("Select ServiceName From ServiceModels Where ServiceID =" + dr["ProductID"].ToString()),15)</p></td>
+                                                    }
+                                                    <td class="text-right"><p class="font9 SansFont">@dr["Quantity"].ToString() @Logo.DataLib.GetCellItems("Select UnitName From UnitModels Where UnitID=" + dr["UnitID"].ToString()) </p></td>                                                       
+                                                    <td class="text-right"><p class="font9 SansFont">@Logo.TextLib.IndianRuppes(dr["Rate"].ToString())</p></td>
+                                                    <td class="text-right"><p class="font9 SansFont">@Logo.TextLib.IndianRuppes(dr["Amount"].ToString())</p></td>                                                   
+                                                </tr>
+
+                                                totalamount = totalamount + Convert.ToDouble(dr["Amount"].ToString());
+                                                totalgst = totalgst + Convert.ToDouble(dr["GSTAmount"].ToString());
+                                                total = totalamount + totalgst;
+                                            }
+                                        }
+                                    </tbody>
+                                   
+                                </table>
+                            </div>
+                        </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="font9 text-right">
+                        Total: <b>@Logo.TextLib.IndianRuppes(totalamount)</b> <br />
+                        GST: <b>@Logo.TextLib.IndianRuppes(totalgst)</b><br />
+                        Grand Total:<b>@Logo.TextLib.IndianRuppes(total)</b>
+                    </p>
+                </div>
+                <div class="col-md-12">
+                    <p class="font9 SansFont text-right">
+                        <b>In Words :@Logo.TextLib.NumbertoWards(total.ToString())</b>
+                    </p>
+                </div>
+
+                <div class="col-md-12">
+                    <p class="font9 text-right">
+                        Signature
+                    </p>
+                </div>
+
+                <div class="col-md-12">
+                    <p class="font8 text-center SansFont">
+                        This invoice was created on a computer and is valid without the signature and seal.
+                    </p>
+                </div>
+
+            </div>                   
+            </div>
+        </div>
+    </div>
+</body>
+</html>

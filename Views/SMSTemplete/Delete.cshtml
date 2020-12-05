@@ -1,0 +1,68 @@
+﻿@model Ret.SMSTempleteModel
+@{
+    Layout = "~/Views/Shared/_admin.cshtml";
+}
+
+<div class="row animate bounceInDown">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-9 col-9"><h3>@ViewData["PageTitle"]</h3></div>
+                    <div class="col-md-3 col-3">
+                        <a href="@Url.Action("Index", "SMSTemplete")" class="btn btn-primary btn-outline-primary float-right">
+                            <i class="icofont icofont-user-alt-3"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-block table-border-style">
+                <div class="table-responsive">
+                    <table class="table table-styling">
+                        <tbody>
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.Title)</b></td>
+                                <td>@Html.DisplayFor(model => model.Title)</td>
+                            </tr>
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.Message)</b></td>
+                                <td>@Html.DisplayFor(model => model.Message)</td>
+                            </tr>                            
+                        </tbody>
+                    </table>
+                </div>
+                <hr />
+                <div class="col-md-12 col-12 float-right">
+
+
+                    @using (Html.BeginForm("Delete", "SMSTemplete", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(model => model.SMSTempleteID)
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+
+                            </div>
+                            <div class="col-sm-6">
+
+                                <input type="submit" value="Delete" class="btn btn-danger btn-out float-right" style="margin-left:10px;" />
+
+                                <a href="@Url.Action("Index", "SMSTemplete")" class="btn btn-success btn-outline-primary float-right">
+                                    <i class="icofont icofont-user-alt-3"></i> Cancel
+                                </a>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+
+        </div>
+        <!-- Default card end -->
+    </div>
+</div>
+
+
+
+
+

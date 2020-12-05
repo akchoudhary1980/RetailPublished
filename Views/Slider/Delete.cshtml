@@ -1,0 +1,90 @@
+﻿@model Ret.SliderModel
+
+@{
+    Layout = "~/Views/Shared/_admin.cshtml";
+}
+<div class="page-header">
+    <div class="card">
+        <div class="card-block bg-primary">
+            <div class="row ">
+                <div class="col-lg-4">
+                    <h5 class="text-uppercase font-weight-bold">Delete Slider</h5>
+                </div>
+                <div class="col-lg-8 align-items-end">
+                    <div class="page-header-breadcrumb">
+                        <ul class="breadcrumb-title">
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("Index", "Dashboard")"> <i class="icofont icofont-home" style="color:white"></i> </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("Index", "Slider")" style="color:white">Home / Masters / Delete Slider</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row animate bounceInDown">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-9 col-9"><h3>@ViewData["PageTitle"]</h3></div>
+                    <div class="col-md-3 col-3">
+                        <a href="@Url.Action("Index", "Slider")" class="btn btn-primary btn-outline-primary float-right">
+                            <i class="icofont icofont-user-alt-3"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-block table-border-style">
+                <div class="table-responsive">
+                    <table class="table table-styling">
+                        <tbody>
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.SliderTitle)</b></td>
+                                <td>@Html.DisplayFor(model => model.SliderTitle)</td>
+                            </tr>
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.Description)</b></td>
+                                <td>@Html.DisplayFor(model => model.Description)</td>
+                            </tr>
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.IsDisplay)</b></td>
+                                <td>@Html.DisplayFor(model => model.IsDisplay)</td>
+                            </tr>
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.Picture)</b></td>
+                                <td><img src="~/UploadFiles/@Html.DisplayFor(model => model.Picture)" alt="" height="50" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <hr />
+                <div class="col-md-12 col-12 float-right">
+                    @using (Html.BeginForm("Delete", "Slider", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(model => model.SliderID)
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="submit" value="Delete" class="btn btn-danger btn-out float-right" style="margin-left:10px;" />
+                                <a href="@Url.Action("Index", "Slider")" class="btn btn-success btn-outline-primary float-right">
+                                    <i class="icofont icofont-user-alt-3"></i> Cancel
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

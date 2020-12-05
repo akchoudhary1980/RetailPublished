@@ -1,0 +1,106 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_admin.cshtml";
+    System.Data.DataTable StockList = Session["StockValueList"] as System.Data.DataTable;
+    string date = Ret.TextLib.GetDateDDMMYYYY(System.DateTime.Today.ToString());
+}
+
+<div class="page-header animated bounceInRight">
+    <div class="card">
+        <div class="card-block bg-primary">
+            <div class="row ">
+                <div class="col-lg-4">
+                    <h5 class="text-uppercase font-weight-bold">Stock Item Wise</h5>
+                </div>
+                <div class="col-lg-8 align-items-end">
+                    <div class="page-header-breadcrumb">
+                        <ul class="breadcrumb-title">
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("Index", "Dashboard")"> <i class="icofont icofont-home" style="color:white"></i> </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("StockQuantityWise", "Stock")" style="color:white">Home / Masters / Stock Item Wise</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+            </div>
+            <div class="card-block">
+                <div class='dt-responsive table-responsive'>
+                    <table id='cbtn-selectors' class='table table-striped table-bordered nowrap'>
+                        <thead>
+                            <tr>
+                                <th>Sr</th>
+                                <th>Product Name</th>
+                                <th>Purchase Quantity</th>
+                                <th>Sale Quantity</th>
+                                <th>Stock Quanity</th>
+                                <th>Unit</th>
+                                <th>Rate</th>
+                                <th>Amount</th>
+                                <th>Stock Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (StockList.Rows.Count > 0)
+                            {
+                                int counter = 0;
+                                string rate;
+                                double amount;
+                                string productid;
+                                double totalvalue = 0;
+
+                                for (int i = 0; i < StockList.Rows.Count; i++)
+                                {
+                                    counter = counter + 1;
+                                    productid = StockList.Rows[i].ItemArray[0].ToString();
+                                    rate = Ret.DataLib.GetCellItems("Select MRPRate from ProductModels Where ProductID=" + productid);
+                                    amount = Convert.ToDouble(StockList.Rows[i].ItemArray[3].ToString()) * Convert.ToDouble(rate);
+                                    totalvalue = totalvalue + amount;
+                                    <tr>
+                                        <td>@counter</td>
+                                        <td>@Ret.DataLib.GetCellItems("Select ProductName from ProductModels Where ProductID=" + productid)</td> <!--Product Name  -->
+                                        <td>@StockList.Rows[i].ItemArray[1].ToString()</td> <!--Purchase -->
+                                        <td>@StockList.Rows[i].ItemArray[2].ToString()</td> <!--Sale -->
+                                        <td>@StockList.Rows[i].ItemArray[3].ToString()</td> <!--Stock -->
+                                        <td>@Ret.DataLib.GetCellItems("Select UnitName from UnitModels Where UnitID =" + Ret.DataLib.GetCellItems("Select UnitID from ProductModels Where ProductID=" + productid))</td> <!--Unit -->
+                                        <td class="text-right">@Ret.TextLib.IndianRuppes(rate)</td>
+                                        <td class="text-right">@Ret.TextLib.IndianRuppes(amount)</td>
+                                        <td>@date</td> <!--Date -->
+                                    </tr>
+                                }
+
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-right green-colors"><b style="color:green">Total Value</b></td>
+                                    <td class="text-right"><b style="color:green">@Ret.TextLib.IndianRuppes(totalvalue)</b></td>
+                                    <td><b style="color:green">@date</b></td>
+                                </tr>
+
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

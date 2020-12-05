@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Ret.SiteModel>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card layout">
+            <div class=" card-header">
+                <h2>Our Sites</h2>
+            </div>
+            <div class="card-block">
+                <p style="margin-top:20px;">
+                    Sweet Home incorporated as a Associate and Builder, in the year 1990, have pioneered the concept of Colony / Plots in Jabalpur. Later we pioneered the concept of Duplex and Luxury Home in 1995, and our main focus is to providing all modern amenities which are novel, comfortable and convenient to our valuable customers.
+                </p>
+                <hr />
+                <div class="row search-result">
+                    @foreach (var item in Model)
+                    {
+
+                        <div class="col-lg-3 col-md-4 col-sm-6 ">
+                            <div class="card">
+                                <img class="card-img-top img-fluid" src="~/UploadFiles/@item.SitePicture" alt="Card image cap">
+                                <div class="card-block">
+                                    <h5 class="card-title">@item.SiteName<a href="#"><i class="icofont icofont-question"></i></a></h5>
+                                    <p class="card-text text-muted">@item.SiteDescription </p>
+                                    <p class="card-text"><small class="text-muted">@item.SiteAddress</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

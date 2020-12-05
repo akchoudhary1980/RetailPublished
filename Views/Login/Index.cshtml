@@ -1,0 +1,108 @@
+﻿@{
+    Layout = "~/Views/Shared/_login.cshtml";
+}
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/AjaxModules.js"></script>
+<script>
+    $(document).ready(function () {
+        SetInputNumeric('Mobile');
+    });
+</script>
+<script type="text/javascript">
+    function refreshCaptcha() {
+        $.ajax({
+            type: "POST",
+            url: "/Login/RefereceCaptcha",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: OnSuccess1,
+            failure: function (data) {
+                alert(data.d);
+            }
+        });
+    }
+    function OnSuccess1(data) {
+        d = new Date();
+        $('#captcha').attr("src", "/UploadFiles/captcha.jpg?" + d.getTime());
+    }
+</script>
+<section class="login-block">
+    <!-- Container-fluid starts -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- Authentication card start -->
+                <div class="md-float-material form-material">
+
+                    <div class="auth-box card ">
+                        <div class="card-block">
+                            <div class="text-center">
+                                <img src="~/UploadFiles/Common/Logo.png" class="img-fluid text-center" />                               
+                            </div>
+                            <br />
+                            <div class="row m-b-20">
+                                <div class="col-md-12">
+                                    <h4 class="text-left text-uppercase">Login - Password</h4>
+                                </div>
+                            </div>
+                            <form method="post" enctype="multipart/form-data" asp-controller="Login" asp-action="LoginPassword">
+
+                                @if(ViewBag.SweetMessage!=null)
+                                {
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <div class="alert alert-danger" style="padding:7px;margin:0px;">
+                                            <strong>Error!</strong> @ViewBag.SweetMessage.
+                                        </div>
+                                    </div>
+                                </div>
+                                }                               
+
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <input type="text" id="Mobile" name="Mobile" class="form-control" placeholder="Mobile Number" maxlength="10" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <input type="password" id="Password" name="Password" class="form-control" placeholder="Password" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-4">
+                                        <img id="captcha" src="~/UploadFiles/captcha.jpg?" + new Date().getTime(); />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" id="CaptchaCode" name="CaptchaCode" class="form-control" placeholder="Captcha Code" maxlength="6" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button id="refCpatcha" type="button" onclick="refreshCaptcha();" class="btn btn-success text-center m-b-20 float-right"><i class="icofont icofont-refresh"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <input type="submit" value="Login" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" />
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="row">
+                                <div class="col-sm-6 col-6 text-left">
+                                    <a href="@Url.Action("LoginOTP", "Login")">Login with OTP</a>
+                                </div>
+                                <div class="col-sm-6 col-6 text-right ">
+                                    <a href="@Url.Action("PasswordRecovery", "Login")">Forget Password</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of col-sm-12 -->
+        </div>
+        <!-- end of row -->
+    </div>
+    <!-- end of container-fluid -->
+</section>

@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Ret.SMSTempleteModel>
+
+@{    
+    Layout = "~/Views/Shared/_admin.cshtml";
+}
+
+@{ int count = 0;}
+
+
+<div class="row animate bounceInDown">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-9 col-9"><h3>@ViewData["PageTitle"]</h3></div>
+                    <div class="col-md-3 col-3">
+                        <a href="@Url.Action("Create", "SMSTemplete")" class="btn btn-primary btn-outline-primary float-right">
+                            <i class="icofont icofont-user-alt-3"></i> Add
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-block table-border-style">
+                <div class="table-responsive">
+                    <table class="table table-styling">
+                        <thead>
+                            <tr class="table-primary">
+                                <th>#</th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Title)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Message)
+                                </th>                                
+                                <th>
+                                    Edit
+                                </th>
+                                <th>
+                                    Del
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@{count++;} @count</td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Title)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Message)
+                                    </td>                                  
+
+                                    <td>
+                                        <a href="@Url.Action("Edit", "SMSTemplete",new { id = item.SMSTempleteID })" class="btn btn-success btn-mini btn-outline-primary">
+                                            <i class="icofont icofont-user-alt-3"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Delete", "SMSTemplete",new { id = item.SMSTempleteID })" class="btn btn-danger btn-mini btn-outline-primary">
+                                            <i class="icofont icofont-close"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <!-- Default card end -->
+    </div>
+</div>

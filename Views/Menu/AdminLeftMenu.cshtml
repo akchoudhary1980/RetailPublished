@@ -1,0 +1,450 @@
+﻿<nav class="pcoded-navbar" pcoded-header-position="relative">
+    <div class="pcoded-inner-navbar main-menu">
+        <div class="pcoded-navigatio-lavel">Retail Suite</div>
+        <ul class="pcoded-item pcoded-left-item">
+            <li>
+                <a href="@Url.Action("Index", "Dashboard")">
+                    <span class="pcoded-micon"><i class="feather icon-grid"></i></span>
+                    <span class="pcoded-mtext">Dashboard</span>
+                </a>
+            </li>
+            <li class="pcoded-hasmenu">
+                <a href="#">
+                    <span class="pcoded-micon"><i class="feather icon-pie-chart"></i></span>
+                    <span class="pcoded-mtext">Purchase</span>
+                </a>
+                @*<ul class="pcoded-submenu">
+                <li class="">
+                    <a href="@Url.Action("Index", "PurchaseOrder")">
+                        <span class="pcoded-mtext">Purchase Order</span>
+                    </a>
+                </li>
+            </ul>*@
+                <ul class="pcoded-submenu">
+                    <li class="">
+                        <a href="@Url.Action("Index", "Purchase")">
+                            <span class="pcoded-mtext">Purchase</span>
+                        </a>
+                    </li>
+                </ul>
+                @*<ul class="pcoded-submenu">
+                <li class="">
+                    <a href="@Url.Action("Index", "PurchaseRetrun")">
+                        <span class="pcoded-mtext">Purchase Retrun</span>
+                    </a>
+                </li>
+            </ul>*@
+            </li>
+
+            <li class="pcoded-hasmenu">
+                <a href="#">
+                    <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+                    <span class="pcoded-mtext">Quotation</span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class="">
+                        <a href="@Url.Action("Index", "Estimate")">
+                            <span class="pcoded-mtext">Estimate</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="pcoded-submenu">
+                    <li class="">
+                        <a href="@Url.Action("Index", "Quotation")">
+                            <span class="pcoded-mtext">Quotation</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="pcoded-hasmenu">
+                <a href="#">
+                    <span class="pcoded-micon"><i class="feather icon-activity"></i></span>
+                    <span class="pcoded-mtext">Supply Order</span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class="">
+                        <a href="@Url.Action("Index", "SupplyOrder")">
+                            <span class="pcoded-mtext">Supply Order</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="pcoded-hasmenu">
+                <a href="#">
+                    <span class="pcoded-micon"><i class="feather icon-shopping-cart"></i></span>
+                    <span class="pcoded-mtext">Sale</span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class="">
+                        <a href="@Url.Action("Index", "Sale")">
+                            <span class="pcoded-mtext">Sale</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="pcoded-submenu">
+                    <li class="">
+                        <a href="@Url.Action("Index", "SaleRetrun")">
+                            <span class="pcoded-mtext">Sale Retrun</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="pcoded-hasmenu">
+                <a href="#">
+                    <span class="pcoded-micon"><i class="feather icon-shopping-cart"></i></span>
+                    <span class="pcoded-mtext">Customer Payment</span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class="">
+                        <a href="@Url.Action("Index", "CustomerPayment")">
+                            <span class="pcoded-mtext">Manage</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("CustomerLedger", "CustomerPayment")">
+                            <span class="pcoded-mtext">Customer Ledger</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="@Url.Action("CustomerBalance", "CustomerPayment")">
+                            <span class="pcoded-mtext">Balance Register</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="pcoded-hasmenu">
+                <a href="#">
+                    <span class="pcoded-micon"><i class="feather icon-shopping-cart"></i></span>
+                    <span class="pcoded-mtext">Vender Payment</span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class="">
+                        <a href="@Url.Action("Index", "VenderPayment")">
+                            <span class="pcoded-mtext">Manage</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("VenderLedger", "VenderPayment")">
+                            <span class="pcoded-mtext">Vender Ledger</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="@Url.Action("VenderOutstanding", "VenderPayment")">
+                            <span class="pcoded-mtext">Outstanding Register</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="pcoded-hasmenu">
+                <a href="#">
+                    <span class="pcoded-micon"><i class="feather icon-codepen"></i></span>
+                    <span class="pcoded-mtext">Stock Report</span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class="">
+                        <a href="@Url.Action("StockQuantityWise", "Stock")">
+                            <span class="pcoded-mtext">Stock Item Wise</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("StockValueWise", "Stock")">
+                            <span class="pcoded-mtext">Stock Value Wise</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("CriticalStock", "Stock")">
+                            <span class="pcoded-mtext">Critical Stock</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("DeadStock", "Stock")">
+                            <span class="pcoded-mtext">Dead Stock</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("DeadStock", "Stock")">
+                            <span class="pcoded-mtext">Date Range</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("DeadStock", "Stock")">
+                            <span class="pcoded-mtext">Date Range Product</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="pcoded-hasmenu">
+                <a href="#">
+                    <span class="pcoded-micon"><i class="feather icon-box"></i></span>
+                    <span class="pcoded-mtext">Product &amp; Service</span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class="">
+                        <a href="@Url.Action("Index", "Product")">
+                            <span class="pcoded-mtext">Product</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "Service")">
+                            <span class="pcoded-mtext">Service</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "Unit")">
+                            <span class="pcoded-mtext">Unit</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "GSTSlab")">
+                            <span class="pcoded-mtext">GST Slab</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "Category")">
+                            <span class="pcoded-mtext">Category</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "Group")">
+                            <span class="pcoded-mtext">Group</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "Brand")">
+                            <span class="pcoded-mtext">Brand</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "Color")">
+                            <span class="pcoded-mtext">Color</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+
+            <li class="pcoded-hasmenu">
+                <a href="#">
+                    <span class="pcoded-micon"><i class="feather icon-list"></i></span>
+                    <span class="pcoded-mtext">Material Center</span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class="">
+                        <a href="@Url.Action("Index", "MaterialCenter")">
+                            <span class="pcoded-mtext">Material Center</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "Godown")">
+                            <span class="pcoded-mtext">Godown</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "Room")">
+                            <span class="pcoded-mtext">Room</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "Rack")">
+                            <span class="pcoded-mtext">Rack</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "Self")">
+                            <span class="pcoded-mtext">Self</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "Bins")">
+                            <span class="pcoded-mtext">Bin</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="pcoded-hasmenu">
+                <a href="#">
+                    <span class="pcoded-micon"><i class="feather icon-cpu"></i></span>
+                    <span class="pcoded-mtext">Master</span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class="">
+                        <a href="@Url.Action("Index", "Company")">
+                            <span class="pcoded-mtext">Company</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "Vender")">
+                            <span class="pcoded-mtext">Vender</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "Customer")">
+                            <span class="pcoded-mtext">Customer</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "Profession")">
+                            <span class="pcoded-mtext">Customer Profession</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "Employee")">
+                            <span class="pcoded-mtext">Employee</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "Designation")">
+                            <span class="pcoded-mtext">Designation</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="@Url.Action("Index", "Country")">
+                            <span class="pcoded-mtext">Country</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "State")">
+                            <span class="pcoded-mtext">State</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "City")">
+                            <span class="pcoded-mtext">City</span>
+                        </a>
+                    </li>
+                    @*<li class="">
+                    <a href="@Url.Action("Index", "Slider")">
+                        <span class="pcoded-mtext">Slider</span>
+                    </a>
+                </li>*@
+                </ul>
+            </li>
+
+
+            <li class="pcoded-hasmenu">
+                <a href="#">
+                    <span class="pcoded-micon"><i class="feather icon-smartphone"></i></span>
+                    <span class="pcoded-mtext">SMS Marketing</span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class="">
+                        <a href="@Url.Action("SMSSingle", "SMS")">
+                            <span class="pcoded-mtext">SMS Single</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("SMSMultiple", "SMS")">
+                            <span class="pcoded-mtext">SMS Multiple</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "SMSTemplete")">
+                            <span class="pcoded-mtext">SMS Templete</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("History", "SMS")">
+                            <span class="pcoded-mtext">SMS History</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            @*<li class="pcoded-hasmenu">
+            <a href="#">
+                <span class="pcoded-micon"><i class="feather icon-mail"></i></span>
+                <span class="pcoded-mtext">Email Marketing</span>
+            </a>
+            <ul class="pcoded-submenu">
+                <li class="">
+                    <a href="@Url.Action("EmailSingle", "Email")">
+                        <span class="pcoded-mtext">Email Single</span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="@Url.Action("EmailMultiple", "Email")">
+                        <span class="pcoded-mtext">Email Multiple</span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="@Url.Action("Index", "EmailTemplete")">
+                        <span class="pcoded-mtext">Email Templete</span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="@Url.Action("History", "Email")">
+                        <span class="pcoded-mtext">Email History</span>
+                    </a>
+                </li>
+            </ul>
+        </li>*@
+            @*<li class="pcoded-hasmenu">
+            <a href="#">
+                <span class="pcoded-micon"><i class="feather icon-anchor"></i></span>
+                <span class="pcoded-mtext">Enquiry</span>
+            </a>
+            <ul class="pcoded-submenu">
+                <li class="">
+                    <a href="@Url.Action("Index", "Contact")">
+                        <span class="pcoded-mtext">Contact Form</span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="@Url.Action("Index", "Visiter")">
+                        <span class="pcoded-mtext">Website Visitor</span>
+                    </a>
+                </li>
+            </ul>
+        </li>*@
+            <li class="pcoded-hasmenu">
+                <a href="#">
+                    <span class="pcoded-micon"><i class="feather icon-settings"></i></span>
+                    <span class="pcoded-mtext">Setup</span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class="">
+                        <a href="@Url.Action("Index", "Setting")">
+                            <span class="pcoded-mtext">Setting</span>
+                        </a>
+                    </li>
+                    @*<li class="">
+                    <a href="@Url.Action("UserProfile", "User")">
+                        <span class="pcoded-mtext">Profile</span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="@Url.Action("SMSSetup", "SMS")">
+                        <span class="pcoded-mtext">SMS Setup</span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="@Url.Action("EmailSetup", "Email")">
+                        <span class="pcoded-mtext">Email Setup</span>
+                    </a>
+                </li>*@
+                    <li class="">
+                        <a href="@Url.Action("Index", "User")">
+                            <span class="pcoded-mtext">Users</span>
+                        </a>
+                    </li>
+
+                    @*<li class="">
+                    <a href="@Url.Action("LoadDefault", "Database")">
+                        <span class="pcoded-mtext">Default Data</span>
+                    </a>
+                </li>*@
+                </ul>
+            </li>
+        </ul>
+        
+    </div>
+</nav>

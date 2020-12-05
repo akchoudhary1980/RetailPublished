@@ -1,0 +1,86 @@
+﻿@model Ret.ColorModel
+@{
+    Layout = "~/Views/Shared/_admin.cshtml";
+}
+    <div class="page-header">
+        <div class="card">
+            <div class="card-block bg-primary">
+                <div class="row ">
+                    <div class="col-lg-4">
+                        <h5 class="text-uppercase font-weight-bold">Delete Color</h5>
+                    </div>
+                    <div class="col-lg-8 align-items-end">
+                        <div class="page-header-breadcrumb">
+                            <ul class="breadcrumb-title">
+                                <li class="breadcrumb-item">
+                                    <a href="@Url.Action("Index", "Dashboard")"> <i class="icofont icofont-home" style="color:white"></i> </a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="@Url.Action("Index", "Color")" style="color:white">Home / Masters / Delete Color</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="row animate bounceInDown">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-9 col-9"><h3>@ViewData["PageTitle"]</h3></div>
+                    <div class="col-md-3 col-3">
+                        <a href="@Url.Action("Index", "Color")" class="btn btn-primary btn-outline-primary float-right">
+                            <i class="icofont icofont-user-alt-3"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-block table-border-style">
+                <div class="table-responsive">
+                    <table class="table table-styling">
+                        <tbody>
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.ColorName)</b></td>
+                                <td>@Html.DisplayFor(model => model.ColorName)</td>
+                            </tr>                            
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.Remark)</b></td>
+                                <td>@Html.DisplayFor(model => model.Remark)</td>
+                            </tr>                            
+                            <tr>
+                                <td style="color:red;">Warning !!</td>
+                                <td style="color:red;"><b>@ViewData["Error"]</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <hr />
+                <div class="col-md-12 col-12 float-right">
+                    @using (Html.BeginForm("Delete", "Color", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(model => model.ColorID)
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="submit" value="Delete" class="btn btn-danger btn-out float-right" style="margin-left:10px;" />
+                                <a href="@Url.Action("Index", "Color")" class="btn btn-success btn-outline-primary float-right">
+                                    <i class="icofont icofont-user-alt-3"></i> Cancel
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>       
+    </div>
+</div>
+
+
+
+
+

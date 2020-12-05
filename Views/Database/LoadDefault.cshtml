@@ -1,0 +1,85 @@
+﻿@{
+    Layout = "~/Views/Shared/_admin.cshtml";
+}
+<div class="page-header animated bounceInRight">
+    <div class="card">
+        <div class="card-block bg-primary">
+            <div class="row ">
+                <div class="col-lg-4">
+                    <h5 class="text-uppercase font-weight-bold">Default Data</h5>
+                </div>
+                <div class="col-lg-8 align-items-end">
+                    <div class="page-header-breadcrumb">
+                        <ul class="breadcrumb-title">
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("Index", "Dashboard")"> <i class="icofont icofont-home" style="color:white"></i> </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("LoadDefault", "Database")" style="color:white">Home / Masters / Default Data</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated bounceInDown">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-9 col-9"><h3>@ViewData["PageTitle"]</h3></div>
+                    <div class="col-md-3 col-3">
+                        <a href="@Url.Action("Index", "City")" class="btn btn-primary btn-outline-primary float-right">
+                            <i class="icofont icofont-user-alt-3"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-block">
+                <h4 class="sub-title">City Default</h4>
+                @using (Html.BeginForm("AddCity", "Database", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <input type="submit" value="City Default" class="btn btn-primary btn-out float-right" />
+                        </div>
+                    </div>
+                }
+                <h4 class="sub-title">State Default</h4>
+                @using (Html.BeginForm("AddState", "Database", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <input type="submit" value="State Default" class="btn btn-primary btn-out float-right" />
+                        </div>
+                    </div>
+                }
+                <h4 class="sub-title">Country Default</h4>
+                @using (Html.BeginForm("AddCountry", "Database", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <input type="submit" value="Country Default" class="btn btn-primary btn-out float-right" />
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+        <!-- Default card end -->
+    </div>
+</div>

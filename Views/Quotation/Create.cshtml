@@ -1,0 +1,285 @@
+﻿@model Ret.QuotationModel
+@{
+    Layout = "~/Views/Shared/_admin.cshtml";
+}
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-ui-1.10.2.js"></script>
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/AjaxModules.js"></script>
+
+<script type="text/javascript">
+    SetInputNumeric('PQty');
+    SetInputNumeric('PRate');
+    SetInputNumeric('SQty');
+    SetInputNumeric('SRate');
+</script>
+
+
+<!-- Main Form -->
+<div class="page-header animated bounceInRight">
+    <div class="card">
+        <div class="card-block bg-primary">
+            <div class="row ">
+                <div class="col-lg-4">
+                    <h5 class="text-uppercase font-weight-bold">New Quotation</h5>
+                </div>
+                <div class="col-lg-8 align-items-end">
+                    <div class="page-header-breadcrumb">
+                        <ul class="breadcrumb-title">
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("Index", "Dashboard")"> <i class="icofont icofont-home" style="color:white"></i> </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("Index", "Quotation ")" style="color:white">Home / Masters / New Quotation</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("Create", "Quotation", FormMethod.Post))
+{
+    <div class="row animated bounceInUp">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-9 col-9"><h3>@ViewData["PageTitle"]</h3></div>
+                        <div class="col-md-3 col-3">
+                            <a href="@Url.Action("Index", "Quotation")" class="btn btn-primary btn-outline-primary float-right">
+                                <i class="icofont icofont-user-alt-3"></i> Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-block">
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <h4 class="sub-title">Quotation Details</h4>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.CompanyID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(model => model.CompanyID,
+                             Ret.EstimateController.GetCompanyList(), new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.CompanyID, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.Label("Quotation No", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.TextBox("SerialNo", null, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.QuotationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.QuotationDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.QuotationDate, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.RefNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.RefNo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.RefNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.CustomerID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.CustomerID, new { htmlAttributes = new { @class = "form-control",@type="text" } })
+                            @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
+                            @Html.Hidden("CustomerHiddenID", "0")
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-primary btn-outline-primary float-right" type="button" onclick="addCustomer();"><i class="icofont icofont-plus"></i></button>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <h4 class="sub-title">Product and Service Details</h4>
+                    <!-- Row start -->
+                    <div class="row">
+                        <div class="col-lg-12 col-xl-12">                           
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs  tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#product" role="tab">Product</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#service" role="tab">Service</a>
+                                </li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content tabs card-block">
+                                <div class="tab-pane active" id="product" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <label class="form-control-label">Product</label>
+                                            @Html.TextBox("ProductName", null, new { @class = "form-control" })
+                                            @Html.Hidden("ProductID")
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <label class="form-control-label">Quantity</label>
+                                            @Html.TextBox("PQty", null, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label class=" form-control-label">Unit</label>
+                                            @Html.TextBox("PUnit", null, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label class=" form-control-label">Rate</label>
+                                            @Html.TextBox("PRate", null, new { @class = "form-control" })
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <label class=" form-control-label">GST %</label>
+                                            @Html.TextBox("PGST", null, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <br />
+                                            <button class="btn btn-primary btn-outline-primary float-right" type="button" onclick="AddNewRow('P');"><i class="icofont icofont-plus"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="service" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <label class="form-control-label">Service</label>
+                                            @Html.TextBox("ServiceName", null, new { @class = "form-control" })
+                                            @Html.Hidden("ServiceID")
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <label class="form-control-label">Quantity</label>
+                                            @Html.TextBox("SQty", null, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label class=" form-control-label">Unit</label>
+                                            @Html.TextBox("SUnit", null, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label class=" form-control-label">Rate</label>
+                                            @Html.TextBox("SRate", null, new { @class = "form-control" })
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <label class=" form-control-label">GST %</label>
+                                            @Html.TextBox("SGST", null, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <br />
+                                            <button class="btn btn-primary btn-outline-primary float-right" type="button" onclick="AddNewRow('S');"><i class="icofont icofont-plus"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Row end -->
+
+                    <div class='dt-responsive table-responsive'>
+                        <table id='dtTable' class='table table-striped table-bordered nowrap'>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Product Name</th>
+                                    <th>Qty</th>
+                                    <th>Unit</th>
+                                    <th>Rate</th>
+                                    <th>Amount</th>
+                                    <th>GST Slab</th>
+                                    <th>GST Amount</th>
+                                    <th>Del</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <input type="submit" value="Create" class="btn btn-primary btn-out float-right" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Model-->
+    <div class="modal fade" id="CustomerModel" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-c-lite-green">
+                    <h4 class="modal-title">Customer Details</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="sub-title">Customer</h4>
+                    <div class="form-group row">
+                        @Html.Label("", "Customer Names", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBox("CustomerName", null, new { placeholder = "Customer Name", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.Label("", "Address", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextArea("Address", null, new { placeholder = "Address", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.Label("", "State", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.TextBox("State", null, new { placeholder = "State", @class = "form-control" })
+                        </div>
+                        @Html.Label("", "City", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.TextBox("City", null, new { placeholder = "City", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.Label("", "Mobile", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.TextBox("Mobile", null, new { placeholder = "Mobile", @class = "form-control" })
+                        </div>
+                        @Html.Label("", "WhatsApp", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.TextBox("WhatsApp", null, new { placeholder = "Whatsup", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.Label("", "Email", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.TextBox("Email", null, new { placeholder = "Email", @class = "form-control" })
+                        </div>
+                        @Html.Label("", "Profession", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.DropDownList("ProfessionID", Ret.ShareController.GetProfessionList(), new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <input type="button" value="Close" onclick="closeCustomer();" class="btn btn-danger btn-out float-right" style="margin-right:5px;" />
+                            <input type="button" value="Clear" onclick="clearCustomer();" class="btn btn-success btn-out float-right" style="margin-right:5px;" />
+                            <input type="button" value="New Customer" onclick="newCustomer();" class="btn btn-primary btn-out float-right" style="margin-right:5px;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/Scripts/js-quotation.js"></script>

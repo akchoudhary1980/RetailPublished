@@ -1,0 +1,260 @@
+﻿
+@{
+    ViewBag.Title = "Pricing";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .demo{ background-color: #dbdbdb; }
+.pricingTable{
+    background-color: #fff;
+    font-family: 'Ubuntu', sans-serif;
+    text-align: center;
+    padding: 0 0 15px;
+    margin: 0 10px;
+    border-radius: 20px 20px 150px 150px;
+}
+.pricingTable .pricingTable-header{
+    background-color: #fff;
+    padding: 10px;
+    margin: 0 0 -10px;
+    border-radius: 20px 20px 0 0;
+    position: relative;
+    z-index: 2;
+}
+.pricingTable .title{
+    color: #f73636;
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0;
+}
+.pricingTable .price-value{
+    color: #fff;
+    background-color: #f73636;
+    padding: 20px 40px;
+    margin: 0 -10px;
+    position: relative;
+    z-index: 1;
+}
+.pricingTable .price-value:before,
+.pricingTable .price-value:after{
+    content: '';
+    background-color: #d60202;
+    height: 15px;
+    border-radius: 10px;
+    position: absolute;
+    top: -5px;
+    left: 0;
+    right: 0;
+    z-index: -1;
+}
+.pricingTable .price-value:after{
+    top: auto;
+    bottom: -5px;
+}
+.pricingTable .amount{
+    font-size: 50px;
+    font-weight: 600;
+    line-height: 50px;
+    display: block;
+}
+.pricingTable .month{
+    font-size: 17px;
+    font-weight: normal;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.pricingTable .pricing-content{
+    background-color: #fff;
+    padding: 15px;
+    margin: -10px 0 20px 0;
+    list-style: none;
+    position: relative;
+    z-index: 1;
+}
+.pricingTable .pricing-content li{
+    color:  rgba(0,0,0,0.8);
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 15px 10px 5px 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+.pricingTable .pricingTable-signup{
+    color: #fff;
+    background-color: #f73636;
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 75px;
+    height: 100px;
+    width: 100px;
+    border: 7px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.2);
+    display:inline-block;
+    position: relative;
+    transition: all 0.3s ease 0s;
+}
+.pricingTable .pricingTable-signup:hover{
+    color: #fff;
+    box-shadow: 0 0 5px 10px rgba(0,0,0,0.2);
+}
+.pricingTable .pricingTable-signup:after{
+    content: "\f061";
+    color: #fff;
+    font-family: "Font Awesome 5 Free";
+    font-size: 18px;
+    font-weight: 900;
+    margin: 0 auto;
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    right: 0;
+}
+.pricingTable.green .title{ color: #8fcc26; }
+.pricingTable.green .price-value{ background-color: #8fcc26; }
+.pricingTable.green .price-value:before,
+.pricingTable.green .price-value:after{
+    background-color: #6aa800;
+}
+.pricingTable.green .pricingTable-signup{ background-color: #8fcc26; }
+.pricingTable.blue .title{ color: #1766c1; }
+.pricingTable.blue .price-value{ background-color: #1766c1; }
+.pricingTable.blue .price-value:before,
+.pricingTable.blue .price-value:after{
+    background-color: #004faa;
+}
+.pricingTable.blue .pricingTable-signup{ background-color: #1766c1; }
+.pricingTable.purple .title{ color: #9a27d8; }
+.pricingTable.purple .price-value{ background-color: #9a27d8; }
+.pricingTable.purple .price-value:before,
+.pricingTable.purple .price-value:after{
+    background-color: #7905b7;
+}
+.pricingTable.purple .pricingTable-signup{ background-color: #9a27d8; }
+@@media only screen and (max-width: 990px){
+    .pricingTable{ margin: 0 10px 30px; }
+}
+</style>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card layout">
+            <div class="card-block">
+                <div class="row" style="padding-top:30px;padding-bottom:20px;">
+                    <div class="col-md-12">
+                        <h2>Pricing</h2>
+                    </div>
+                </div>
+                <div class="demo">
+                    <div class="row" style="padding-top:30px;padding-bottom:20px;">
+                        <div class="col-md-12">
+                        </div>
+                    </div>
+
+                    <div class="row" style="padding-bottom:30px; margin:20px;">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="pricingTable">
+                                <div class="pricingTable-header">
+                                    <h3 class="title">Plots</h3>
+                                </div>
+                                <div class="price-value">
+                                    <span class="amount">₹10 Lakhs</span>
+                                    <span class="month">Plot Start</span>
+                                </div>
+                                <ul class="pricing-content">
+                                    <li>A Fully secured campus.</li>
+                                    <li>Grand entrance gate.</li>
+                                    <li>Vastu based layout planning.</li>
+                                    <li>Best Quality Development</li>
+                                    <li>Elegant Street Lighting</li>
+                                    <li>Approved project from T & CP</li>
+                                    <li>Tree plantation alongside the main road</li>
+                                    <li>Plots are availble in various sizes.</li>
+                                </ul>
+                                <a href="@Url.Action("Contact", "Home")" class="pricingTable-signup">Contact</a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="pricingTable green">
+                                <div class="pricingTable-header">
+                                    <h3 class="title">Singlex</h3>
+                                </div>
+                                <div class="price-value">
+                                    <span class="amount">₹20 Lakh</span>
+                                    <span class="month">Singlex Start </span>
+                                </div>
+                                <ul class="pricing-content">
+                                    <li>A Fully secured campus.</li>
+                                    <li>Grand entrance gate.</li>
+                                    <li>Vastu based layout planning.</li>
+                                    <li>Best Quality Development</li>
+                                    <li>Elegant Street Lighting</li>
+                                    <li>Approved project from T & CP</li>
+                                    <li>Tree Plantation alongside the main road</li>
+                                    <li>1 BHK</li>
+                                </ul>
+                                <a href="@Url.Action("Contact", "Home")" class="pricingTable-signup">Contact</a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="pricingTable blue">
+                                <div class="pricingTable-header">
+                                    <h3 class="title">Duplex</h3>
+                                </div>
+                                <div class="price-value">
+                                    <span class="amount">₹35 Lakh</span>
+                                    <span class="month">Duplex Start</span>
+                                </div>
+                                <ul class="pricing-content">
+                                    <li>A Fully secured campus.</li>
+                                    <li>Grand entrance gate.</li>
+                                    <li>Vastu based layout planning.</li>
+                                    <li>Best Quality Development</li>
+                                    <li>Elegant Street Lighting</li>
+                                    <li>Approved project from T & CP</li>
+                                    <li>Tree Plantation alongside the main road</li>
+                                    <li>3 BHK</li>
+                                </ul>
+                                <a href="@Url.Action("Contact", "Home")" class="pricingTable-signup">Contact</a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="pricingTable purple">
+                                <div class="pricingTable-header">
+                                    <h3 class="title">Home Rent</h3>
+                                </div>
+                                <div class="price-value">
+                                    <span class="amount">₹8000</span>
+                                    <span class="month">Home Start</span>
+                                </div>
+                                <ul class="pricing-content">
+                                    <li>A Fully secured campus.</li>
+                                    <li>Grand entrance gate.</li>
+                                    <li>Vastu based layout planning.</li>
+                                    <li>Best Quality Development</li>
+                                    <li>Elegant Street Lighting</li>
+                                    <li>Approved project from T & CP</li>
+                                    <li>Tree Plantation alongside the main road</li>
+                                    <li>1 BHK,2 BHK Or 3 BHK</li>
+                                </ul>
+                                <a href="@Url.Action("Contact", "Home")" class="pricingTable-signup">Contact</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top:30px;padding-bottom:20px;">
+                        <div class="col-md-12">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+       
+    

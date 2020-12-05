@@ -1,0 +1,113 @@
+﻿@model Ret.CustomerModel
+@{
+    Layout = "~/Views/Shared/_admin.cshtml";
+}
+    <div class="page-header animated bounceInRight">
+        <div class="card">
+            <div class="card-block bg-primary">
+                <div class="row ">
+                    <div class="col-lg-4">
+                        <h5 class="text-uppercase font-weight-bold">Delete Customer</h5>
+                    </div>
+                    <div class="col-lg-8 align-items-end">
+                        <div class="page-header-breadcrumb">
+                            <ul class="breadcrumb-title">
+                                <li class="breadcrumb-item">
+                                    <a href="@Url.Action("Index", "Dashboard")"> <i class="icofont icofont-home" style="color:white"></i> </a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="@Url.Action("Index", "Customer")" style="color:white">Home / Masters / Delete Customer</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="row animated bounceInDown">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-9 col-9"><h3>@ViewData["PageTitle"]</h3></div>
+                    <div class="col-md-3 col-3">
+                        <a href="@Url.Action("Index", "Customer")" class="btn btn-primary btn-outline-primary float-right">
+                            <i class="icofont icofont-user-alt-3"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-block table-border-style">
+                <div class="table-responsive">
+                    <table class="table table-styling">
+                        <tbody>
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.CustomerName)</b></td>
+                                <td>@Html.DisplayFor(model => model.CustomerName)</td>
+                            </tr>
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.Address)</b></td>
+                                <td>@Html.DisplayFor(model => model.Address)</td>
+                            </tr>
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.State)</b></td>
+                                <td>@Html.DisplayFor(model => model.State)</td>
+                            </tr>
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.City)</b></td>
+                                <td>@Html.DisplayFor(model => model.City)</td>
+                            </tr>
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.Mobile)</b></td>
+                                <td>@Html.DisplayFor(model => model.Mobile)</td>
+                            </tr>
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.Whatup)</b></td>
+                                <td>@Html.DisplayFor(model => model.Whatup)</td>
+                            </tr>
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.Email)</b></td>
+                                <td>@Html.DisplayFor(model => model.Email)</td>
+                            </tr>
+                            @*<tr>
+                                <td><b>@Html.DisplayNameFor(model => model.CustomerBusiness)</b></td>
+                                <td>@Html.DisplayFor(model => model.CustomerBusiness)</td>
+                            </tr>*@
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <hr />
+                <div class="col-md-12 col-12 float-right">
+
+
+                    @using (Html.BeginForm("Delete", "Customer", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(model => model.CustomerID)
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="submit" value="Delete" class="btn btn-danger btn-out float-right" style="margin-left:10px;" />
+                                <a href="@Url.Action("Index", "Customer")" class="btn btn-success btn-outline-primary float-right">
+                                    <i class="icofont icofont-user-alt-3"></i> Cancel
+                                </a>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+
+        </div>
+        <!-- Default card end -->
+    </div>
+</div>
+
+
+
+
+

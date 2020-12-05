@@ -1,0 +1,519 @@
+﻿@model Ret.PurchaseModel
+@{
+    Layout = "~/Views/Shared/_admin.cshtml";
+}
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-ui-1.10.2.js"></script>
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/AjaxModules.js"></script>
+<!-- Get Purchase No-->
+<script type="text/javascript">
+    $(function () {
+        $("#CompanyID").change(function () {
+            var compid = $('option:selected', this).val().toString();
+            if (compid != "") {
+                $.ajax({
+                    type: "POST",
+                    url: "/Purchase/GetPurchaseNo",
+                    dataType: "json",
+                    data: { CompID: compid },
+                    success: function (response) {
+                        var str = response;
+                        $("#SerialNo").val(str);
+                    }
+                });
+            }
+        });
+    });
+</script>
+<script>
+    $(function () {
+        $("#PurchaseDate").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "dd-mm-yy"
+        });
+    });
+</script>
+<script>
+    $(function () {
+        $("#InvoiceDate").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "dd-mm-yy"
+        });
+    });
+</script>
+<script type="text/javascript">
+    // Open Vender Model
+    function addVender() {
+        $('#VenderModel').modal('show');
+    }
+    // Close Vender Model
+    function closeVender() {
+        $('#VenderModel').modal('hide');
+    }
+    // Clear Vender Model
+    function clearVender() {
+        $("#VenderHiddenID").val("0");
+        $("#VenderName").val("");
+        $("#Address").val("");
+        $("#State").val("");
+        $("#City").val("");
+        $("#Mobile").val("");
+        $("#WhatsApp").val("");
+        $("#Email").val("");
+        $("#GSTNo").val("");
+    }
+    function newVender() {
+        $("#VenderHiddenID").val("0");
+        var vendername = $("#VenderName").val();
+        $("#VenderID").val(vendername);
+        $('#VenderModel').modal('hide');
+    }
+</script>
+<script type="text/javascript">
+    SetInputNumeric('PQty');
+    SetInputNumeric('PRate');
+</script>
+<!--for Load Data-->
+<script type="text/javascript">
+    // define here call here
+    function LoadTransData(purchaseid,venderid) {
+        // aign here
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("LoadTransData")',
+            dataType: 'json',
+            data: {PurID:purchaseid},
+            success: function (data) {
+                DisplayData(data);
+                VenderAutoFill(venderid)
+                $("#VenderHiddenID").val(venderid);
+            }
+        });
+    }
+</script>
+@if (ViewBag.TransData != null)
+{
+    // call here
+    <script type="text/javascript">
+      @Html.Raw(ViewBag.TransData)
+    </script>
+}
+<!--for Vender Auto Complete-->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#VenderID").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '@Url.Action("VenderAutoComplete")',
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.VenderName, value: item.VenderName, id: item.VenderID };
+                        }))
+                    },
+                })
+            },
+            select: function (event, ui) {
+                VenderAutoFill(ui.item.id);
+                $("#VenderHiddenID").val(ui.item.id);
+            }
+        });
+    })
+</script>
+<!--for Product Auto Complete-->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#ProductName").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '@Url.Action("ProductAutoComplete")',
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.ProductName, value: item.ProductName, id: item.ProductID };
+                        }))
+                    },
+                })
+            },
+            select: function (event, ui) {
+                AutoFillData(ui.item.id, "P");
+                $("#ProductID").val(ui.item.id);
+            }
+        });
+    })
+</script>
+<!--for Add Trans Data-->
+<script type="text/javascript">
+    function addItems(itype) {
+        var itemtype = itype;
+        var itemid, qty, rate;
+        itemid = $('#ProductID').val();
+        qty= $('#PQty').val();
+        rate = $('#PRate').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("AddTransData")',
+            dataType: 'json',
+            data: {iID:itemid, iQty:qty, iRate:rate, iType:itemtype},
+            success: function (data) {
+                DisplayData(data);
+            }
+        });
+    }
+</script>
+<!--for RemoveData-->
+<script type="text/javascript">
+    function removeItem(serNo) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("RemoveTransData")',
+            dataType: 'json',
+            data: {iSer:serNo},
+            success: function (data) {
+                DisplayData(data);
+            }
+        });
+    }
+</script>
+<!--for Display Data-->
+<script type="text/javascript">
+    function DisplayData(data) {
+        var totalamt = 0;
+        var totalgst = 0;
+        var grandtotal = 0;
+        var counter = 0;
+        $("#purTable tbody tr").remove();
+        var items = '';
+        $.each(data, function (i, item) {
+            counter = counter + 1;
+            var rows = "<tr>"
+                + "<td>" + counter + "</td>"
+                + "<td>" + item.ItemName + "</td>"
+                + "<td class='text-right'>" + item.Quantity + "</td>"
+                + "<td class='text-right'>" + item.Unit + "</td>"
+                + "<td class='text-right'>" + item.Rate + "</td>"
+                + "<td class='text-right'>" + item.Amount + "</td>"
+                + "<td class='text-right'>" + item.GSTSlab + "%</td>"
+                + "<td class='text-right'>" + item.GSTAmount + "</td>"
+                + "<td><button type='button' id=" + item.SerNo + " onclick='removeItem(this.id)' class='btn btn-danger btn-mini btn-outline-primary'><i class='icofont icofont-ui-close'></i></button></td>"
+                + "</tr>";
+            $('#purTable tbody').append(rows);
+            totalamt = item.TotalAmount;
+            totalgst = item.TotalGST;
+            grandtotal = item.GrandTotal;
+        });
+
+        $('#purTable tbody').append('<tr><td colspan="5" align="right" > <b>Total</b></td><td class="text-right"><b style="color:green">' + totalamt + '</b></td><td></td><td class="text-right"><b style="color:green">' + totalgst + '</b></td><td></td></tr><tr><td colspan="7" class="text-right"><b>Grand Total</b></td><td class="text-right"><b style="color:green">' + grandtotal + '</b></td><td></td></tr>');
+        // Clear Data
+        $('#ProductName').val("");
+        $('#PQty').val("");
+        $('#PUnit').val("");
+        $('#PRate').val("");
+        $('#PGST').val("");
+
+    }
+</script>
+<!--for Auto Fill Data-->
+<script type="text/javascript">
+    function AutoFillData(itemid, itype) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("AutoFillData")',
+            dataType: "json",
+            data: {iID:itemid, iType:itype},
+            success: function (response) {
+                var str = response;
+                var res = str.split("^");
+                $('#PUnit').val(res[0]);
+                $('#PGST').val(res[1]);
+                $('#PRate').val(res[2]);
+                $('#PQty').val(1); // Default Value
+            }
+        });
+    }
+</script>
+<!--for Vender Auto Fill -->
+<script type="text/javascript">
+    function VenderAutoFill(venderid) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("VenderAutoFill")',
+            dataType: "json",
+            data: {VenderID:venderid},
+            success: function (response) {
+                var str = response;
+                var res = str.split("^");
+                $('#VenderHiddenID').val(res[0]);
+                $('#VenderName').val(res[1]);
+                $('#Address').val(res[2]);
+                $('#State').val(res[3]);
+                $('#City').val(res[4]);
+                $('#Mobile').val(res[5]);
+                $('#WhatsApp').val(res[6]);
+                $('#Email').val(res[7]);
+                $('#GSTNo').val(res[8]);
+            }
+        });
+    }
+</script>
+
+<div class="page-header animated bounceInRight">
+    <div class="card">
+        <div class="card-block bg-primary">
+            <div class="row ">
+                <div class="col-lg-4">
+                    <h5 class="text-uppercase font-weight-bold">Update Purchase</h5>
+                </div>
+                <div class="col-lg-8 align-items-end">
+                    <div class="page-header-breadcrumb">
+                        <ul class="breadcrumb-title">
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("Index", "Dashboard")"> <i class="icofont icofont-home" style="color:white"></i> </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("Index", "Purchase")" style="color:white">Home / Masters / Update Purchase</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row animated bounceInUp">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-9 col-9"><h3>@ViewData["PageTitle"]</h3></div>
+                    <div class="col-md-3 col-3">
+                        <a href="@Url.Action("Index", "Purchase")" class="btn btn-primary btn-outline-primary float-right">
+                            <i class="icofont icofont-user-alt-3"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-block">
+                @using (Html.BeginForm("Edit", "Purchase", FormMethod.Post, new { id = "submitForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.PurchaseID)
+
+                    <h4 class="sub-title">Purchase Details</h4>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.CompanyID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(model => model.CompanyID,
+                             Ret.EstimateController.GetCompanyList(), new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.CompanyID, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.Label("Purchase No", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.TextBox("SerialNo",ViewData["SerNo"], null, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.PurchaseDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.PurchaseDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PurchaseDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.VenderID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.VenderID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.VenderID, "", new { @class = "text-danger" })
+                            @Html.Hidden("VenderHiddenID")
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-primary btn-outline-primary float-right" type="button" onclick="addVender();"><i class="icofont icofont-plus"></i></button>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.InvoiceNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.InvoiceNo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.InvoiceNo, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.InvoiceDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.InvoiceDate, new { htmlAttributes = new { @class = "form-control", @maxlength = "10" } })
+                            @Html.ValidationMessageFor(model => model.InvoiceDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.TransportName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.TransportName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TransportName, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.DocNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.DocNo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.DocNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <h4 class="sub-title">Product Details</h4>
+                    <!-- Row start -->
+                    <div class="row">
+                        <div class="col-lg-12 col-xl-12">
+                            <div class="sub-title">Default</div>
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs  tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#product" role="tab">Product</a>
+                                </li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content tabs card-block">
+                                <div class="tab-pane active" id="product" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <label class="form-control-label">Product</label>
+                                            @Html.TextBox("ProductName", null, new { @class = "form-control" })
+                                            @Html.Hidden("ProductID")
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <label class="form-control-label">Quantity</label>
+                                            @Html.TextBox("PQty", null, new { @class = "form-control" })
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label class=" form-control-label">Unit</label>
+                                            @Html.TextBox("PUnit", null, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label class=" form-control-label">Rate</label>
+                                            @Html.TextBox("PRate", null, new { @class = "form-control" })
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <label class=" form-control-label">GST %</label>
+                                            @Html.TextBox("PGST", null, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <br />
+                                            <button class="btn btn-primary btn-outline-primary float-right" type="button" onclick="addItems('P');"><i class="icofont icofont-plus"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Row end -->
+                    <div class='dt-responsive table-responsive'>
+                        <table id='purTable' class='table table-striped table-bordered nowrap'>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Product Name</th>
+                                    <th>Qty</th>
+                                    <th>Unit</th>
+                                    <th>Rate</th>
+                                    <th>Amount</th>
+                                    <th>GST Slab</th>
+                                    <th>GST Amount</th>
+                                    <th>Del</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <input type="submit" value="Update" class="btn btn-primary btn-out float-right" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <!-- Vender Model-->
+        <div class="modal fade" id="VenderModel" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-c-lite-green">
+                        <h4 class="modal-title">Vender Details</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h4 class="sub-title">Vender</h4>
+                        <div class="form-group row">
+                            @Html.Label("", "Vender Names", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBox("VenderName", null, new { placeholder = "Vender Name", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.Label("", "Address", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextArea("Address", null, new { placeholder = "Address", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.Label("", "State", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.TextBox("State", null, new { placeholder = "State", @class = "form-control" })
+                            </div>
+                            @Html.Label("", "City", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.TextBox("City", null, new { placeholder = "City", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.Label("", "Mobile", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.TextBox("Mobile", null, new { placeholder = "Mobile", @class = "form-control" })
+                            </div>
+                            @Html.Label("", "WhatsApp", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.TextBox("WhatsApp", null, new { placeholder = "Whatsup", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.Label("", "Email", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.TextBox("Email", null, new { placeholder = "Email", @class = "form-control" })
+                            </div>
+                            @Html.Label("", "GSTNo", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.TextBox("GSTNo", null, new { placeholder = "GST No", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <input type="button" value="Close" onclick="closeVender();" class="btn btn-danger btn-out float-right" style="margin-right:5px;" />
+                                <input type="button" value="Clear" onclick="clearVender();" class="btn btn-success btn-out float-right" style="margin-right:5px;" />
+                                <input type="button" value="New Vender" onclick="addVender();" class="btn btn-primary btn-out float-right" style="margin-right:5px;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

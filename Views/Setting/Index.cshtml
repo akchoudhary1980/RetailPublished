@@ -1,0 +1,228 @@
+﻿@model Ret.SettingModel
+@{
+    Layout = "~/Views/Shared/_admin.cshtml";
+}
+<style type="text/css">
+  fieldset {
+  display: block;
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-bottom: 20px;
+  padding-top: 0.35em;
+  padding-bottom: 0.625em;
+  padding-left: 0.75em;
+  padding-right: 0.75em;  
+  border:1px solid silver;
+}
+  fieldset legend {
+     font-size:16px;
+     font-weight:600;
+     padding:10px;
+     margin:0px;
+     width:auto;
+     text-align:center;    
+  }
+</style>
+
+<div class="page-header animated bounceInRight">
+    <div class="card">
+        <div class="card-block bg-primary">
+            <div class="row ">
+                <div class="col-lg-4">
+                    <h5 class="text-uppercase font-weight-bold">Setting Update</h5>
+                </div>
+                <div class="col-lg-8 align-items-end">
+                    <div class="page-header-breadcrumb">
+                        <ul class="breadcrumb-title">
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("Index", "Dashboard")"> <i class="icofont icofont-home" style="color:white"></i> </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("Index", "Setting")" style="color:white">Home / Masters / Setting Update</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated bounceInDown">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-block">
+                <h4 class="sub-title">Setting Update</h4>
+                @using (Html.BeginForm("Index", "Setting", FormMethod.Post))
+                {                    
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.SettingID)
+                    <fieldset>
+                        <legend>SMS SETTING</legend>
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.SmsPasswordRecoveryOTP, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.SmsPasswordRecoveryOTP, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.SmsPasswordRecoveryOTP, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.SmsMobileVerificationOTP, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.SmsMobileVerificationOTP, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.SmsMobileVerificationOTP, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.SmsOrderConfirm, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.SmsOrderConfirm, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.SmsOrderConfirm, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.SmsOnlinePaymentConfirm, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.SmsOnlinePaymentConfirm, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.SmsOnlinePaymentConfirm, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.SmsOfflinePaymentConfirm, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.SmsOfflinePaymentConfirm, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.SmsOfflinePaymentConfirm, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.SmsWorkProgressUpdate, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.SmsWorkProgressUpdate, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.SmsWorkProgressUpdate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.SmsMaunalPaymentReminder, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.SmsMaunalPaymentReminder, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.SmsMaunalPaymentReminder, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.SmsAutoPaymentReminder, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.SmsAutoPaymentReminder, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.SmsAutoPaymentReminder, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.SmsDirectToCustomer, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.SmsDirectToCustomer, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.SmsDirectToCustomer, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.SmsNoticToEmployee, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.SmsNoticToEmployee, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.SmsNoticToEmployee, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.SmsMultipleMarketing, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.SmsMultipleMarketing, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.SmsMultipleMarketing, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.SmsTestingPurpose, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.SmsTestingPurpose, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.SmsTestingPurpose, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+
+                        <legend>EMAIL SETTING</legend>
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.EmailPasswordRecoveryOTP, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.EmailPasswordRecoveryOTP, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.EmailPasswordRecoveryOTP, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.EmailMobileVerificationOTP, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.EmailMobileVerificationOTP, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.EmailMobileVerificationOTP, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.EmailOrderConfirm, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.EmailOrderConfirm, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.EmailOrderConfirm, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.EmailOnlinePaymentConfirm, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.EmailOnlinePaymentConfirm, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.EmailOnlinePaymentConfirm, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.EmailOfflinePaymentConfirm, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.EmailOfflinePaymentConfirm, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.EmailOfflinePaymentConfirm, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.EmailWorkProgressUpdate, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.EmailWorkProgressUpdate, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.EmailWorkProgressUpdate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.EmailMaunalPaymentReminder, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.EmailMaunalPaymentReminder, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.EmailMaunalPaymentReminder, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.EmailAutoPaymentReminder, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.EmailAutoPaymentReminder, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.EmailAutoPaymentReminder, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.EmailDirectToCustomer, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.EmailDirectToCustomer, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.EmailDirectToCustomer, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.EmailNoticToEmployee, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.EmailNoticToEmployee, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.EmailNoticToEmployee, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.EmailMultipleMarketing, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.EmailMultipleMarketing, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.EmailMultipleMarketing, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.EmailTestingPurpose, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(model => model.EmailTestingPurpose, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                                @Html.ValidationMessageFor(model => model.EmailTestingPurpose, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <input type="submit" value="Update" class="btn btn-primary btn-out float-right" />
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+        <!-- Default card end -->
+    </div>
+</div>
+
+
