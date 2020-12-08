@@ -5,24 +5,30 @@ $(function () {
         changeYear: true,
         dateFormat: "dd-mm-yy"
     });
+    $("#ExpactedDate").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd-mm-yy"
+    });
 });
 // Get Auto Quotation No 
 $(function () {
-    $("#CompanyID").change(function () {
-        var compid = $('option:selected', this).val().toString();
-        if (compid != "") {
+    //$("#CompanyID").change(function () {
+    //    var compid = $('option:selected', this).val().toString();
+    //    if (compid != "") {
+
             $.ajax({
                 type: "POST",
                 url: "/Quotation/QuotationNo",
                 dataType: "json",
-                data: { CompID: compid },
+                data: { CompID: 1 },
                 success: function (response) {
                     var str = response;
                     $("#SerialNo").val(str);
                 }
             });
-        }
-    });
+//        }
+//    });
 });
 
 // Customer Auto Complete

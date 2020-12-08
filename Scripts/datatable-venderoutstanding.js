@@ -82,9 +82,11 @@ $(document).ready(function () {
                 },
             },
             {
-                "render": function (data, type, full)
-                {
-                    return "<a href='VenderPayment/Details/" + full.VenderID + "' class='btn btn-success btn-mini btn-outline-primary'><i class='icofont icofont-notebook'></i></a>";                        
+                
+                "render": function (data, type, full,meta)
+                {                       
+                    var myURL = "Details/" + full.VenderID;
+                    return "<a href=" + myURL + " class='btn btn-success btn-mini btn-outline-primary'><i class='icofont icofont-notebook'></i></a>";                        
                 }
             },            
            

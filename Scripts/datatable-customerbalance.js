@@ -83,8 +83,11 @@ $(document).ready(function () {
             },
             {               
                 "render": function (data, type, full, meta)
-                {                 
-                    return "<a href='CustomerPayment/Details/" + full.CustomerID + "' class='btn btn-success btn-mini btn-outline-primary'><i class='icofont icofont-ui-edit'></i></a>";                        
+                {     
+                    var myURL = "Details/" + full.CustomerID;
+                    return "<a href=" + myURL + " class='btn btn-success btn-mini btn-outline-primary'><i class='icofont icofont-notebook'></i></a>";  
+
+                    //return "<a href='CustomerPayment/Details/" + full.CustomerID + "' class='btn btn-success btn-mini btn-outline-primary'><i class='icofont icofont-ui-edit'></i></a>";                        
                 }
             },            
            

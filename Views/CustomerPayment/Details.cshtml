@@ -1,38 +1,34 @@
 ﻿@{
     Layout = "~/Views/Shared/_admin.cshtml";
-    int venderid = Convert.ToInt16(ViewData["VenderID"]);
-    int purcount = 1;
+    int customerid = Convert.ToInt16(ViewData["CustomerID"]);
+    int salecount = 1;
     int paycount = 1;
 
     Ret.dbContext db = new Ret.dbContext();
-    var pur = db.PurchaseModels.Where(x => x.VenderID == venderid).ToList();
-    var payment = db.VenderPaymentModels.Where(x => x.VenderID == venderid).ToList();
-    var ven = db.VenderModels.Where(x => x.VenderID == venderid).SingleOrDefault();
-    double purtotal = 0;
+    var sale = db.SalesModels.Where(x => x.CustomerID == customerid).ToList();
+    var payment = db.CustomerPaymentModels.Where(x => x.CustomerID == customerid).ToList();
+    var cus = db.CustomerModels.Where(x => x.CustomerID == customerid).SingleOrDefault();
+    double saletotal = 0;
     double paymenttotal = 0;
-    double outstanding = 0;
+    double balance = 0; 
 
-    if (venderid!=0)
+    if (customerid!=0)
     {
-        purtotal = db.PurchaseModels.Where(x => x.VenderID == venderid).Sum(s => s.PurchaseTotal);
-        paymenttotal = db.VenderPaymentModels.Where(x => x.VenderID == venderid).Sum(s => s.Amount);
-        outstanding = purtotal - paymenttotal;
+        saletotal = db.SalesModels.Where(x => x.CustomerID == customerid).Sum(s => s.SaleTotal);
+        paymenttotal = db.CustomerPaymentModels.Where(x => x.CustomerID == customerid).Sum(s => s.Amount);
+        balance = saletotal - paymenttotal;
     }
 }
-
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 <script src="~/Scripts/jquery-ui-1.10.2.js"></script>
 <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
-
-
-
 
 <div class="page-header animated bounceInRight">
     <div class="card">
         <div class="card-block bg-primary">
             <div class="row ">
                 <div class="col-lg-4">
-                    <h5 class="text-uppercase font-weight-bold">Vender Ledger</h5>
+                    <h5 class="text-uppercase font-weight-bold">Customer Ledger</h5>
                 </div>
                 <div class="col-lg-8 align-items-end">
                     <div class="page-header-breadcrumb">
@@ -59,43 +55,67 @@
                     <div class="col-md-12">
                         <h4>@ViewData["PageTitle"]</h4>                       
                     </div>
-                </div>               
+                </div>
+                @*<div class="row">
+                    <div class="col-md-12">
+                        @using (Html.BeginForm("CustomerLedger", "CustomerPayment", FormMethod.Post))
+                        {
+                            <di class="form-group row">
+                                @Html.Label("", "Customer Name", new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextBox("Customer", "", new { @class = "form-control" })
+                                    @Html.Hidden("CustomerHiddenID", "0")
+                                </div>
+                                
+                            </di>
+                            <di class="form-group row">
+                                @Html.Label("", "Selected Customer", new { @class = "control-label col-md-2" })
+                                <div class="col-md-9">
+                                    @Html.TextBox("CustomerName", "", new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                                <div class="col-md-1">
+                                    <button class="btn btn-primary btn-outline-primary float-right" type="submit"><i class="icofont icofont-search"></i></button>
+                                </div>
+                            </di>
+                        }
+                    </div>                      
+                </div>*@
             </div>
             <div class="card-block">
-                <h5>Vender Details</h5>
+                <h5>Customer Details</h5>
                 <hr />
                 <div class='dt-responsive table-responsive'>
                     <table id='cbtn-selectors2' class='table table-striped table-bordered nowrap'>
                         <tbody>
-                            @if (ven != null)
+                            @if (cus != null)
                             {
                             <tr>
                                 <th>Customer Name</th>
-                                <td>@ven.VenderName</td>
+                                <td>@cus.CustomerName</td>
                                 <th>Balance</th>
-                                <th class="bg-c-lite-green text-right">@Ret.TextLib.IndianRuppes(outstanding)</th>
+                                <th class="bg-c-lite-green text-right">@Ret.TextLib.IndianRuppes(@balance)</th>
                             </tr>
                             <tr>
                                 <th>Address</th>
-                                <td colspan="3">@ven.Address</td>
+                                <td colspan="3">@cus.Address</td>
                             </tr>
                             <tr>
                                 <th>Mobile</th>
-                                <td>@ven.Mobile</td>
+                                <td>@cus.Mobile</td>
                                 <th>Whatsup</th>
-                                <td>@ven.Whatsup</td>
+                                <td>@cus.Whatup</td>
                             </tr>
                             <tr>
                                 <th>Email</th>
-                                <td>@ven.Email</td>
+                                <td>@cus.Email</td>
                                 <th>Print</th>
-                                <td><a class="btn btn-outline-success" href="@Url.Action("CLedgerPrint", "Payment",new { id = ven.VenderID })">Print</a></td>
+                                <td><a class="btn btn-outline-success" href="@Url.Action("CLedgerPrint", "Payment",new { id = cus.CustomerID })">Print</a></td>
                             </tr>
                             }
                         </tbody>                       
                     </table>
                 </div>
-                <h5>Purchase Details</h5>
+                <h5>Sale Details</h5>
                 <hr />
                 <div class='dt-responsive table-responsive'>
                     <table id='cbtn-selectors2' class='table table-striped table-bordered nowrap'>
@@ -105,31 +125,31 @@
                                 <th>Date</th>
                                 <th>Inv No</th>
                                 <th>Remark</th>
-                                <th>Pur Value</th>
-                                <th>Pur GST</th>
-                                <th>Pur Total</th>
+                                <th>Sale Value</th>
+                                <th>Sale GST</th>
+                                <th>Sale Total</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if (pur != null)
+                            @if (sale != null)
                             {
-                                foreach (var s in pur)
+                                foreach (var s in sale)
                                 {
                                     <tr>
-                                        <td>@purcount</td>
-                                        <td>@Ret.TextLib.GetDateDDMMYYYY(s.PurchaseDate.ToString())</td>
+                                        <td>@salecount</td>
+                                        <td>@Ret.TextLib.GetDateDDMMYYYY(s.SalesDate.ToString())</td>
                                         <td>@s.SerialNo</td>
                                         <td>@s.Remark</td>
-                                        <td class="text-right">@Ret.TextLib.IndianRuppes(s.PurchaseValue)</td>
-                                        <td class="text-right">@Ret.TextLib.IndianRuppes(s.PurchaseGST)</td>
-                                        <td class="text-right">@Ret.TextLib.IndianRuppes(s.PurchaseTotal)</td>
+                                        <td class="text-right">@Ret.TextLib.IndianRuppes(s.SaleValue)</td>
+                                        <td class="text-right">@Ret.TextLib.IndianRuppes(s.SaleGST)</td>
+                                        <td class="text-right">@Ret.TextLib.IndianRuppes(s.SaleTotal)</td>
                                     </tr>
-                                    purcount = purcount + 1;
+                                    salecount = salecount + 1;
                                 }
                             }
                         <tr>
-                            <th class="text-right" colspan="6">Total Purchase</th>
-                            <td class="text-right">@Ret.TextLib.IndianRuppes(purtotal)</td>
+                            <th class="text-right" colspan="6">Total Sale</th>
+                            <td class="text-right">@Ret.TextLib.IndianRuppes(@saletotal)</td>
                         </tr>
                         </tbody>
                     </table>
@@ -150,7 +170,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if (payment != null)
+                            @if (sale != null)
                             {
                                 foreach (var p in payment)
                                 {

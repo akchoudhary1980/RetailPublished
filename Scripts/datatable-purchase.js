@@ -94,7 +94,7 @@ $(document).ready(function () {
             {
                 "data": "VenderID", "name": "VenderID",
                 "render": function (data, type, full) {
-                    return "<a href='Purchase/PaymentPay/" + full.VenderID + "' class='btn btn-info btn-mini btn-outline - info'><i class='icofont icofont-cur-rupee'></i>";
+                    return "<a href='Purchase/Payment/" + full.VenderID + "' class='btn btn-info btn-mini btn-outline - info'><i class='icofont icofont-cur-rupee'></i>";
                 }
             },
             
