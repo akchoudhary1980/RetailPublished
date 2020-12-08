@@ -1,11 +1,15 @@
 ﻿@{
     Layout = "~/Views/Shared/_admin.cshtml";
 }
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-ui-1.10.2.js"></script>
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
 <!--for Open PDF File-->
 <script type="text/javascript">
     // define here call here
     function OpenPDF() {
-        window.open('../UploadFiles/Temp.pdf', '_blank');        
+        window.open('../UploadFiles/Temp.pdf', '_blank');
     }
 </script>
 @if (TempData["OpenPDFfile"] != null)
@@ -61,7 +65,7 @@
                                 <th>#</th>
                                 <th>Pur No</th>
                                 <th>Pur Date</th>
-                                <th>Vender Name</th>                                
+                                <th>Vender Name</th>
                                 <th>Pur Value</th>
                                 <th>Pur GST</th>
                                 <th>Pur Total</th>
@@ -77,5 +81,4 @@
         </div>
     </div>
 </div>
-
-<script src="~/Scripts/purchase-datatable.js"></script>
+<script src="~/Scripts/datatable-purchase.js"></script>

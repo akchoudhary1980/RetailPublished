@@ -1,5 +1,4 @@
-﻿function ConvertToDDMMYYYY(stingdate) {
-    //alert(stingdate);
+﻿function ConvertToDDMMYYYY(stingdate) {   
     var pattern = /Date\(([^)]+)\)/;
     var results = pattern.exec(stingdate);
     var mydate = new Date(parseFloat(results[1]));

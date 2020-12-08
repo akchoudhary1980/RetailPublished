@@ -81,9 +81,9 @@ $(document).ready(function () {
                     return ConvertToIndian(full.Balance);
                 },
             },
-            {
-                "render": function (data, type, full)
-                {
+            {               
+                "render": function (data, type, full, meta)
+                {                 
                     return "<a href='CustomerPayment/Details/" + full.CustomerID + "' class='btn btn-success btn-mini btn-outline-primary'><i class='icofont icofont-ui-edit'></i></a>";                        
                 }
             },            
