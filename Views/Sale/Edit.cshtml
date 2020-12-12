@@ -2,14 +2,68 @@
 @{
     Layout = "~/Views/Shared/_admin.cshtml";
 }
-
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 <script src="~/Scripts/jquery-ui-1.10.2.js"></script>
 <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
 <script src="~/Scripts/AjaxModules.js"></script>
 
-<!-- Get Sale No-->
+<script>
+    $(function () {
+        $("#SalesDate").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "dd-mm-yy"
+        });
+    });
+</script>
+
+
 <script type="text/javascript">
+    SetInputNumericIndian('DiscountValue');
+    SetInputNumericIndian('Discount');
+
+    function FormValidation() {
+        RemoveIndianCulture("DiscountValue");
+        RemoveIndianCulture("Discount");
+    }
+</script>
+
+<script type="text/javascript">
+    function UpdateDiscount(method) {
+        var per = 0; var disamount = 0; var saleamount = 0;
+        grandtotal = ClearCulture(grandtotal);
+        if (method == "P") {
+            per = parseFloat($("#DiscountPercent").val());
+            disamount = grandtotal * per / 100;
+            saleamount = grandtotal - disamount;
+            $("#DiscountPercent").val(per);
+            $("#DiscountValue").val(ConvertToIndian(disamount));
+            $("#Discount").val(ConvertToIndian(disamount));
+            $("#SaleAmount").text(ConvertToIndian(saleamount));
+        }
+        else {
+            disamount = ClearCulture($("#DiscountValue").val());
+            disamount = parseFloat(disamount);
+            per = disamount / grandtotal * 100;
+            saleamount = grandtotal - disamount;
+            $("#DiscountPercent").val(per);
+            $("#DiscountValue").val(ConvertToIndian(disamount));
+            $("#Discount").val(ConvertToIndian(disamount));
+            $("#SaleAmount").text(ConvertToIndian(saleamount));
+        }
+    }
+
+    $(function () {
+        $("#DiscountPercent").blur(function () {
+            UpdateDiscount("P");
+        });
+        $("#DiscountValue").blur(function () {
+            UpdateDiscount("V");
+        });
+    });
+</script>
+<!-- Get Sale No-->
+@*<script type="text/javascript">
     $(function () {
         $("#CompanyID").change(function () {
             var compid = $('option:selected', this).val().toString();
@@ -28,16 +82,8 @@
             }
         });
     });
-</script>
-<script>
-    $(function () {
-        $("#SalesDate").datepicker({
-            changeMonth: true,
-            changeYear: true,
-            dateFormat: "dd-mm-yy"
-        });
-    });
-</script>
+</script>*@
+
 <script type="text/javascript">
     // Open Customer Model
     function addCustomer() {
@@ -357,12 +403,12 @@
 
                     <h4 class="sub-title">Sale Details</h4>
                     <div class="form-group row">
-                        @Html.LabelFor(model => model.CompanyID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @*@Html.LabelFor(model => model.CompanyID, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
                             @Html.DropDownListFor(model => model.CompanyID,
                              Ret.EstimateController.GetCompanyList(), new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.CompanyID, "", new { @class = "text-danger" })
-                        </div>
+                        </div>*@
                         @Html.Label("Invoice No", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
                             @Html.TextBox("SerialNo", ViewData["SerNo"], null, new { @class = "form-control", @readonly = "readonly" })
@@ -498,11 +544,43 @@
                             <tbody>
                             </tbody>
                         </table>
+                        <table class='table table-striped table-bordered nowrap'>
+                            <thead style="visibility:collapse">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Product Name</th>
+                                    <th>Qty</th>
+                                    <th>Unit</th>
+                                    <th>Rate</th>
+                                    <th>Amount</th>
+                                    <th>GST Slab</th>
+                                    <th>GST Amount</th>
+                                    <th>Del</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td align="right" colspan="5"><b>Discount</b></td>
+                                    <td align="right"> @Html.EditorFor(model => model.DiscountPercent, new { htmlAttributes = new { @class = "form-control small-textbox" } })</td>
+                                    <td align="right"> @Html.EditorFor(model => model.DiscountValue, new { htmlAttributes = new { @class = "form-control small-textbox" } })</td>
+                                    <td align="right"> @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control small-textbox" } })</td>
+                                    @*<td align="right"> @Html.TextBox("DiscountPercent", "0", new { @class = "form-control small-textbox", @placeholder = "Per" })</td>*@
+                                    @*<td align="right"> @Html.TextBox("DiscountValue", "0", new { @class = "form-control small-textbox", @placeholder = "Amt" })</td>
+                                    <td align="right"> @Html.TextBox("Discount", "0", new { @class = "form-control small-textbox", @placeholder = "Dis", @readonly = "readonly" })</td>*@
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td align="right" colspan="7"><b>Grand Total</b></td>
+                                    <td align="right"><label id="SaleAmount" for="deletetxt"></label></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <input type="submit" value="Update" class="btn btn-primary btn-out float-right" />
+                            <input type="submit" value="Update" onclick="return FormValidation();" class="btn btn-primary btn-out float-right" />
                         </div>
                     </div>
 

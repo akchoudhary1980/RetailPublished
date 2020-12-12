@@ -7,6 +7,16 @@
 <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
 <script src="~/Scripts/AjaxModules.js"></script>
 
+<script type="text/javascript">    
+    SetInputNumericIndian('DiscountValue');
+    SetInputNumericIndian('Discount');
+
+    function FormValidation() {
+        RemoveIndianCulture("DiscountValue");
+        RemoveIndianCulture("Discount");
+    }
+</script>
+
 <style>
     .small-textbox{
         width:70px;
@@ -14,31 +24,60 @@
 </style>
 
 <script type="text/javascript">
+    function UpdateDiscount(method) {
+        var per = 0; var disamount=0;var saleamount = 0;
+        grandtotal = ClearCulture(grandtotal);   
+        if (method == "P") {
+            per = parseFloat($("#DiscountPercent").val());
+            disamount = grandtotal * per / 100;
+            saleamount = grandtotal - disamount;
+            $("#DiscountPercent").val(per);
+            $("#DiscountValue").val(ConvertToIndian(disamount));
+            $("#Discount").val(ConvertToIndian(disamount));
+            $("#SaleAmount").text(ConvertToIndian(saleamount));          
+        }
+        else { 
+            disamount = ClearCulture($("#DiscountValue").val());
+            disamount = parseFloat(disamount);            
+            per = disamount/grandtotal * 100;
+            saleamount = grandtotal - disamount;
+            $("#DiscountPercent").val(per);
+            $("#DiscountValue").val(ConvertToIndian(disamount));
+            $("#Discount").val(ConvertToIndian(disamount));
+            $("#SaleAmount").text(ConvertToIndian(saleamount));
+        }
+    }
+
     $(function () {
         $("#DiscountPercent").blur(function () {
-            alert("This input field has lost its focus.");
+            UpdateDiscount("P");
+        });
+        $("#DiscountValue").blur(function () {          
+            UpdateDiscount("V");
         });
     });
 </script>
 <!-- Get Sale No-->
 <script type="text/javascript">
     $(function () {
-        $("#CompanyID").change(function () {
-            var compid = $('option:selected', this).val().toString();
-            if (compid != "") {
+        //$("#CompanyID").change(function () {
+        //    var compid = $('option:selected', this).val().toString();
+        //    if (compid != "") {
+
+
                 $.ajax({
                     type: "POST",
                     url: "/Sale/GetSaleNo",
                     dataType: "json",
-                    data: { CompID: compid },
+                    data: { CompID: 1 },
                     success: function (response) {
                         var str = response;
                         $("#SerialNo").val(str);
                     }
                 });
 
-            }
-        });
+        //    }
+        //});
     });
 </script>
 <script type="text/javascript">
@@ -223,10 +262,13 @@
 </script>
 <!--for Display Data-->
 <script type="text/javascript">
+    var totalamt = 0;
+    var totalgst = 0;
+    var grandtotal = 0;
     function DisplayData(data) {
-        var totalamt = 0;
-        var totalgst = 0;
-        var grandtotal = 0;
+        //var totalamt = 0;
+        //var totalgst = 0;
+        //var grandtotal = 0;
         var counter = 0;
         $("#estTable tbody tr").remove();
         var items = '';
@@ -366,12 +408,12 @@
                     <h4 class="sub-title">Sale Details</h4>
 
                     <div class="form-group row">
-                        @Html.LabelFor(model => model.CompanyID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @*@Html.LabelFor(model => model.CompanyID, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
                             @Html.DropDownListFor(model => model.CompanyID,
                              Ret.EstimateController.GetCompanyList(), new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.CompanyID, "", new { @class = "text-danger" })
-                        </div>
+                        </div>*@
                         @Html.Label("Invoice No", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
                             @Html.TextBox("SerialNo", null, new { @class = "form-control", @readonly = "readonly" })
@@ -396,7 +438,7 @@
                         <div class="col-md-9">
                             @Html.EditorFor(model => model.CustomerID, new { htmlAttributes = new { @class = "form-control", @type = "text" } })
                             @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
-                            @Html.Hidden("CustomerHiddenID", "0")
+                            @Html.Hidden("CustomerHiddenID", "0")                          
                         </div>
                         <div class="col-md-1">
                             <button class="btn btn-primary btn-outline-primary float-right" type="button" onclick="addCustomer();"><i class="icofont icofont-plus"></i></button>
@@ -524,22 +566,23 @@
                             <tbody>
                                 <tr>
                                     <td align="right" colspan="5"><b>Discount</b></td>
-                                    <td align="right"> @Html.TextBox("DiscountPercent", null, new { @class = "form-control small-textbox", @placeholder = "Per" })</td>
-                                    <td align="right"> @Html.TextBox("DiscountValue", null, new { @class = "form-control small-textbox", @placeholder = "Amt" })</td>
-                                    <td align="right"> @Html.TextBox("DiscountAmount", null, new { @class = "form-control small-textbox", @placeholder = "Dis" })</td>
+                                    <td align="right"> @Html.TextBox("DiscountPercent","0", new { @class = "form-control small-textbox", @placeholder = "Per" })</td>
+                                    <td align="right"> @Html.TextBox("DiscountValue", "0", new { @class = "form-control small-textbox", @placeholder = "Amt" })</td>
+                                    <td align="right"> @Html.TextBox("Discount", "0", new { @class = "form-control small-textbox", @placeholder = "Dis" ,@readonly="readonly" })</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td align="right" colspan="7"><b>Grand Total</b></td>
+                                    <td align="right"><label id="SaleAmount" for="deletetxt"></label></td>                                    
                                     <td></td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-
-                    <div class='dt-responsive table-responsive'>
-            
-        </div>
+                    </div>                    
 
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <input type="submit" value="Create" class="btn btn-primary btn-out float-right" />
+                            <input type="submit" value="Create" onclick="return FormValidation();" class="btn btn-primary btn-out float-right" />
                         </div>
                     </div>
 
