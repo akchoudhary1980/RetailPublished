@@ -74,7 +74,7 @@
                                         <img id="captcha" src="~/UploadFiles/captcha.jpg?" + new Date().getTime(); />
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" id="CaptchaCode" name="CaptchaCode" class="form-control" placeholder="Captcha Code" maxlength="6" />
+                                        <input type="text" id="CaptchaCode" name="CaptchaCode" class="form-control" autocomplete="off" placeholder="Captcha Code" maxlength="6" />
                                     </div>
                                     <div class="col-md-2">
                                         <button id="refCpatcha" type="button" onclick="refreshCaptcha();" class="btn btn-success text-center m-b-20 float-right"><i class="icofont icofont-refresh"></i></button>

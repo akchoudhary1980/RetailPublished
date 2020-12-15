@@ -10,22 +10,22 @@
 <!-- Get Purchase No-->
 <script type="text/javascript">
         $(function () {
-            $("#CompanyID").change(function () {
-                var compid = $('option:selected', this).val().toString();
-                if (compid != "")
-                {
+            //$("#CompanyID").change(function () {
+            //    var compid = $('option:selected', this).val().toString();
+            //    if (compid != "")
+            //    {
                         $.ajax({
                         type: "POST",
                         url: "/Purchase/GetPurchaseNo",
                         dataType: "json",
-                        data: { CompID: compid},
+                        data: { CompID: 1},
                         success: function (response) {
                             var str = response;
                             $("#SerialNo").val(str);
                         }
                     });
-                }
-            });
+            //    }
+            //});
         });
 </script>
 
@@ -288,29 +288,30 @@
                     <h4 class="sub-title">Purchase Details</h4>
 
                     <div class="form-group row">
-                        @Html.LabelFor(model => model.CompanyID, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-4">
-                            @Html.DropDownListFor(model => model.CompanyID,
-                             Ret.EstimateController.GetCompanyList(), new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.CompanyID, "", new { @class = "text-danger" })
-                        </div>
+                        @*@Html.LabelFor(model => model.CompanyID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DropDownListFor(model => model.CompanyID,
+             Ret.EstimateController.GetCompanyList(), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CompanyID, "", new { @class = "text-danger" })
+        </div>*@
                         @Html.Label("Purchase No", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
                             @Html.TextBox("SerialNo", null, new { @class = "form-control", @readonly = "readonly" })
                         </div>
-                    </div>
-
-                    <div class="form-group row">
                         @Html.LabelFor(model => model.PurchaseDate, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
                             @Html.EditorFor(model => model.PurchaseDate, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.PurchaseDate, "", new { @class = "text-danger" })
                         </div>
                     </div>
+
+                    <div class="form-group row">
+                        
+                    </div>
                     <div class="form-group row">
                         @Html.LabelFor(model => model.VenderID, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-9">
-                            @Html.EditorFor(model => model.VenderID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.VenderID, new { htmlAttributes = new { @class = "form-control",@type="text" } })
                             @Html.ValidationMessageFor(model => model.VenderID, "", new { @class = "text-danger" })
                             @Html.Hidden("VenderHiddenID", "0")
                         </div>
