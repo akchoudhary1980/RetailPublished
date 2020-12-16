@@ -1,13 +1,5 @@
-﻿@{      
-    Layout = null;
-    int id = Convert.ToInt32(ViewData["id"].ToString());
-    Ret.dbContext db = new Ret.dbContext();
-    var drPurchase = db.PurchaseModels.Where(x => x.PurchaseID == id).SingleOrDefault();
-    var drCompany = db.CompanyModels.Where(x => x.CompanyID == 1).SingleOrDefault();
-    var drVender = db.VenderModels.Where(x => x.VenderID == drPurchase.VenderID).SingleOrDefault();
-    // using join 
-    var purTrans = db.PurchaseTransModels.Where(x => x.PurchaseID == drPurchase.PurchaseID).ToList();    
-}
+
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -31,16 +23,16 @@
             <header>
                 <div class="row" style="margin-top:15px;">
                     <div class="col-md-3">                       
-                        <img src="@drCompany.CompanyPicture" class="img-fluid" />
+                        <img src="Company1.jpg" class="img-fluid" />
                     </div>
                     <div class="col-md-9">
                         <h2 class="text-right">
-                            @drCompany.CompanyName
+                            Radhe Mohan Electrical
                         </h2>
                         <p class="text-right">
-                            Add: @drCompany.CompanyAddress,
-                            <br /> Email: @drCompany.CompanyEmail,
-                            <br /> Mob: @drCompany.CompanyMobile
+                            Add: 1250, Vijay Nagar, Jabalpur MP,
+                            <br /> Email: ramesh@gmail.com,
+                            <br /> Mob: 9993913726
                         </p>
                     </div>
                 </div>
@@ -49,18 +41,18 @@
                 <div class="row" style="margin-top: 10px;">
                     <div class="col-md-6">
                         <div class="text-gray-light">PURCHASE FROM:</div>
-                        <h2>@drVender.VenderName</h2>
-                        <div>@drVender.Address</div>
-                        <div>Mobile: @drVender.Mobile</div>
-                        <div>Email : @drVender.Email</div>
+                        <h2>Mohan Electrical</h2>
+                        <div>1250, Vijay Nagar Jabalpur MP</div>
+                        <div>Mobile: 8815034101</div>
+                        <div>Email : suder@gmail.com</div>
                     </div>
                     <div class="col-md-6">
                         <h1 class="text-right">PURCHASE</h1>
-                        <h6 class="text-right"><b>Purchase No:Pur/@drCompany.InvoicePrefix/@drPurchase.SerialNo</b></h6>
+                        <h6 class="text-right"><b>Purchase No:Pur/RM/1</b></h6>
                         <p class="text-right">
-                            <b>Purchase Date: @Ret.TextLib.GetDateDDMMYYYY(drPurchase.PurchaseDate)</b> <br />
-                            <b>Purchase Invoice: @drPurchase.InvoiceNo</b> <br />
-                            <b>Purchase Invoice Date: @Ret.TextLib.GetDateDDMMYYYY(drPurchase.InvoiceDate)</b> <br />
+                            <b>Purchase Date: 17-12-2020</b> <br />
+                            <b>Purchase Invoice: Invoic01</b> <br />
+                            <b>Purchase Invoice Date: 17-12-2020</b> <br />
                         </p>
                     </div>
                 </div>
@@ -84,43 +76,40 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @{
-                                    double totalamount = 0;
-                                    double totalgst = 0;
-                                    double total = 0;
-                                    int counter = 0;
-
-                                    foreach (var item in purTrans)
-                                    {                                        
-                                        counter = counter + 1;
                                         <tr>
-                                            <td>@counter</td>
-                                            <td>@Ret.DataLib.GetCellItems("Select ProductName From ProductModels Where ProductID =" + item.ProductID) </td>
-                                            <td class="text-right">@item.Quantity</td>
-                                            <td class="text-right">@Ret.DataLib.GetCellItems("Select UnitName From UnitModels Where UnitID=" + item.UnitID)</td>
-                                            <td class="text-right">@Ret.TextLib.IndianRuppes(item.Rate)</td>
-                                            <td class="text-right">@Ret.TextLib.IndianRuppes(item.Amount)</td>
-                                            <td class="text-right">@item.GSTSlab</td>
-                                            <td class="text-right">@Ret.TextLib.IndianRuppes(item.GSTAmount)</td>
-                                            <td class="text-right">@Ret.TextLib.IndianRuppes(item.Amount + item.GSTAmount)</td>
+                                            <td>1</td>
+                                            <td>LED Bulb 9 Watt </td>
+                                            <td class="text-right">10</td>
+                                            <td class="text-right">Pcs</td>
+                                            <td class="text-right">₹180.00</td>
+                                            <td class="text-right">₹1,800.00</td>
+                                            <td class="text-right">5</td>
+                                            <td class="text-right">₹90.00</td>
+                                            <td class="text-right">₹1,890.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Switch 6A </td>
+                                            <td class="text-right">10</td>
+                                            <td class="text-right">Pcs</td>
+                                            <td class="text-right">₹25.00</td>
+                                            <td class="text-right">₹250.00</td>
+                                            <td class="text-right">5</td>
+                                            <td class="text-right">₹12.50</td>
+                                            <td class="text-right">₹262.50</td>
                                         </tr>
 
-                                        totalamount = totalamount + item.Amount;
-                                        totalgst = totalgst + item.GSTAmount;
-                                        total = totalamount + totalgst;
-                                    }
-                                }
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="5" class="text-right"><b>TOTAL</b></td>
-                                    <td class="text-right"><b>@Ret.TextLib.IndianRuppes(totalamount)</b></td>
+                                    <td class="text-right"><b>₹2,050.00</b></td>
                                     <td></td>
-                                    <td class="text-right"><b>@Ret.TextLib.IndianRuppes(totalgst)</b></td>
-                                    <td class="text-right"><b>@Ret.TextLib.IndianRuppes(total)</b></td>
+                                    <td class="text-right"><b>₹102.50</b></td>
+                                    <td class="text-right"><b>₹2,152.50</b></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="9" class="text-right"><b>In Words :@Ret.TextLib.NumbertoWards(total.ToString())</b></td>
+                                    <td colspan="9" class="text-right"><b>In Words :Two Thousand One Hundred Fifty Two Rupee Only</b></td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -137,23 +126,23 @@
                     <p class="text-right">Submitted By</p>
                     <br />
                     <br />
-                    <p align="right" style="color: black">@drCompany.OnwerName </p>
-                    <p align="right" style="color: black"><b>@drCompany.CompanyName </b></p>
+                    <p align="right" style="color: black">Ramesh </p>
+                    <p align="right" style="color: black"><b>Radhe Mohan Electrical </b></p>
                 </div>
                 <hr />
                 <div>
                     Payment In favor of :,<br />
-                    Name : <b> @drCompany.BeneficiaryName </b>
+                    Name : <b> Radha Mohan Electrical </b>
                     <br />
-                    Bank : <b> @drCompany.BankName </b>
+                    Bank : <b> State Bank of India </b>
                     <br />
-                    Branch : <b>@drCompany.BranchName </b>
+                    Branch : <b> </b>
                     <br />
-                    A/c Number: <b> @drCompany.AccountNumber </b>
+                    A/c Number: <b> 32017281484 </b>
                     <br />
-                    A/c Type: <b> @drCompany.AccountType </b>
+                    A/c Type: <b> Current Account </b>
                     <br />
-                    IFSC Code : <b> @drCompany.AccountIFSCCode </b>
+                    IFSC Code : <b> SBIN7245682 </b>
                     <br />
                 </div>
             </section>
@@ -165,3 +154,4 @@
     </form>
 </body>
 </html>
+

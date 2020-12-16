@@ -13,19 +13,17 @@
 }
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title> Sales</title>
-<meta name="description" content="Retails Softwares">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="apple-touch-icon" href="apple-icon.png">
-<link rel="shortcut icon" href="favicon.ico">
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-<!-- Basic Style Sheet -->
-<link href="../adminty-master/files/bower_components/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="../adminty-master/files/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-
-<head runat="server">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">    
+    <meta name="description" content="Retails Softwares">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Basic Style Sheet -->
+    <link href="~/Themes/bower_components/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Themes/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <title>Print Invoice</title>
 </head>
 <body>
@@ -34,7 +32,7 @@
             <header>
                 <div class="row" style="margin-top:15px;">
                     <div class="col-md-3">
-                        <img src="../UploadFiles/@drCompany["CompanyPicture"].ToString()" class="img-fluid" />                        
+                        <img src="../UploadFiles/@drCompany["CompanyPicture"].ToString()" class="img-fluid" />
                     </div>
                     <div class="col-md-9">
                         <h2 class="text-right">
@@ -89,10 +87,10 @@
                                     double total = 0;
                                     int counter = 0;
 
-                                    for (int i = 0; i <saleTrans.Rows.Count; i++)
+                                    for (int i = 0; i < saleTrans.Rows.Count; i++)
                                     {
                                         System.Data.DataRow dr = saleTrans.Rows[i];
-                                        counter = counter+1;
+                                        counter = counter + 1;
                                         <tr>
                                             <td>@counter</td>
                                             @if (dr["ItemType"].ToString() == "P")
@@ -111,13 +109,14 @@
                                             <td class="text-right">@dr["GSTSlab"].ToString()</td>
                                             <td class="text-right">@Ret.TextLib.IndianRuppes(dr["GSTAmount"].ToString())</td>
                                             <td class="text-right">@Ret.TextLib.IndianRuppes(Convert.ToDouble(dr["Amount"].ToString()) + Convert.ToDouble(dr["GSTAmount"].ToString()))</td>
-                                        </tr>                                    
+                                        </tr>
+
                                         totalamount = totalamount + Convert.ToDouble(dr["Amount"].ToString());
                                         totalgst = totalgst + Convert.ToDouble(dr["GSTAmount"].ToString());
                                         total = totalamount + totalgst;
                                     }
-                                  }
-                                </tbody>
+                                }
+                            </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="5" class="text-right"><b>TOTAL</b></td>

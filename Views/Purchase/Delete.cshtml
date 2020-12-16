@@ -109,11 +109,11 @@
                         <tbody>
                             <tr>
                                 <td><b>@Html.DisplayNameFor(model => model.PurchaseDate)</b></td>
-                                <td>@Html.Raw(Logo.TextLib.GetDateDDMMYYYY(@Html.DisplayFor(model => model.PurchaseDate)))</td>
+                                <td>@Html.Raw(Ret.TextLib.GetDateDDMMYYYY(@Html.DisplayFor(model => model.PurchaseDate)))</td>
                             </tr>
                             <tr>
                                 <td><b>@Html.DisplayNameFor(model => model.VenderID)</b></td>
-                                <td>@Html.Raw(Logo.DataLib.GetCellItems("Select VenderName from VenderModels Where VenderID =" + (@Html.DisplayFor(model => model.VenderID))))</td>
+                                <td>@Html.Raw(Ret.DataLib.GetCellItems("Select VenderName from VenderModels Where VenderID =" + (@Html.DisplayFor(model => model.VenderID))))</td>
                             </tr>
                             <tr>
                                 <td><b>@Html.DisplayNameFor(model => model.InvoiceNo)</b></td>
@@ -121,7 +121,7 @@
                             </tr>
                             <tr>
                                 <td><b>@Html.DisplayNameFor(model => model.InvoiceDate)</b></td>
-                                <td>@Html.Raw(Logo.TextLib.GetDateDDMMYYYY(@Html.DisplayFor(model => model.InvoiceDate)))</td>
+                                <td>@Html.Raw(Ret.TextLib.GetDateDDMMYYYY(@Html.DisplayFor(model => model.InvoiceDate)))</td>
                             </tr>
                             <tr>
                                 <td><b>@Html.DisplayNameFor(model => model.TransportName)</b></td>
