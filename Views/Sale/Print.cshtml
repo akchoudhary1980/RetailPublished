@@ -1,47 +1,44 @@
 ﻿@{      
     Layout = null;
-    System.Data.DataRow drCompany;
-    System.Data.DataRow drSale;
-    System.Data.DataRow drCustomer;
-    System.Data.DataTable saleTrans = new System.Data.DataTable();
-
-    drSale = Ret.DataLib.GetQueryRow("Select * from SalesModels Where SalesID =" + ViewData["id"].ToString()); // Purchase 
-    saleTrans = Ret.DataLib.GetQueryTable("Select * from SalesTransModels Where SalesID =" + ViewData["id"].ToString()); // Purchase Trans 
-    drCompany = Ret.DataLib.GetQueryRow("Select * from CompanyModels Where CompanyID =" + drSale["CompanyID"].ToString()); // Company 
-    drCustomer = Ret.DataLib.GetQueryRow("Select * from CustomerModels Where CustomerID = " + drSale["CustomerID"].ToString()); // Customer               
-
+    int id = Convert.ToInt32(ViewData["id"].ToString());
+    Ret.dbContext db = new Ret.dbContext();
+    var drSale = db.SalesModels.Where(x => x.SalesID == id).SingleOrDefault();
+    var drCompany = db.CompanyModels.Where(x => x.CompanyID == 1).SingleOrDefault();
+    var drCustomer = db.CustomerModels.Where(x => x.CustomerID == drSale.CustomerID).SingleOrDefault();
+    // using join 
+    var saleTrans = db.SalesTransModels.Where(x => x.SalesID == drSale.SalesID).ToList();    
 }
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">    
-    <meta name="description" content="Retails Softwares">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title> Sales</title>
+    <meta name="description" content="Dreaming Desire">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-icon.png">
     <link rel="shortcut icon" href="favicon.ico">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-    <!-- Basic Style Sheet -->
-    <link href="~/Themes/bower_components/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Themes/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-    <title>Print Invoice</title>
+    <!-- Basic Style Sheet -->   
+    <link href="Common/bootstrap.min.css" rel="stylesheet" />
+    <link href="Common/font-awesome.min.css" rel="stylesheet" />
+    <title>Print Quotation</title>
 </head>
 <body>
     <form id="form1" runat="server">
         <div class="container">
             <header>
                 <div class="row" style="margin-top:15px;">
-                    <div class="col-md-3">
-                        <img src="../UploadFiles/@drCompany["CompanyPicture"].ToString()" class="img-fluid" />
+                    <div class="col-md-3">                       
+                        <img src="@drCompany.CompanyPicture" class="img-fluid" />
                     </div>
                     <div class="col-md-9">
-                        <h2 class="text-right">
-                            @drCompany["CompanyName"].ToString()
-                        </h2>
+                        <h3 class="text-right">@drCompany.CompanyName</h3>
                         <p class="text-right">
-                            Add: @drCompany["CompanyAddress"].ToString(),
-                            <br /> Email: @drCompany["CompanyEmail"].ToString(),
-                            <br /> Mob: @drCompany["CompanyMobile"].ToString()
+                            Add: @drCompany.CompanyAddress,
+                            <br /> Email: @drCompany.CompanyEmail,
+                            <br /> Mob: @drCompany.CompanyMobile
                         </p>
                     </div>
                 </div>
@@ -49,22 +46,24 @@
             <section style="margin-top: 30px;">
                 <div class="row" style="margin-top: 10px;">
                     <div class="col-md-6">
-                        <div class="text-gray-light">Sale TO :</div>
-                        <h2>@drCustomer["CustomerName"].ToString()</h2>
-                        <div>@drCustomer["Address"].ToString()</div>
-                        <div>Mobile: @drCustomer["Mobile"].ToString()</div>
-                        <div>Email : @drCustomer["Email"].ToString()</div>
+                        <div class="text-gray-light">INVOICE TO:</div>
+                        <h3>@drCustomer.CustomerName</h3>
+                        <div>@drCustomer.Address</div>
+                        <div>Mobile: @drCustomer.Mobile</div>
+                        <div>Email : @drCustomer.Email</div>
                     </div>
                     <div class="col-md-6">
-                        <h1 class="text-right">Sale</h1>
-                        <h5 class="text-right"><b>Invoice No:@drCompany["InvoicePrefix"].ToString()/@drSale["SerialNo"].ToString()</b></h5>
-                        <p class="text-right"><b>Invoice Date: @Ret.TextLib.GetDateDDMMYYYY(drSale["SalesDate"].ToString())</b></p>
+                        <h2 class="text-right">INVOICE</h2>
+                        <h6 class="text-right"><b>Invoice No: Inv/@drCompany.InvoicePrefix/@drSale.SerialNo</b></h6>
+                        <p class="text-right">
+                            <b>Inv. Date: @Ret.TextLib.GetDateDDMMYYYY(drSale.SalesDate)</b> <br />
+                        </p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 table-responsive">
                         <br />
-                        <h4 class="text-center">SALE DETAILS</h4>
+                        <h4 class="text-center">INVOICE DETAILS</h4>
                         <br />
                         <table class="table table-bordered">
                             <thead>
@@ -87,32 +86,22 @@
                                     double total = 0;
                                     int counter = 0;
 
-                                    for (int i = 0; i < saleTrans.Rows.Count; i++)
-                                    {
-                                        System.Data.DataRow dr = saleTrans.Rows[i];
+                                    foreach (var item in saleTrans)
+                                    {                                        
                                         counter = counter + 1;
                                         <tr>
                                             <td>@counter</td>
-                                            @if (dr["ItemType"].ToString() == "P")
-                                            {
-                                                <td>@Ret.DataLib.GetCellItems("Select ProductName From ProductModels Where ProductID =" + dr["ProductID"].ToString()) </td>
-
-                                            }
-                                            else
-                                            {
-                                                <td>@Ret.DataLib.GetCellItems("Select ServiceName From ServiceModels Where ServiceID =" + dr["ProductID"].ToString()) </td>
-                                            }
-                                            <td class="text-right">@dr["Quantity"].ToString()</td>
-                                            <td class="text-right">@Ret.DataLib.GetCellItems("Select UnitName From UnitModels Where UnitID=" + dr["UnitID"].ToString())</td>
-                                            <td class="text-right">@Ret.TextLib.IndianRuppes(dr["Rate"].ToString())</td>
-                                            <td class="text-right">@Ret.TextLib.IndianRuppes(dr["Amount"].ToString())</td>
-                                            <td class="text-right">@dr["GSTSlab"].ToString()</td>
-                                            <td class="text-right">@Ret.TextLib.IndianRuppes(dr["GSTAmount"].ToString())</td>
-                                            <td class="text-right">@Ret.TextLib.IndianRuppes(Convert.ToDouble(dr["Amount"].ToString()) + Convert.ToDouble(dr["GSTAmount"].ToString()))</td>
+                                            <td>@Ret.DataLib.GetCellItems("Select ProductName From ProductModels Where ProductID =" + item.ProductID) </td>
+                                            <td class="text-right">@item.Quantity</td>
+                                            <td class="text-right">@Ret.DataLib.GetCellItems("Select UnitName From UnitModels Where UnitID=" + item.UnitID)</td>
+                                            <td class="text-right">@Ret.TextLib.IndianRuppes(item.Rate)</td>
+                                            <td class="text-right">@Ret.TextLib.IndianRuppes(item.Amount)</td>
+                                            <td class="text-right">@item.GSTSlab</td>
+                                            <td class="text-right">@Ret.TextLib.IndianRuppes(item.GSTAmount)</td>
+                                            <td class="text-right">@Ret.TextLib.IndianRuppes(item.Amount + item.GSTAmount)</td>
                                         </tr>
-
-                                        totalamount = totalamount + Convert.ToDouble(dr["Amount"].ToString());
-                                        totalgst = totalgst + Convert.ToDouble(dr["GSTAmount"].ToString());
+                                        totalamount = totalamount + item.Amount;
+                                        totalgst = totalgst + item.GSTAmount;
                                         total = totalamount + totalgst;
                                     }
                                 }
@@ -143,23 +132,23 @@
                     <p class="text-right">Submitted By</p>
                     <br />
                     <br />
-                    <p align="right" style="color: black">@drCompany["OnwerName"].ToString()</p>
-                    <p align="right" style="color: black"><b>@drCompany["CompanyName"].ToString()</b></p>
+                    <p align="right" style="color: black">@drCompany.OnwerName </p>
+                    <p align="right" style="color: black"><b>@drCompany.CompanyName </b></p>
                 </div>
                 <hr />
                 <div>
                     Payment In favor of :,<br />
-                    Name : <b> @drCompany["BeneficiaryName"].ToString()</b>
+                    Name : <b> @drCompany.BeneficiaryName </b>
                     <br />
-                    Bank : <b> @drCompany["BankName"].ToString()</b>
+                    Bank : <b> @drCompany.BankName </b>
                     <br />
-                    Branch : <b>@drCompany["BranchName"].ToString()</b>
+                    Branch : <b>@drCompany.BranchName </b>
                     <br />
-                    A/c Number: <b> @drCompany["AccountNumber"].ToString()</b>
+                    A/c Number: <b> @drCompany.AccountNumber </b>
                     <br />
-                    A/c Type: <b> @drCompany["AccountType"].ToString()</b>
+                    A/c Type: <b> @drCompany.AccountType </b>
                     <br />
-                    IFSC Code : <b> @drCompany["AccountIFSCCode"].ToString()</b>
+                    IFSC Code : <b> @drCompany.AccountIFSCCode </b>
                     <br />
                 </div>
             </section>

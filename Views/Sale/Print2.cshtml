@@ -1,0 +1,173 @@
+﻿@{      
+    Layout = null;
+    System.Data.DataRow drCompany;
+    System.Data.DataRow drSale;
+    System.Data.DataRow drCustomer;
+    System.Data.DataTable saleTrans = new System.Data.DataTable();
+
+    drSale = Ret.DataLib.GetQueryRow("Select * from SalesModels Where SalesID =" + ViewData["id"].ToString()); // Purchase 
+    saleTrans = Ret.DataLib.GetQueryTable("Select * from SalesTransModels Where SalesID =" + ViewData["id"].ToString()); // Purchase Trans 
+    drCompany = Ret.DataLib.GetQueryRow("Select * from CompanyModels Where CompanyID =" + drSale["CompanyID"].ToString()); // Company 
+    drCustomer = Ret.DataLib.GetQueryRow("Select * from CustomerModels Where CustomerID = " + drSale["CustomerID"].ToString()); // Customer               
+
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">    
+    <meta name="description" content="Retails Softwares">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Basic Style Sheet -->
+    <link href="~/Themes/bower_components/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Themes/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <title>Print Invoice</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="container">
+            <header>
+                <div class="row" style="margin-top:15px;">
+                    <div class="col-md-3">
+                        <img src="../UploadFiles/@drCompany["CompanyPicture"].ToString()" class="img-fluid" />
+                    </div>
+                    <div class="col-md-9">
+                        <h2 class="text-right">
+                            @drCompany["CompanyName"].ToString()
+                        </h2>
+                        <p class="text-right">
+                            Add: @drCompany["CompanyAddress"].ToString(),
+                            <br /> Email: @drCompany["CompanyEmail"].ToString(),
+                            <br /> Mob: @drCompany["CompanyMobile"].ToString()
+                        </p>
+                    </div>
+                </div>
+            </header>
+            <section style="margin-top: 30px;">
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-6">
+                        <div class="text-gray-light">Sale TO :</div>
+                        <h2>@drCustomer["CustomerName"].ToString()</h2>
+                        <div>@drCustomer["Address"].ToString()</div>
+                        <div>Mobile: @drCustomer["Mobile"].ToString()</div>
+                        <div>Email : @drCustomer["Email"].ToString()</div>
+                    </div>
+                    <div class="col-md-6">
+                        <h1 class="text-right">Sale</h1>
+                        <h5 class="text-right"><b>Invoice No:@drCompany["InvoicePrefix"].ToString()/@drSale["SerialNo"].ToString()</b></h5>
+                        <p class="text-right"><b>Invoice Date: @Ret.TextLib.GetDateDDMMYYYY(drSale["SalesDate"].ToString())</b></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 table-responsive">
+                        <br />
+                        <h4 class="text-center">SALE DETAILS</h4>
+                        <br />
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>SrNo</th>
+                                    <th class="text-left">DESCRIPTION WORK</th>
+                                    <th class="text-right">QTY</th>
+                                    <th class="text-right">UNIT</th>
+                                    <th class="text-right">RATE</th>
+                                    <th class="text-right">AMOUNT</th>
+                                    <th class="text-right">GST %</th>
+                                    <th class="text-right">GST AMOUNT</th>
+                                    <th class="text-right">TOTAL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    double totalamount = 0;
+                                    double totalgst = 0;
+                                    double total = 0;
+                                    int counter = 0;
+
+                                    for (int i = 0; i < saleTrans.Rows.Count; i++)
+                                    {
+                                        System.Data.DataRow dr = saleTrans.Rows[i];
+                                        counter = counter + 1;
+                                        <tr>
+                                            <td>@counter</td>
+                                            @if (dr["ItemType"].ToString() == "P")
+                                            {
+                                                <td>@Ret.DataLib.GetCellItems("Select ProductName From ProductModels Where ProductID =" + dr["ProductID"].ToString()) </td>
+
+                                            }
+                                            else
+                                            {
+                                                <td>@Ret.DataLib.GetCellItems("Select ServiceName From ServiceModels Where ServiceID =" + dr["ProductID"].ToString()) </td>
+                                            }
+                                            <td class="text-right">@dr["Quantity"].ToString()</td>
+                                            <td class="text-right">@Ret.DataLib.GetCellItems("Select UnitName From UnitModels Where UnitID=" + dr["UnitID"].ToString())</td>
+                                            <td class="text-right">@Ret.TextLib.IndianRuppes(dr["Rate"].ToString())</td>
+                                            <td class="text-right">@Ret.TextLib.IndianRuppes(dr["Amount"].ToString())</td>
+                                            <td class="text-right">@dr["GSTSlab"].ToString()</td>
+                                            <td class="text-right">@Ret.TextLib.IndianRuppes(dr["GSTAmount"].ToString())</td>
+                                            <td class="text-right">@Ret.TextLib.IndianRuppes(Convert.ToDouble(dr["Amount"].ToString()) + Convert.ToDouble(dr["GSTAmount"].ToString()))</td>
+                                        </tr>
+
+                                        totalamount = totalamount + Convert.ToDouble(dr["Amount"].ToString());
+                                        totalgst = totalgst + Convert.ToDouble(dr["GSTAmount"].ToString());
+                                        total = totalamount + totalgst;
+                                    }
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5" class="text-right"><b>TOTAL</b></td>
+                                    <td class="text-right"><b>@Ret.TextLib.IndianRuppes(totalamount)</b></td>
+                                    <td></td>
+                                    <td class="text-right"><b>@Ret.TextLib.IndianRuppes(totalgst)</b></td>
+                                    <td class="text-right"><b>@Ret.TextLib.IndianRuppes(total)</b></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="9" class="text-right"><b>In Words :@Ret.TextLib.NumbertoWards(total.ToString())</b></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="text-right" style="margin-top: 100px;">Thank you!</div>
+                <br />
+                <div class="notices">
+                    <p>NOTICE:</p>
+                    <p class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</p>
+                    <br />
+                    <br />
+                    <p class="text-right">Submitted By</p>
+                    <br />
+                    <br />
+                    <p align="right" style="color: black">@drCompany["OnwerName"].ToString()</p>
+                    <p align="right" style="color: black"><b>@drCompany["CompanyName"].ToString()</b></p>
+                </div>
+                <hr />
+                <div>
+                    Payment In favor of :,<br />
+                    Name : <b> @drCompany["BeneficiaryName"].ToString()</b>
+                    <br />
+                    Bank : <b> @drCompany["BankName"].ToString()</b>
+                    <br />
+                    Branch : <b>@drCompany["BranchName"].ToString()</b>
+                    <br />
+                    A/c Number: <b> @drCompany["AccountNumber"].ToString()</b>
+                    <br />
+                    A/c Type: <b> @drCompany["AccountType"].ToString()</b>
+                    <br />
+                    IFSC Code : <b> @drCompany["AccountIFSCCode"].ToString()</b>
+                    <br />
+                </div>
+            </section>
+            <footer>
+                <hr />
+                <p class="text-center">This invoice was created on a computer and is valid without the signature and seal.</p>
+            </footer>
+        </div>
+    </form>
+</body>
+</html>

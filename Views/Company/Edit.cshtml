@@ -82,7 +82,7 @@
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
-                $('#empPicture')
+                $('#compPicture')
                     .attr('src', e.target.result)
                     .width(300)
                     .height(200);
@@ -269,7 +269,7 @@
                         @Html.LabelFor(model => model.CompanyPicture, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
                             <p>Current Picture</p>
-                            <img id="empPicture" src="" alt="" class="img-fluid img-thumbnail" />
+                            <img id="compPicture" src="" alt="" class="img-fluid img-thumbnail" />
                         </div>
                         <div class="col-md-4">
                             <input type='file' name="FileUpload" onchange="uploadImage(this);" class="btn btn-success pull-right" />
