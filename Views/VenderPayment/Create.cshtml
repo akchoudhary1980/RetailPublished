@@ -101,7 +101,7 @@
                         @Html.LabelFor(model => model.PaymentMethod, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
                             @Html.DropDownListFor(model => model.PaymentMethod,
-                            Ret.SaleController.GetPaymentMethodList(), new { @class = "form-control" })
+                            Ret.VenderPaymentController.GetPaymentMethodList(), new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.PaymentMethod, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -110,13 +110,13 @@
                         @Html.LabelFor(model => model.PaymentType, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
                             @Html.DropDownListFor(model => model.PaymentType,
-                            Ret.SaleController.GetPaymentTypeList(), new { @class = "form-control" })
+                            Ret.VenderPaymentController.GetPaymentTypeList(), new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.PaymentType, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.PaymentMode, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
                             @Html.DropDownListFor(model => model.PaymentMode,
-                            Ret.SaleController.GetPaymentModeList(), new { @class = "form-control" })
+                            Ret.VenderPaymentController.GetPaymentModeList(), new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.PaymentMode, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -124,7 +124,7 @@
                     <div class="form-group row">
                         @Html.LabelFor(model => model.TransactionDate, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
-                            @Html.EditorFor(model => model.TransactionDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.TransactionDate, new { htmlAttributes = new { @class = "form-control" , @Type = "Text" } })
                             @Html.ValidationMessageFor(model => model.TransactionDate, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })

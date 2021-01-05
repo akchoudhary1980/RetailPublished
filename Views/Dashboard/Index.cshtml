@@ -157,7 +157,7 @@
                 <div class="card-block">
                     <div class="row align-items-center">
                         <div class="col">
-                            <p class="m-b-5">Today Payment Reciept</p>
+                            <p class="m-b-5">Payment Reciept (Today)</p>
                             <h4 class="m-b-0">@ViewData["TodayPayRec"]</h4>
                         </div>
                         <div class="col col-auto text-right">
@@ -174,7 +174,7 @@
                 <div class="card-block">
                     <div class="row align-items-center">
                         <div class="col">
-                            <p class="m-b-5">Total Payment Reciept</p>
+                            <p class="m-b-5">Payment Reciept (Total)</p>
                             <h4 class="m-b-0">@ViewData["TotalPayRec"]</h4>
                         </div>
                         <div class="col col-auto text-right">
@@ -191,7 +191,7 @@
                 <div class="card-block">
                     <div class="row align-items-center">
                         <div class="col">
-                            <p class="m-b-5">Today Payment Pay</p>
+                            <p class="m-b-5"> Payment Pay (Today)</p>
                             <h4 class="m-b-0">@ViewData["TodayPayPay"]</h4>
                         </div>
                         <div class="col col-auto text-right">
@@ -208,7 +208,7 @@
                 <div class="card-block">
                     <div class="row align-items-center">
                         <div class="col">
-                            <p class="m-b-5">Total Payment as Pay</p>
+                            <p class="m-b-5">Payment Pay (Total)</p>
                             <h4 class="m-b-0">@ViewData["TotalPayPay"]</h4>
                         </div>
                         <div class="col col-auto text-right">
@@ -223,13 +223,14 @@
 </div>
 <div class="row">
         <!-- task, page, download counter  start -->
-        <div class="col-xl-3 col-md-6">
+    <div class="col-xl-4 col-md-6">
+        <a href="@Url.Action("Index", "Sale")">
             <div class="card">
                 <div class="card-block">
                     <div class="row align-items-center">
                         <div class="col-8">
-                            <h4 class="text-c-yellow f-w-600">@ViewData["TotalPayRec"]</h4>
-                            <h6 class="text-muted m-b-0">Pay Reciept</h6>
+                            <h4 class="text-c-yellow f-w-600">@ViewData["SaleSum"]</h4>
+                            <h6 class="text-muted m-b-0">Total Sale</h6>
                         </div>
                         <div class="col-4 text-right">
                             <i class="feather icon-bar-chart f-28"></i>
@@ -248,14 +249,16 @@
 
                 </div>
             </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
+            </a>
+    </div>
+    <div class="col-xl-4 col-md-6">
+        <a href="@Url.Action("Index", "CustomerPayment")">
             <div class="card">
                 <div class="card-block">
                     <div class="row align-items-center">
                         <div class="col-8">
-                            <h4 class="text-c-green f-w-600">@ViewData["Balance"]</h4>
-                            <h6 class="text-muted m-b-0">Balance Payment</h6>
+                            <h4 class="text-c-green f-w-600">@ViewData["TotalPayRec"]</h4>
+                            <h6 class="text-muted m-b-0">Total Payment Reciept</h6>
                         </div>
                         <div class="col-4 text-right">
                             <i class="feather icon-file-text f-28"></i>
@@ -273,14 +276,16 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
+            </a>
+    </div>
+    <div class="col-xl-4 col-md-6">
+        <a href="@Url.Action("CustomerBalance", "CustomerPayment")">
             <div class="card">
                 <div class="card-block">
                     <div class="row align-items-center">
                         <div class="col-8">
-                            <h4 class="text-c-pink f-w-600">@ViewData["TotalPayPay"]</h4>
-                            <h6 class="text-muted m-b-0">Payment Pay</h6>
+                            <h4 class="text-c-pink f-w-600">@ViewData["Balance"]</h4>
+                            <h6 class="text-muted m-b-0">Balance Payment</h6>
                         </div>
                         <div class="col-4 text-right">
                             <i class="feather icon-calendar f-28"></i>
@@ -298,21 +303,55 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
+            </a>
+    </div>        
+        <!-- task, page, download counter  end -->
+    </div>
+<div class="row">
+    <!-- task, page, download counter  start -->
+    <div class="col-xl-4 col-md-6">
+        <a href="@Url.Action("Index", "Purchase")">
             <div class="card">
                 <div class="card-block">
                     <div class="row align-items-center">
                         <div class="col-8">
-                            <h4 class="text-c-blue f-w-600">@ViewData["Outstanding"]</h4>
-                            <h6 class="text-muted m-b-0">Outstanding</h6>
+                            <h4 class="text-c-yellow f-w-600">@ViewData["PurSum"]</h4>
+                            <h6 class="text-muted m-b-0">Total Purchase</h6>
                         </div>
                         <div class="col-4 text-right">
-                            <i class="feather icon-download f-28"></i>
+                            <i class="feather icon-bar-chart f-28"></i>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer bg-c-blue">
+                <div class="card-footer bg-c-yellow">
+                    <div class="row align-items-center">
+                        <div class="col-9">
+                            <p class="text-white m-b-0">% change</p>
+                        </div>
+                        <div class="col-3 text-right">
+                            <i class="feather icon-trending-up text-white f-16"></i>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            </a>
+    </div>
+    <div class="col-xl-4 col-md-6">
+        <a href="@Url.Action("Index", "VenderPayment")">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h4 class="text-c-green f-w-600">@ViewData["TotalPayPay"]</h4>
+                            <h6 class="text-muted m-b-0">Total Payment Pay</h6>
+                        </div>
+                        <div class="col-4 text-right">
+                            <i class="feather icon-file-text f-28"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-c-green">
                     <div class="row align-items-center">
                         <div class="col-9">
                             <p class="text-white m-b-0">% change</p>
@@ -323,29 +362,40 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- task, page, download counter  end -->
+            </a>
     </div>
-<div class="row">
-        <!-- user card  start -->
-        <!-- Enquiry Management -->
-        @*<div class="col-xl-3 col-md-6">
-                <a href="@Url.Action("Index", "PurchaseOrder")">
-                    <div class="card">
-                        <div class="card-block">
-                            <div class="row align-items-center m-l-0">
-                                <div class="col-auto">
-                                    <i class="feather icon-anchor f-30 text-c-lite-green"></i>
-                                </div>
-                                <div class="col-auto">
-                                    <h6 class="text-muted m-b-10">Purchase Order</h6>
-                                    <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(PurchaseOrderID) From PurchaseOrderModels")</h2>
-                                </div>
-                            </div>
+    <div class="col-xl-4 col-md-6">
+        <a href="@Url.Action("VenderOutstanding", "VenderPayment")">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h4 class="text-c-pink f-w-600">@ViewData["Outstanding"]</h4>
+                            <h6 class="text-muted m-b-0">Total Outstanding</h6>
+                        </div>
+                        <div class="col-4 text-right">
+                            <i class="feather icon-calendar f-28"></i>
                         </div>
                     </div>
-                </a>
-            </div>*@
+                </div>
+                <div class="card-footer bg-c-pink">
+                    <div class="row align-items-center">
+                        <div class="col-9">
+                            <p class="text-white m-b-0">% change</p>
+                        </div>
+                        <div class="col-3 text-right">
+                            <i class="feather icon-trending-up text-white f-16"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </a>
+    </div>
+    <!-- task, page, download counter  end -->
+</div>
+
+<div class="row">
+        <!-- user card  start -->       
         <div class="col-xl-3 col-md-6">
             <a href="@Url.Action("Index", "Purchase")">
                 <div class="card">
@@ -545,7 +595,7 @@
                     <div class="card-block">
                         <div class="row align-items-center m-l-0">
                             <div class="col-auto">
-                                <i class="feather icon-list f-30 text-c-lite-green"></i>
+                                <i class="icofont icofont-location-pin f-30 text-c-lite-green"></i>
                             </div>
                             <div class="col-auto">
                                 <h6 class="text-muted m-b-10">Material Center</h6>
@@ -562,7 +612,7 @@
                     <div class="card-block">
                         <div class="row align-items-center m-l-0">
                             <div class="col-auto">
-                                <i class="feather icon-list f-30 text-c-green"></i>
+                                <i class="icofont icofont-ui-home f-30 text-c-green"></i>
                             </div>
                             <div class="col-auto">
                                 <h6 class="text-muted m-b-10">Godown</h6>
@@ -582,7 +632,7 @@
                                 <i class="feather icon-list f-30 text-c-pink"></i>
                             </div>
                             <div class="col-auto">
-                                <h6 class="text-muted m-b-10">Room</h6>
+                                <h6 class="text-muted m-b-10">Room (Location)</h6>
                                 <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(RoomID) From RoomModels")</h2>
                             </div>
                         </div>
@@ -599,7 +649,7 @@
                                 <i class="feather icon-list f-30 text-c-pink"></i>
                             </div>
                             <div class="col-auto">
-                                <h6 class="text-muted m-b-10">Rack</h6>
+                                <h6 class="text-muted m-b-10">Rack (Location)</h6>
                                 <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(RackID) From RackModels")</h2>
                             </div>
                         </div>
@@ -616,7 +666,7 @@
                                 <i class="feather icon-list f-30 text-c-pink"></i>
                             </div>
                             <div class="col-auto">
-                                <h6 class="text-muted m-b-10">Self</h6>
+                                <h6 class="text-muted m-b-10">Self (Location)</h6>
                                 <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(SelfID) From SelfModels")</h2>
                             </div>
                         </div>
@@ -634,7 +684,7 @@
                                 <i class="feather icon-list f-30 text-c-lite-green"></i>
                             </div>
                             <div class="col-auto">
-                                <h6 class="text-muted m-b-10">Bin</h6>
+                                <h6 class="text-muted m-b-10">Bin (Location)</h6>
                                 <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(BinID) From BinModels")</h2>
                             </div>
                         </div>
