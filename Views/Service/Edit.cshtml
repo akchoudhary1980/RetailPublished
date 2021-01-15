@@ -9,7 +9,55 @@
 <script src="~/Scripts/AjaxModules.js"></script>
 
 <script type="text/javascript">
-    SetInputNumeric('ServiceCharge');
+    $(document).ready(function () {
+        // check box
+        $('#GSTInclusive').change(function () {
+            if ($(this).is(":checked")) {
+                // get GST Slab value
+                var gstid = $('#GSTSlabID').val();
+
+                if (gstid == "") {
+                    alert("Please select GST percent");
+                }
+                else {
+                    // Call Ajax method
+                    var gst = GetPercent(gstid);
+                    var p = $('#ServiceCharge').val();
+                    p = ClearCulture(p);
+                    var r = parseFloat(p) * 100 / parseFloat(gst);
+                    r = ConvertToIndian(r);
+                    $('#ServiceCharge').val(r);
+                }
+            }
+            else {
+                $('#ServiceCharge').val($('#Charge').val());
+            }
+        });
+
+        $("#Charge").blur(function () {
+            var charge = $('#Charge').val();
+            //charge = ConvertToIndian(charge);
+            $('#ServiceCharge').val(charge);
+        });
+    });
+    function GetPercent(id) {
+        var gst = 0;
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: '/Product/GetGSTPercent',
+            data: "{'ID': '" + id + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                gst = response;
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });
+        return gst;
+    }
 </script>
 
 <div class="page-header">
@@ -109,15 +157,26 @@
                     <h4 class="sub-title">Service Pricing</h4>
                     <div class="form-group row">
                         @Html.LabelFor(model => model.ServiceCharge, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-4">
-                            @Html.EditorFor(model => model.ServiceCharge, new { htmlAttributes = new { @class = "form-control" } })
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.Charge, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Charge, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.ServiceCharge, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                             @Html.ValidationMessageFor(model => model.ServiceCharge, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.GSTInclusive, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            <div class="checkbox">
+                                <label>@Html.CheckBoxFor(model => model.GSTInclusive)&nbsp;Yes</label>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.GSTInclusive, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <input type="submit" value="Update" class="btn btn-primary btn-out float-right" />
+                            <input type="submit" value="Update" onclick="FormValidation();" class="btn btn-primary btn-out float-right" />
                         </div>
                     </div>
                 }

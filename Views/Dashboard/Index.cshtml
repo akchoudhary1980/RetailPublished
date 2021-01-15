@@ -450,7 +450,7 @@
 
         <!-- Estimate Quotation -->
         <div class="col-xl-3 col-md-6">
-            <a href="@Url.Action("Index", "Estimate")">
+            <a href="@Url.Action("Index", "Proposal")">
                 <div class="card">
                     <div class="card-block">
                         <div class="row align-items-center m-l-0">
@@ -760,8 +760,8 @@
         <div class="col-md-6 col-xl-3">
             <div class="card bg-c-blue order-card">
                 <div class="card-block">
-                    <h6>Estimate Value</h6>
-                    @Ret.TextLib.IndianRuppes(Ret.DataLib.GetCellItems("Select SUM(EstimateTotal) From ProposalModels"))
+                    <h6>Proposal Value</h6>
+                    @Ret.TextLib.IndianRuppes(Ret.DataLib.GetCellItems("Select SUM(ProposalTotal) From ProposalModels"))
                     <p class="m-b-0">@Ret.TextLib.GetDateDDMMYYYY(System.DateTime.Today.ToString())<i class="feather icon-calendar m-l-10"></i></p>
                     <i class="card-icon feather icon-layout"></i>
                 </div>
