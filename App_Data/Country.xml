@@ -1,0 +1,1138 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <Table>
+    <CountryID>1</CountryID>
+    <CountryName>Afghanistan </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>2</CountryID>
+    <CountryName>Albania </CountryName>
+    <Region>EASTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>3</CountryID>
+    <CountryName>Algeria </CountryName>
+    <Region>NORTHERN AFRICA                    </Region>
+  </Table>
+  <Table>
+    <CountryID>4</CountryID>
+    <CountryName>American Samoa </CountryName>
+    <Region>OCEANIA                            </Region>
+  </Table>
+  <Table>
+    <CountryID>5</CountryID>
+    <CountryName>Andorra </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>6</CountryID>
+    <CountryName>Angola </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>7</CountryID>
+    <CountryName>Anguilla </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>8</CountryID>
+    <CountryName>Antigua &amp; Barbuda </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>9</CountryID>
+    <CountryName>Argentina </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>10</CountryID>
+    <CountryName>Armenia </CountryName>
+    <Region>C.W. OF IND. STATES </Region>
+  </Table>
+  <Table>
+    <CountryID>11</CountryID>
+    <CountryName>Aruba </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>12</CountryID>
+    <CountryName>Australia </CountryName>
+    <Region>OCEANIA                            </Region>
+  </Table>
+  <Table>
+    <CountryID>13</CountryID>
+    <CountryName>Austria </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>14</CountryID>
+    <CountryName>Azerbaijan </CountryName>
+    <Region>C.W. OF IND. STATES </Region>
+  </Table>
+  <Table>
+    <CountryID>15</CountryID>
+    <CountryName>Bahamas, The </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>16</CountryID>
+    <CountryName>Bahrain </CountryName>
+    <Region>NEAR EAST                          </Region>
+  </Table>
+  <Table>
+    <CountryID>17</CountryID>
+    <CountryName>Bangladesh </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>18</CountryID>
+    <CountryName>Barbados </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>19</CountryID>
+    <CountryName>Belarus </CountryName>
+    <Region>C.W. OF IND. STATES </Region>
+  </Table>
+  <Table>
+    <CountryID>20</CountryID>
+    <CountryName>Belgium </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>21</CountryID>
+    <CountryName>Belize </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>22</CountryID>
+    <CountryName>Benin </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>23</CountryID>
+    <CountryName>Bermuda </CountryName>
+    <Region>NORTHERN AMERICA                   </Region>
+  </Table>
+  <Table>
+    <CountryID>24</CountryID>
+    <CountryName>Bhutan </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>25</CountryID>
+    <CountryName>Bolivia </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>26</CountryID>
+    <CountryName>Bosnia &amp; Herzegovina </CountryName>
+    <Region>EASTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>27</CountryID>
+    <CountryName>Botswana </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>28</CountryID>
+    <CountryName>Brazil </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>29</CountryID>
+    <CountryName>British Virgin Is. </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>30</CountryID>
+    <CountryName>Brunei </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>31</CountryID>
+    <CountryName>Bulgaria </CountryName>
+    <Region>EASTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>32</CountryID>
+    <CountryName>Burkina Faso </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>33</CountryID>
+    <CountryName>Burma </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>34</CountryID>
+    <CountryName>Burundi </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>35</CountryID>
+    <CountryName>Cambodia </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>36</CountryID>
+    <CountryName>Cameroon </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>37</CountryID>
+    <CountryName>Canada </CountryName>
+    <Region>NORTHERN AMERICA                   </Region>
+  </Table>
+  <Table>
+    <CountryID>38</CountryID>
+    <CountryName>Cape Verde </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>39</CountryID>
+    <CountryName>Cayman Islands </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>40</CountryID>
+    <CountryName>Central African Rep. </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>41</CountryID>
+    <CountryName>Chad </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>42</CountryID>
+    <CountryName>Chile </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>43</CountryID>
+    <CountryName>China </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>44</CountryID>
+    <CountryName>Colombia </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>45</CountryID>
+    <CountryName>Comoros </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>46</CountryID>
+    <CountryName>Congo, Dem. Rep. </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>47</CountryID>
+    <CountryName>Congo, Repub. of the </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>48</CountryID>
+    <CountryName>Cook Islands </CountryName>
+    <Region>OCEANIA                            </Region>
+  </Table>
+  <Table>
+    <CountryID>49</CountryID>
+    <CountryName>Costa Rica </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>50</CountryID>
+    <CountryName>Cote d'Ivoire </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>51</CountryID>
+    <CountryName>Croatia </CountryName>
+    <Region>EASTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>52</CountryID>
+    <CountryName>Cuba </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>53</CountryID>
+    <CountryName>Cyprus </CountryName>
+    <Region>NEAR EAST                          </Region>
+  </Table>
+  <Table>
+    <CountryID>54</CountryID>
+    <CountryName>Czech Republic </CountryName>
+    <Region>EASTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>55</CountryID>
+    <CountryName>Denmark </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>56</CountryID>
+    <CountryName>Djibouti </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>57</CountryID>
+    <CountryName>Dominica </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>58</CountryID>
+    <CountryName>Dominican Republic </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>59</CountryID>
+    <CountryName>East Timor </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>60</CountryID>
+    <CountryName>Ecuador </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>61</CountryID>
+    <CountryName>Egypt </CountryName>
+    <Region>NORTHERN AFRICA                    </Region>
+  </Table>
+  <Table>
+    <CountryID>62</CountryID>
+    <CountryName>El Salvador </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>63</CountryID>
+    <CountryName>Equatorial Guinea </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>64</CountryID>
+    <CountryName>Eritrea </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>65</CountryID>
+    <CountryName>Estonia </CountryName>
+    <Region>BALTICS                            </Region>
+  </Table>
+  <Table>
+    <CountryID>66</CountryID>
+    <CountryName>Ethiopia </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>67</CountryID>
+    <CountryName>Faroe Islands </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>68</CountryID>
+    <CountryName>Fiji </CountryName>
+    <Region>OCEANIA                            </Region>
+  </Table>
+  <Table>
+    <CountryID>69</CountryID>
+    <CountryName>Finland </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>70</CountryID>
+    <CountryName>France </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>71</CountryID>
+    <CountryName>French Guiana </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>72</CountryID>
+    <CountryName>French Polynesia </CountryName>
+    <Region>OCEANIA                            </Region>
+  </Table>
+  <Table>
+    <CountryID>73</CountryID>
+    <CountryName>Gabon </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>74</CountryID>
+    <CountryName>Gambia, The </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>75</CountryID>
+    <CountryName>Gaza Strip </CountryName>
+    <Region>NEAR EAST                          </Region>
+  </Table>
+  <Table>
+    <CountryID>76</CountryID>
+    <CountryName>Georgia </CountryName>
+    <Region>C.W. OF IND. STATES </Region>
+  </Table>
+  <Table>
+    <CountryID>77</CountryID>
+    <CountryName>Germany </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>78</CountryID>
+    <CountryName>Ghana </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>79</CountryID>
+    <CountryName>Gibraltar </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>80</CountryID>
+    <CountryName>Greece </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>81</CountryID>
+    <CountryName>Greenland </CountryName>
+    <Region>NORTHERN AMERICA                   </Region>
+  </Table>
+  <Table>
+    <CountryID>82</CountryID>
+    <CountryName>Grenada </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>83</CountryID>
+    <CountryName>Guadeloupe </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>84</CountryID>
+    <CountryName>Guam </CountryName>
+    <Region>OCEANIA                            </Region>
+  </Table>
+  <Table>
+    <CountryID>85</CountryID>
+    <CountryName>Guatemala </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>86</CountryID>
+    <CountryName>Guernsey </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>87</CountryID>
+    <CountryName>Guinea </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>88</CountryID>
+    <CountryName>Guinea-Bissau </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>89</CountryID>
+    <CountryName>Guyana </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>90</CountryID>
+    <CountryName>Haiti </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>91</CountryID>
+    <CountryName>Honduras </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>92</CountryID>
+    <CountryName>Hong Kong </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>93</CountryID>
+    <CountryName>Hungary </CountryName>
+    <Region>EASTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>94</CountryID>
+    <CountryName>Iceland </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>95</CountryID>
+    <CountryName>India </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>96</CountryID>
+    <CountryName>Indonesia </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>97</CountryID>
+    <CountryName>Iran </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>98</CountryID>
+    <CountryName>Iraq </CountryName>
+    <Region>NEAR EAST                          </Region>
+  </Table>
+  <Table>
+    <CountryID>99</CountryID>
+    <CountryName>Ireland </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>100</CountryID>
+    <CountryName>Isle of Man </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>101</CountryID>
+    <CountryName>Israel </CountryName>
+    <Region>NEAR EAST                          </Region>
+  </Table>
+  <Table>
+    <CountryID>102</CountryID>
+    <CountryName>Italy </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>103</CountryID>
+    <CountryName>Jamaica </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>104</CountryID>
+    <CountryName>Japan </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>105</CountryID>
+    <CountryName>Jersey </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>106</CountryID>
+    <CountryName>Jordan </CountryName>
+    <Region>NEAR EAST                          </Region>
+  </Table>
+  <Table>
+    <CountryID>107</CountryID>
+    <CountryName>Kazakhstan </CountryName>
+    <Region>C.W. OF IND. STATES </Region>
+  </Table>
+  <Table>
+    <CountryID>108</CountryID>
+    <CountryName>Kenya </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>109</CountryID>
+    <CountryName>Kiribati </CountryName>
+    <Region>OCEANIA                            </Region>
+  </Table>
+  <Table>
+    <CountryID>110</CountryID>
+    <CountryName>Korea, North </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>111</CountryID>
+    <CountryName>Korea, South </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>112</CountryID>
+    <CountryName>Kuwait </CountryName>
+    <Region>NEAR EAST                          </Region>
+  </Table>
+  <Table>
+    <CountryID>113</CountryID>
+    <CountryName>Kyrgyzstan </CountryName>
+    <Region>C.W. OF IND. STATES </Region>
+  </Table>
+  <Table>
+    <CountryID>114</CountryID>
+    <CountryName>Laos </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>115</CountryID>
+    <CountryName>Latvia </CountryName>
+    <Region>BALTICS                            </Region>
+  </Table>
+  <Table>
+    <CountryID>116</CountryID>
+    <CountryName>Lebanon </CountryName>
+    <Region>NEAR EAST                          </Region>
+  </Table>
+  <Table>
+    <CountryID>117</CountryID>
+    <CountryName>Lesotho </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>118</CountryID>
+    <CountryName>Liberia </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>119</CountryID>
+    <CountryName>Libya </CountryName>
+    <Region>NORTHERN AFRICA                    </Region>
+  </Table>
+  <Table>
+    <CountryID>120</CountryID>
+    <CountryName>Liechtenstein </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>121</CountryID>
+    <CountryName>Lithuania </CountryName>
+    <Region>BALTICS                            </Region>
+  </Table>
+  <Table>
+    <CountryID>122</CountryID>
+    <CountryName>Luxembourg </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>123</CountryID>
+    <CountryName>Macau </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>124</CountryID>
+    <CountryName>Macedonia </CountryName>
+    <Region>EASTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>125</CountryID>
+    <CountryName>Madagascar </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>126</CountryID>
+    <CountryName>Malawi </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>127</CountryID>
+    <CountryName>Malaysia </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>128</CountryID>
+    <CountryName>Maldives </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>129</CountryID>
+    <CountryName>Mali </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>130</CountryID>
+    <CountryName>Malta </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>131</CountryID>
+    <CountryName>Marshall Islands </CountryName>
+    <Region>OCEANIA                            </Region>
+  </Table>
+  <Table>
+    <CountryID>132</CountryID>
+    <CountryName>Martinique </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>133</CountryID>
+    <CountryName>Mauritania </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>134</CountryID>
+    <CountryName>Mauritius </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>135</CountryID>
+    <CountryName>Mayotte </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>136</CountryID>
+    <CountryName>Mexico </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>137</CountryID>
+    <CountryName>Micronesia, Fed. St. </CountryName>
+    <Region>OCEANIA                            </Region>
+  </Table>
+  <Table>
+    <CountryID>138</CountryID>
+    <CountryName>Moldova </CountryName>
+    <Region>C.W. OF IND. STATES </Region>
+  </Table>
+  <Table>
+    <CountryID>139</CountryID>
+    <CountryName>Monaco </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>140</CountryID>
+    <CountryName>Mongolia </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>141</CountryID>
+    <CountryName>Montserrat </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>142</CountryID>
+    <CountryName>Morocco </CountryName>
+    <Region>NORTHERN AFRICA                    </Region>
+  </Table>
+  <Table>
+    <CountryID>143</CountryID>
+    <CountryName>Mozambique </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>144</CountryID>
+    <CountryName>Namibia </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>145</CountryID>
+    <CountryName>Nauru </CountryName>
+    <Region>OCEANIA                            </Region>
+  </Table>
+  <Table>
+    <CountryID>146</CountryID>
+    <CountryName>Nepal </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>147</CountryID>
+    <CountryName>Netherlands </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>148</CountryID>
+    <CountryName>Netherlands Antilles </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>149</CountryID>
+    <CountryName>New Caledonia </CountryName>
+    <Region>OCEANIA                            </Region>
+  </Table>
+  <Table>
+    <CountryID>150</CountryID>
+    <CountryName>New Zealand </CountryName>
+    <Region>OCEANIA                            </Region>
+  </Table>
+  <Table>
+    <CountryID>151</CountryID>
+    <CountryName>Nicaragua </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>152</CountryID>
+    <CountryName>Niger </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>153</CountryID>
+    <CountryName>Nigeria </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>154</CountryID>
+    <CountryName>N. Mariana Islands </CountryName>
+    <Region>OCEANIA                            </Region>
+  </Table>
+  <Table>
+    <CountryID>155</CountryID>
+    <CountryName>Norway </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>156</CountryID>
+    <CountryName>Oman </CountryName>
+    <Region>NEAR EAST                          </Region>
+  </Table>
+  <Table>
+    <CountryID>157</CountryID>
+    <CountryName>Pakistan </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>158</CountryID>
+    <CountryName>Palau </CountryName>
+    <Region>OCEANIA                            </Region>
+  </Table>
+  <Table>
+    <CountryID>159</CountryID>
+    <CountryName>Panama </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>160</CountryID>
+    <CountryName>Papua New Guinea </CountryName>
+    <Region>OCEANIA                            </Region>
+  </Table>
+  <Table>
+    <CountryID>161</CountryID>
+    <CountryName>Paraguay </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>162</CountryID>
+    <CountryName>Peru </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>163</CountryID>
+    <CountryName>Philippines </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>164</CountryID>
+    <CountryName>Poland </CountryName>
+    <Region>EASTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>165</CountryID>
+    <CountryName>Portugal </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>166</CountryID>
+    <CountryName>Puerto Rico </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>167</CountryID>
+    <CountryName>Qatar </CountryName>
+    <Region>NEAR EAST                          </Region>
+  </Table>
+  <Table>
+    <CountryID>168</CountryID>
+    <CountryName>Reunion </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>169</CountryID>
+    <CountryName>Romania </CountryName>
+    <Region>EASTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>170</CountryID>
+    <CountryName>Russia </CountryName>
+    <Region>C.W. OF IND. STATES </Region>
+  </Table>
+  <Table>
+    <CountryID>171</CountryID>
+    <CountryName>Rwanda </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>172</CountryID>
+    <CountryName>Saint Helena </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>173</CountryID>
+    <CountryName>Saint Kitts &amp; Nevis </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>174</CountryID>
+    <CountryName>Saint Lucia </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>175</CountryID>
+    <CountryName>St Pierre &amp; Miquelon </CountryName>
+    <Region>NORTHERN AMERICA                   </Region>
+  </Table>
+  <Table>
+    <CountryID>176</CountryID>
+    <CountryName>Saint Vincent and the Grenadines </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>177</CountryID>
+    <CountryName>Samoa </CountryName>
+    <Region>OCEANIA                            </Region>
+  </Table>
+  <Table>
+    <CountryID>178</CountryID>
+    <CountryName>San Marino </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>179</CountryID>
+    <CountryName>Sao Tome &amp; Principe </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>180</CountryID>
+    <CountryName>Saudi Arabia </CountryName>
+    <Region>NEAR EAST                          </Region>
+  </Table>
+  <Table>
+    <CountryID>181</CountryID>
+    <CountryName>Senegal </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>182</CountryID>
+    <CountryName>Serbia </CountryName>
+    <Region>EASTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>183</CountryID>
+    <CountryName>Seychelles </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>184</CountryID>
+    <CountryName>Sierra Leone </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>185</CountryID>
+    <CountryName>Singapore </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>186</CountryID>
+    <CountryName>Slovakia </CountryName>
+    <Region>EASTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>187</CountryID>
+    <CountryName>Slovenia </CountryName>
+    <Region>EASTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>188</CountryID>
+    <CountryName>Solomon Islands </CountryName>
+    <Region>OCEANIA                            </Region>
+  </Table>
+  <Table>
+    <CountryID>189</CountryID>
+    <CountryName>Somalia </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>190</CountryID>
+    <CountryName>South Africa </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>191</CountryID>
+    <CountryName>Spain </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>192</CountryID>
+    <CountryName>Sri Lanka </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>193</CountryID>
+    <CountryName>Sudan </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>194</CountryID>
+    <CountryName>Suriname </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>195</CountryID>
+    <CountryName>Swaziland </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>196</CountryID>
+    <CountryName>Sweden </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>197</CountryID>
+    <CountryName>Switzerland </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>198</CountryID>
+    <CountryName>Syria </CountryName>
+    <Region>NEAR EAST                          </Region>
+  </Table>
+  <Table>
+    <CountryID>199</CountryID>
+    <CountryName>Taiwan </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>200</CountryID>
+    <CountryName>Tajikistan </CountryName>
+    <Region>C.W. OF IND. STATES </Region>
+  </Table>
+  <Table>
+    <CountryID>201</CountryID>
+    <CountryName>Tanzania </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>202</CountryID>
+    <CountryName>Thailand </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>203</CountryID>
+    <CountryName>Togo </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>204</CountryID>
+    <CountryName>Tonga </CountryName>
+    <Region>OCEANIA                            </Region>
+  </Table>
+  <Table>
+    <CountryID>205</CountryID>
+    <CountryName>Trinidad &amp; Tobago </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>206</CountryID>
+    <CountryName>Tunisia </CountryName>
+    <Region>NORTHERN AFRICA                    </Region>
+  </Table>
+  <Table>
+    <CountryID>207</CountryID>
+    <CountryName>Turkey </CountryName>
+    <Region>NEAR EAST                          </Region>
+  </Table>
+  <Table>
+    <CountryID>208</CountryID>
+    <CountryName>Turkmenistan </CountryName>
+    <Region>C.W. OF IND. STATES </Region>
+  </Table>
+  <Table>
+    <CountryID>209</CountryID>
+    <CountryName>Turks &amp; Caicos Is </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>210</CountryID>
+    <CountryName>Tuvalu </CountryName>
+    <Region>OCEANIA                            </Region>
+  </Table>
+  <Table>
+    <CountryID>211</CountryID>
+    <CountryName>Uganda </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>212</CountryID>
+    <CountryName>Ukraine </CountryName>
+    <Region>C.W. OF IND. STATES </Region>
+  </Table>
+  <Table>
+    <CountryID>213</CountryID>
+    <CountryName>United Arab Emirates </CountryName>
+    <Region>NEAR EAST                          </Region>
+  </Table>
+  <Table>
+    <CountryID>214</CountryID>
+    <CountryName>United Kingdom </CountryName>
+    <Region>WESTERN EUROPE                     </Region>
+  </Table>
+  <Table>
+    <CountryID>215</CountryID>
+    <CountryName>United States </CountryName>
+    <Region>NORTHERN AMERICA                   </Region>
+  </Table>
+  <Table>
+    <CountryID>216</CountryID>
+    <CountryName>Uruguay </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>217</CountryID>
+    <CountryName>Uzbekistan </CountryName>
+    <Region>C.W. OF IND. STATES </Region>
+  </Table>
+  <Table>
+    <CountryID>218</CountryID>
+    <CountryName>Vanuatu </CountryName>
+    <Region>OCEANIA                            </Region>
+  </Table>
+  <Table>
+    <CountryID>219</CountryID>
+    <CountryName>Venezuela </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>220</CountryID>
+    <CountryName>Vietnam </CountryName>
+    <Region>ASIA (EX. NEAR EAST)         </Region>
+  </Table>
+  <Table>
+    <CountryID>221</CountryID>
+    <CountryName>Virgin Islands </CountryName>
+    <Region>LATIN AMER. &amp; CARIB    </Region>
+  </Table>
+  <Table>
+    <CountryID>222</CountryID>
+    <CountryName>Wallis and Futuna </CountryName>
+    <Region>OCEANIA                            </Region>
+  </Table>
+  <Table>
+    <CountryID>223</CountryID>
+    <CountryName>West Bank </CountryName>
+    <Region>NEAR EAST                          </Region>
+  </Table>
+  <Table>
+    <CountryID>224</CountryID>
+    <CountryName>Western Sahara </CountryName>
+    <Region>NORTHERN AFRICA                    </Region>
+  </Table>
+  <Table>
+    <CountryID>225</CountryID>
+    <CountryName>Yemen </CountryName>
+    <Region>NEAR EAST                          </Region>
+  </Table>
+  <Table>
+    <CountryID>226</CountryID>
+    <CountryName>Zambia </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+  <Table>
+    <CountryID>227</CountryID>
+    <CountryName>Zimbabwe </CountryName>
+    <Region>SUB-SAHARAN AFRICA                 </Region>
+  </Table>
+</NewDataSet>

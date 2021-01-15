@@ -1,0 +1,50 @@
+﻿<h4 class="sub-title">Vender</h4>
+<div class="form-group row">
+    @Html.Label("", "Vender Names", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.TextBox("VenderName", null, new { placeholder = "Vender Name", @class = "form-control" })
+    </div>
+</div>
+<div class="form-group row">
+    @Html.Label("", "Address", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.TextArea("Address", null, new { placeholder = "Address", @class = "form-control" })
+    </div>
+</div>
+<div class="form-group row">
+    @Html.Label("", "State", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-4">
+        @Html.TextBox("State", null, new { placeholder = "State", @class = "form-control" })
+    </div>
+    @Html.Label("", "City", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-4">
+        @Html.TextBox("City", null, new { placeholder = "City", @class = "form-control" })
+    </div>
+</div>
+<div class="form-group row">
+    @Html.Label("", "Mobile", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-4">
+        @Html.TextBox("Mobile", null, new { placeholder = "Mobile", @class = "form-control" })
+    </div>
+    @Html.Label("", "WhatsApp", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-4">
+        @Html.TextBox("WhatsApp", null, new { placeholder = "Whatsup", @class = "form-control" })
+    </div>
+</div>
+<div class="form-group row">
+    @Html.Label("", "Email", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-4">
+        @Html.TextBox("Email", null, new { placeholder = "Email", @class = "form-control" })
+    </div>
+    @Html.Label("", "GSTNo", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-4">
+        @Html.TextBox("GSTNo", null, new { placeholder = "GST No", @class = "form-control" })
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-12">
+        <input type="button" value="Close" onclick="closeVender();" class="btn btn-danger btn-out float-right" style="margin-right:5px;" />
+        <input type="button" value="Clear" onclick="clearVender();" class="btn btn-success btn-out float-right" style="margin-right:5px;" />
+        <input type="button" value="New Vender" onclick="newVender();" class="btn btn-primary btn-out float-right" style="margin-right:5px;" />
+    </div>
+</div>

@@ -6,16 +6,17 @@
 <script src="~/Scripts/jquery-ui-1.10.2.js"></script>
 <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
 <script src="~/Scripts/AjaxModules.js"></script>
-
-<script type="text/javascript">
-    SetInputNumeric('PQty');
-    SetInputNumeric('PRate');
-    SetInputNumeric('SQty');
-    SetInputNumeric('SRate');
-</script>
-
-
 <!-- Main Form -->
+<style type="text/css">
+    .small-textbox {
+        width: 70px;
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        GetQuotationNo();
+    });
+</script>
 <div class="page-header animated bounceInRight">
     <div class="card">
         <div class="card-block bg-primary">
@@ -61,13 +62,7 @@
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <h4 class="sub-title">Quotation Details</h4>
 
-                    <div class="form-group row">
-                        @*@Html.LabelFor(model => model.CompanyID, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DropDownListFor(model => model.CompanyID,
-             Ret.EstimateController.GetCompanyList(), new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.CompanyID, "", new { @class = "text-danger" })
-        </div>*@
+                    <div class="form-group row">                        
                         @Html.Label("Quotation No", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
                             @Html.TextBox("SerialNo", null, new { @class = "form-control", @readonly = "readonly" })
@@ -78,7 +73,6 @@
                             @Html.ValidationMessageFor(model => model.RefNo, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
                     <div class="form-group row">
                         @Html.LabelFor(model => model.QuotationDate, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
@@ -90,9 +84,7 @@
                             @Html.EditorFor(model => model.ExpactedDate, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.ExpactedDate, "", new { @class = "text-danger" })
                         </div>
-
                     </div>
-
                     <div class="form-group row">
                         @Html.LabelFor(model => model.CustomerID, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-9">
@@ -135,8 +127,8 @@
                                             @Html.Hidden("ProductID")
                                         </div>
                                         <div class="col-sm-1">
-                                            <label class="form-control-label">Quantity</label>
-                                            @Html.TextBox("PQty", null, new { @class = "form-control", @readonly = "readonly" })
+                                            <label class="form-control-label">Qty</label>
+                                            @Html.TextBox("PQty", null, new { @class = "form-control" })
                                         </div>
                                         <div class="col-sm-2">
                                             <label class=" form-control-label">Unit</label>
@@ -152,7 +144,7 @@
                                         </div>
                                         <div class="col-sm-1">
                                             <br />
-                                            <button class="btn btn-primary btn-outline-primary float-right" type="button" onclick="AddNewRow('P');"><i class="icofont icofont-plus"></i></button>
+                                            <button class="btn btn-primary btn-outline-primary float-right" type="button" onclick="InsertRow('P');"><i class="icofont icofont-plus"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -181,7 +173,7 @@
                                         </div>
                                         <div class="col-sm-1">
                                             <br />
-                                            <button class="btn btn-primary btn-outline-primary float-right" type="button" onclick="AddNewRow('S');"><i class="icofont icofont-plus"></i></button>
+                                            <button class="btn btn-primary btn-outline-primary float-right" type="button" onclick="InsertRow('S');"><i class="icofont icofont-plus"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -195,24 +187,56 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Product Name</th>
+                                    <th>Product/Service</th>
+                                    <th>HSN/SAC</th>
                                     <th>Qty</th>
                                     <th>Unit</th>
                                     <th>Rate</th>
                                     <th>Amount</th>
-                                    <th>GST Slab</th>
-                                    <th>GST Amount</th>
+                                    <th>GST %</th>
+                                    <th>GST Amt</th>
                                     <th>Del</th>
                                 </tr>
                             </thead>
                             <tbody>
                             </tbody>
                         </table>
+                        <table class='table table-striped table-bordered nowrap'>
+                            <thead style="visibility:collapse">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Product/Service</th>
+                                    <th>HSN/SAC</th>
+                                    <th>Qty</th>
+                                    <th>Unit</th>
+                                    <th>Rate</th>
+                                    <th>Amount</th>
+                                    <th>GST %</th>
+                                    <th>GST Amt</th>
+                                    <th>Del</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td align="right" colspan="6"><b>Discount</b></td>
+
+                                    <td align="right"> @Html.EditorFor(model => model.DiscountPercent, new { htmlAttributes = new { @class = "form-control small-textbox" } })</td>
+                                    <td align="right"> @Html.EditorFor(model => model.DiscountValue, new { htmlAttributes = new { @class = "form-control small-textbox" } })</td>
+                                    <td align="right"> @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control small-textbox", @readonly = "readonly" } })</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td align="right" colspan="8"><b>Grand Total (Sub Total - Discount)</b></td>
+                                    <td align="right"><label id="GroundTotal" for="grandtotal"></label></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <input type="submit" value="Create" class="btn btn-primary btn-out float-right" />
+                            <input type="submit" value="Create" onclick="return FormValidation();" class="btn btn-primary btn-out float-right" />
                         </div>
                     </div>
 
@@ -226,62 +250,13 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-c-lite-green">
-                    <h4 class="modal-title">Customer Details</h4>
+                    <h4 class="modal-title">Client Details</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h4 class="sub-title">Customer</h4>
-                    <div class="form-group row">
-                        @Html.Label("", "Customer Names", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.TextBox("CustomerName", null, new { placeholder = "Customer Name", @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        @Html.Label("", "Address", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.TextArea("Address", null, new { placeholder = "Address", @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        @Html.Label("", "State", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-4">
-                            @Html.TextBox("State", null, new { placeholder = "State", @class = "form-control" })
-                        </div>
-                        @Html.Label("", "City", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-4">
-                            @Html.TextBox("City", null, new { placeholder = "City", @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        @Html.Label("", "Mobile", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-4">
-                            @Html.TextBox("Mobile", null, new { placeholder = "Mobile", @class = "form-control" })
-                        </div>
-                        @Html.Label("", "WhatsApp", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-4">
-                            @Html.TextBox("WhatsApp", null, new { placeholder = "Whatsup", @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        @Html.Label("", "Email", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-4">
-                            @Html.TextBox("Email", null, new { placeholder = "Email", @class = "form-control" })
-                        </div>
-                        @Html.Label("", "Profession", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-4">
-                            @Html.DropDownList("ProfessionID", Ret.ShareController.GetProfessionList(), new { @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-12">
-                            <input type="button" value="Close" onclick="closeCustomer();" class="btn btn-danger btn-out float-right" style="margin-right:5px;" />
-                            <input type="button" value="Clear" onclick="clearCustomer();" class="btn btn-success btn-out float-right" style="margin-right:5px;" />
-                            <input type="button" value="New Customer" onclick="newCustomer();" class="btn btn-primary btn-out float-right" style="margin-right:5px;" />
-                        </div>
-                    </div>
+                    @Html.Partial("~/Views/Customer/_Client.cshtml") 
                 </div>
             </div>
         </div>

@@ -1,136 +1,35 @@
 ﻿@model Ret.SalesModel
 @{
     Layout = "~/Views/Shared/_admin.cshtml";
+    bool instate = false, outsate = false;
 }
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 <script src="~/Scripts/jquery-ui-1.10.2.js"></script>
 <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
 <script src="~/Scripts/AjaxModules.js"></script>
-
-<script>
-    $(function () {
-        $("#SalesDate").datepicker({
-            changeMonth: true,
-            changeYear: true,
-            dateFormat: "dd-mm-yy"
-        });
-    });
-</script>
-
-
-<script type="text/javascript">
-    SetInputNumericIndian('DiscountValue');
-    SetInputNumericIndian('Discount');
-
-    function FormValidation() {
-        RemoveIndianCulture("DiscountValue");
-        RemoveIndianCulture("Discount");
+<style type="text/css">
+    .small-textbox {
+        width: 70px;
     }
-</script>
+</style>
 
-<script type="text/javascript">
-    function UpdateDiscount(method) {
-        var per = 0; var disamount = 0; var saleamount = 0;
-        grandtotal = ClearCulture(grandtotal);
-        if (method == "P") {
-            per = parseFloat($("#DiscountPercent").val());
-            disamount = grandtotal * per / 100;
-            saleamount = grandtotal - disamount;
-            $("#DiscountPercent").val(per);
-            $("#DiscountValue").val(ConvertToIndian(disamount));
-            $("#Discount").val(ConvertToIndian(disamount));
-            $("#SaleAmount").text(ConvertToIndian(saleamount));
-        }
-        else {
-            disamount = ClearCulture($("#DiscountValue").val());
-            disamount = parseFloat(disamount);
-            per = disamount / grandtotal * 100;
-            saleamount = grandtotal - disamount;
-            $("#DiscountPercent").val(per);
-            $("#DiscountValue").val(ConvertToIndian(disamount));
-            $("#Discount").val(ConvertToIndian(disamount));
-            $("#SaleAmount").text(ConvertToIndian(saleamount));
-        }
-    }
-
-    $(function () {
-        $("#DiscountPercent").blur(function () {
-            UpdateDiscount("P");
-        });
-        $("#DiscountValue").blur(function () {
-            UpdateDiscount("V");
-        });
-    });
-</script>
-<!-- Get Sale No-->
-@*<script type="text/javascript">
-    $(function () {
-        $("#CompanyID").change(function () {
-            var compid = $('option:selected', this).val().toString();
-            if (compid != "") {
-                $.ajax({
-                    type: "POST",
-                    url: "/Sale/GetSaleNo",
-                    dataType: "json",
-                    data: { CompID: compid },
-                    success: function (response) {
-                        var str = response;
-                        $("#SerialNo").val(str);
-                    }
-                });
-
-            }
-        });
-    });
-</script>*@
-
-<script type="text/javascript">
-    // Open Customer Model
-    function addCustomer() {
-        $('#CustomerModel').modal('show');
-    }
-    // Close Customer Model
-    function closeCustomer() {
-        $('#CustomerModel').modal('hide');
-    }
-    // Clear Customer Model
-    function clearCustomer() {
-        $("#CustomerHiddenID").val("0");
-        $("#CustomerName").val("");
-        $("#Address").val("");
-        $("#State").val("");
-        $("#City").val("");
-        $("#Mobile").val("");
-        $("#WhatsApp").val("");
-        $("#Email").val("");
-        $("#ProfessionID").val("");
-    }
-    function newCustomer() {
-        $("#CustomerHiddenID").val("0");
-        var customername = $("#CustomerName").val();
-        $("#CustomerID").val(customername);
-        $('#CustomerModel').modal('hide');
-    }
-</script>
-<script type="text/javascript">
-    SetInputNumeric('PQty');
-    SetInputNumeric('PRate');
-    SetInputNumeric('SQty');
-    SetInputNumeric('SRate');
-</script>
 <!--for Load Data-->
 <script type="text/javascript">
     // define here call here
-    function LoadTransData(saleid,customerid) {
+    function LoadTransData(id, cusid) {
+        // Set Purchase No
+        $(function () {
+            SetSaleNo();
+        });
         // aign here
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("LoadTransData")',
+            url: '@Url.Action("FetchRows")',
             dataType: 'json',
-            data: {saleID:saleid},
+            data: { saleID: id},
             success: function (data) {
                 DisplayData(data);
-                CustomerDetailsFill(customerid);
+                CustomerDetailsFill(cusid);
             }
         });
     }
@@ -142,220 +41,6 @@
       @Html.Raw(ViewBag.TransData)
     </script>
 }
-
-<!--for Customer Auto Complete-->
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#CustomerID").autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: "/Share/CustomerNameAutoComplete",
-                    type: "POST",
-                    dataType: "json",
-                    data: { Prefix: request.term },
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return { label: item.CustomerName, value: item.CustomerName, id: item.CustomerID };
-                        }))
-                    },
-                })
-            },
-            select: function (event, ui) {
-                CustomerDetailsFill(ui.item.id);
-                $("#CustomerHiddenID").val(ui.item.id);
-            }
-        });
-    })
-</script>
-<!--for Product Auto Complete-->
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#ProductName").autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: "/Share/ProductAutoComplete",
-                    type: "POST",
-                    dataType: "json",
-                    data: { Prefix: request.term },
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return { label: item.ProductName, value: item.ProductName, id: item.ProductID };
-                        }))
-                    },
-                })
-            },
-            select: function (event, ui) {
-                AutoFillData(ui.item.id, "P");
-                $("#ProductID").val(ui.item.id);
-            }
-        });
-    })
-</script>
-<!--for Service Auto Complete-->
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#ServiceName").autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: "/Share/ServiceAutoComplete",
-                    type: "POST",
-                    dataType: "json",
-                    data: { Prefix: request.term },
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return { label: item.ServiceName, value: item.ServiceName, id: item.ServiceID };
-                        }))
-                    },
-                })
-            },
-            select: function (event, ui) {
-                AutoFillData(ui.item.id, "S");
-                $("#ServiceID").val(ui.item.id);
-            }
-        });
-    })
-</script>
-<!--for Add Trans Data-->
-<script type="text/javascript">
-    function addItems(itype) {
-        var itemtype = itype;
-        var itemid, qty, rate;
-
-        if (itemtype == "P") {
-            itemid = $('#ProductID').val();
-            qty= $('#PQty').val();
-            rate= $('#PRate').val();
-        }
-        else {
-            itemid = $('#ServiceID').val();
-            qty= $('#SQty').val();
-            rate= $('#SRate').val();
-        }
-
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("AddTransData")',
-            dataType: 'json',
-            data: {iID:itemid, iQty:qty, iRate:rate, iType:itemtype},
-            success: function (data) {
-                DisplayData(data);
-            }
-        });
-    }
-</script>
-<!--for RemoveData-->
-<script type="text/javascript">
-    function removeItem(serno) {
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("RemoveTransData")',
-            dataType: 'json',
-            data: {iSer:serno},
-            success: function (data) {
-                DisplayData(data);
-            }
-        });
-    }
-</script>
-<!--for Display Data-->
-<script type="text/javascript">
-    function DisplayData(data) {
-        var totalamt = 0;
-        var totalgst = 0;
-        var grandtotal = 0;
-        var counter = 0;
-        $("#estTable tbody tr").remove();
-        var items = '';
-        $.each(data, function (i, item) {
-            counter = counter + 1;
-            var rows = "<tr>"
-                + "<td>" + counter + "</td>"
-                + "<td>" + item.ItemName + "</td>"
-                + "<td class='text-right'>" + item.Quantity + "</td>"
-                + "<td class='text-right'>" + item.Unit + "</td>"
-                + "<td class='text-right'>" + item.Rate + "</td>"
-                + "<td class='text-right'>" + item.Amount + "</td>"
-                + "<td class='text-right'>" + item.GSTSlab + "%</td>"
-                + "<td class='text-right'>" + item.GSTAmount + "</td>"
-                + "<td><button type='button' id=" + item.SerNo + " onclick='removeItem(this.id)' class='btn btn-danger btn-mini btn-outline-primary'><i class='icofont icofont-ui-close'></i></button></td>"
-                + "</tr>";
-            $('#estTable tbody').append(rows);
-            totalamt = item.TotalAmount;
-            totalgst = item.TotalGST;
-            grandtotal = item.GrandTotal;
-        });
-
-        $('#estTable tbody').append('<tr><td colspan="5" align="right" > <b>Total</b></td><td class="text-right"><b style="color:green">' + totalamt + '</b></td><td></td><td class="text-right"><b style="color:green">' + totalgst + '</b></td><td></td></tr><tr><td colspan="7" class="text-right"><b>Grand Total</b></td><td class="text-right"><b style="color:green">' + grandtotal + '</b></td><td></td></tr>');
-        // Clear Product & Service Data
-        $('#ProductName').val("");
-        $('#PQty').val("");
-        $('#PUnit').val("");
-        $('#PRate').val("");
-        $('#PGST').val("");
-
-        $('#ServiceName').val("");
-        $('#SQty').val("");
-        $('#SUnit').val("");
-        $('#SRate').val("");
-        $('#SGST').val("");
-
-    }
-</script>
-<!--for Auto Fill Data-->
-<script type="text/javascript">
-    function AutoFillData(itemid, itype) {
-        $.ajax({
-            type: "POST",
-            url: "/Share/AutoFillData",
-            dataType: "json",
-            data: { iID: itemid, iType: itype },
-            success: function (response) {
-                var str = response;
-                var res = str.split("^");
-
-                // if condition
-                if (itype == "P") {
-                    $('#PUnit').val(res[0]);
-                    $('#PGST').val(res[1]);
-                    $('#PRate').val(res[2]);
-                    $('#PQty').val(1);
-                }
-                else {
-                    $('#SUnit').val(res[0]);
-                    $('#SGST').val(res[1]);
-                    $('#SRate').val(res[2]);
-                    $('#SQty').val(1);
-                }
-            }
-        });
-    }
-</script>
-<!--for Customer Model Auto Fill -->
-<script type="text/javascript">
-    function CustomerDetailsFill(customerid) {
-        $.ajax({
-            type: "POST",
-            url: "/Share/CustomerDetailFill",
-            dataType: "json",
-            data: { CustomerID: customerid },
-            success: function (response) {
-                var str = response;
-                var res = str.split("^");
-                $('#CustomerHiddenID').val(res[0]);
-                $('#CustomerName').val(res[1]);
-                $('#Address').val(res[2]);
-                $('#State').val(res[3]);
-                $('#City').val(res[4]);
-                $('#Mobile').val(res[5]);
-                $('#WhatsApp').val(res[6]);
-                $('#Email').val(res[7]);
-                $('#ProfessionID').val(res[8]);
-                $('#CustomerID').val(res[1]);
-            }
-        });
-    }
-</script>
-
 <div class="page-header animated bounceInRight">
     <div class="card">
         <div class="card-block bg-primary">
@@ -379,7 +64,6 @@
         </div>
     </div>
 </div>
-
 @using (Html.BeginForm("Edit", "Sale", FormMethod.Post))
 {
     <div class="row animated bounceInUp">
@@ -403,23 +87,44 @@
 
                     <h4 class="sub-title">Sale Details</h4>
                     <div class="form-group row">
-                        @*@Html.LabelFor(model => model.CompanyID, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-4">
-                            @Html.DropDownListFor(model => model.CompanyID,
-                             Ret.EstimateController.GetCompanyList(), new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.CompanyID, "", new { @class = "text-danger" })
-                        </div>*@
                         @Html.Label("Invoice No", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
-                            @Html.TextBox("SerialNo", ViewData["SerNo"], null, new { @class = "form-control", @readonly = "readonly" })
+                            @Html.TextBox("SerialNo", null, new { @class = "form-control", @readonly = "readonly" })
                         </div>
-                    </div>
 
-                    <div class="form-group row">
                         @Html.LabelFor(model => model.SalesDate, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
                             @Html.EditorFor(model => model.SalesDate, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.SalesDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+
+                        @{ if (Model.SaleState == true)
+                            {
+                                instate = true;
+                            }
+                            else
+                            {
+                                outsate = true;
+                            }
+                        }
+
+                        @Html.LabelFor(model => model.SaleState, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4 col-6 form-radio">
+                            <div class="radio radio-inline">
+                                <label>
+                                    @Html.RadioButtonFor(model => model.SaleState, @instate, new { @class = "form-control", @checked = "checked" })
+                                    <i class="helper"></i>In State
+                                </label>
+                            </div>
+                            <div class="radio radio-inline">
+                                <label>
+                                    @Html.RadioButtonFor(m => m.SaleState, @outsate, new { @class = "form-control" })
+                                    <i class="helper"></i>Out State
+                                </label>
+                            </div>
                         </div>
                         @Html.LabelFor(model => model.RefNo, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
@@ -427,6 +132,8 @@
                             @Html.ValidationMessageFor(model => model.RefNo, "", new { @class = "text-danger" })
                         </div>
                     </div>
+
+
 
                     <div class="form-group row">
                         @Html.LabelFor(model => model.CustomerID, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -488,7 +195,7 @@
                                         </div>
                                         <div class="col-sm-1">
                                             <br />
-                                            <button class="btn btn-primary btn-outline-primary float-right" type="button" onclick="addItems('P');"><i class="icofont icofont-plus"></i></button>
+                                            <button class="btn btn-primary btn-outline-primary float-right" type="button" onclick="InsertRow('P');"><i class="icofont icofont-plus"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -517,7 +224,7 @@
                                         </div>
                                         <div class="col-sm-1">
                                             <br />
-                                            <button class="btn btn-primary btn-outline-primary float-right" type="button" onclick="addItems('S');"><i class="icofont icofont-plus"></i></button>
+                                            <button class="btn btn-primary btn-outline-primary float-right" type="button" onclick="InsertRow('S');"><i class="icofont icofont-plus"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -527,17 +234,18 @@
                     <!-- Row end -->
 
                     <div class='dt-responsive table-responsive'>
-                        <table id='estTable' class='table table-striped table-bordered nowrap'>
+                        <table id='dtTable' class='table table-striped table-bordered nowrap'>
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Product Name</th>
+                                    <th>Product/Service</th>
+                                    <th>HSN/SAC</th>
                                     <th>Qty</th>
                                     <th>Unit</th>
                                     <th>Rate</th>
                                     <th>Amount</th>
-                                    <th>GST Slab</th>
-                                    <th>GST Amount</th>
+                                    <th>GST %</th>
+                                    <th>GST Amt</th>
                                     <th>Del</th>
                                 </tr>
                             </thead>
@@ -548,30 +256,29 @@
                             <thead style="visibility:collapse">
                                 <tr>
                                     <th>#</th>
-                                    <th>Product Name</th>
+                                    <th>Product/Service</th>
+                                    <th>HSN/SAC</th>
                                     <th>Qty</th>
                                     <th>Unit</th>
                                     <th>Rate</th>
                                     <th>Amount</th>
-                                    <th>GST Slab</th>
-                                    <th>GST Amount</th>
+                                    <th>GST %</th>
+                                    <th>GST Amt</th>
                                     <th>Del</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td align="right" colspan="5"><b>Discount</b></td>
+                                    <td align="right" colspan="6"><b>Discount</b></td>
+
                                     <td align="right"> @Html.EditorFor(model => model.DiscountPercent, new { htmlAttributes = new { @class = "form-control small-textbox" } })</td>
                                     <td align="right"> @Html.EditorFor(model => model.DiscountValue, new { htmlAttributes = new { @class = "form-control small-textbox" } })</td>
-                                    <td align="right"> @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control small-textbox" } })</td>
-                                    @*<td align="right"> @Html.TextBox("DiscountPercent", "0", new { @class = "form-control small-textbox", @placeholder = "Per" })</td>*@
-                                    @*<td align="right"> @Html.TextBox("DiscountValue", "0", new { @class = "form-control small-textbox", @placeholder = "Amt" })</td>
-                                    <td align="right"> @Html.TextBox("Discount", "0", new { @class = "form-control small-textbox", @placeholder = "Dis", @readonly = "readonly" })</td>*@
+                                    <td align="right"> @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control small-textbox", @readonly = "readonly" } })</td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td align="right" colspan="7"><b>Grand Total</b></td>
-                                    <td align="right"><label id="SaleAmount" for="deletetxt"></label></td>
+                                    <td align="right" colspan="8"><b>Grand Total (Sub Total - Discount)</b></td>
+                                    <td align="right"><label id="GroundTotal" for="grandtotal"></label></td>
                                     <td></td>
                                 </tr>
                             </tbody>
@@ -594,65 +301,17 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-c-lite-green">
-                    <h4 class="modal-title">Customer Details</h4>
+                    <h4 class="modal-title">Client Details</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h4 class="sub-title">Customer</h4>
-                    <div class="form-group row">
-                        @Html.Label("", "Customer Names", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.TextBox("CustomerName", null, new { placeholder = "Customer Name", @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        @Html.Label("", "Address", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.TextArea("Address", null, new { placeholder = "Address", @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        @Html.Label("", "State", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-4">
-                            @Html.TextBox("State", null, new { placeholder = "State", @class = "form-control" })
-                        </div>
-                        @Html.Label("", "City", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-4">
-                            @Html.TextBox("City", null, new { placeholder = "City", @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        @Html.Label("", "Mobile", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-4">
-                            @Html.TextBox("Mobile", null, new { placeholder = "Mobile", @class = "form-control" })
-                        </div>
-                        @Html.Label("", "WhatsApp", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-4">
-                            @Html.TextBox("WhatsApp", null, new { placeholder = "Whatsup", @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        @Html.Label("", "Email", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-4">
-                            @Html.TextBox("Email", null, new { placeholder = "Email", @class = "form-control" })
-                        </div>
-                        @Html.Label("", "Profession", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-4">
-                            @Html.DropDownList("ProfessionID", Ret.ShareController.GetProfessionList(), new { @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-12">
-                            <input type="button" value="Close" onclick="closeCustomer();" class="btn btn-danger btn-out float-right" style="margin-right:5px;" />
-                            <input type="button" value="Clear" onclick="clearCustomer();" class="btn btn-success btn-out float-right" style="margin-right:5px;" />
-                            <input type="button" value="New Customer" onclick="newCustomer();" class="btn btn-primary btn-out float-right" style="margin-right:5px;" />
-                        </div>
-                    </div>
+                    @Html.Partial("~/Views/Customer/_Client.cshtml")
                 </div>
             </div>
         </div>
     </div>
 }
+<script src="~/Scripts/js-sale.js"></script>
 

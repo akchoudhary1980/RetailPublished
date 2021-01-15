@@ -47,12 +47,12 @@
                             </div>
                             <form method="post" enctype="multipart/form-data" asp-controller="Login" asp-action="LoginPassword">
 
-                                @if(ViewBag.SweetMessage!=null)
+                                @if(Session["LoginError"] != null)
                                 {
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <div class="alert alert-danger" style="padding:7px;margin:0px;">
-                                            <strong>Error!</strong> @ViewBag.SweetMessage.
+                                            <strong>Error!</strong> @Session["LoginError"].
                                         </div>
                                     </div>
                                 </div>

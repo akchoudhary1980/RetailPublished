@@ -15,7 +15,17 @@
     <!-- Basic Style Sheet -->   
     <link href="Common/bootstrap.min.css" rel="stylesheet" />
     <link href="Common/font-awesome.min.css" rel="stylesheet" />
-    <title>Print Purchase</title>
+    <title>Print Invoice</title>
+    <style type="text/css">
+        tr td {
+            padding-left: 2px !important;
+            padding-right: 2px !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            /* padding: 0 !important;*/
+            margin: 0 !important;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -23,14 +33,15 @@
             <header>
                 <div class="row" style="margin-top:15px;">
                     <div class="col-md-3">                       
-                        <img src="Company1.png" class="img-fluid" />
+                        <img src="Company1.jpg" class="img-fluid" />
                     </div>
                     <div class="col-md-9">
-                        <h3 class="text-right">Radhe Mohan Electrical</h3>
+                        <h3 class="text-right" style="color:darkorange">VB Corporation</h3>
                         <p class="text-right">
-                            Add: 1250, Vijay Nagar, Jabalpur MP,
-                            <br /> Email: ramesh@gmail.com,
-                            <br /> Mob: 9993913726
+                            Add: 2293 Bedi Nagar, Jabalpur,
+                            <br /> Email: vbcorporation179@gmail.com,
+                            <br /> Mob: 9407864888
+                            <br /> GST No: 23AGRPT2719C1ZD
                         </p>
                     </div>
                 </div>
@@ -38,76 +49,87 @@
             <section style="margin-top: 30px;">
                 <div class="row" style="margin-top: 10px;">
                     <div class="col-md-6">
-                        <div class="text-gray-light">PURCHASE FROM:</div>
-                        <h3>Mohan Electrical</h3>
-                        <div>1250, Vijay Nagar Jabalpur MP</div>
-                        <div>Mobile: 8815034101</div>
-                        <div>Email : suder@gmail.com</div>
+                        <div class="text-gray-light">INVOICE TO:</div>
+                        <h3>Seema Rajan</h3>
+                        <div>dsfds</div>
+                        <div>Mobile: 9993913726</div>
+                        <div>Email : seemar@gmail.com</div>
+                        <div>GST No : </div>
                     </div>
                     <div class="col-md-6">
-                        <h2 class="text-right">PURCHASE</h2>
-                        <h6 class="text-right"><b>Purchase No:Pur/RM/1</b></h6>
+                        <h2 class="text-right">INVOICE</h2>
+                        <br />
+                        <h6 class="text-right"><b>Invoice No: Inv/VB/503</b></h6>
                         <p class="text-right">
-                            <b>Purchase Date: 17-12-2020</b> <br />
-                            <b>Purchase Invoice: Invoic01</b> <br />
-                            <b>Purchase Invoice Date: 17-12-2020</b> <br />
+                            <b>Inv. Date: 13-01-2021</b> <br />
                         </p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 table-responsive">
                         <br />
-                        <h4 class="text-center">PURCHASE DETAILS</h4>
+                        <h4 class="text-center">INVOICE DETAILS</h4>
                         <br />
                         <table class="table table-bordered">
                             <thead>
-                                <tr>
-                                    <th>SrNo</th>
-                                    <th class="text-left">DESCRIPTION WORK</th>
+                                <tr style="background-color: #F8F8F8">
+                                    <th>Sr No</th>
+                                    <th class="text-left">PRODUCT/SERVICE</th>
+                                    <th class="text-left">HSN/SAC</th>
                                     <th class="text-right">QTY</th>
                                     <th class="text-right">UNIT</th>
                                     <th class="text-right">RATE</th>
                                     <th class="text-right">AMOUNT</th>
                                     <th class="text-right">GST %</th>
-                                    <th class="text-right">GST AMOUNT</th>
+                                    <th class="text-right">GST AMT</th>
                                     <th class="text-right">TOTAL</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>LED Bulb 9 Watt </td>
-                                            <td class="text-right">10</td>
-                                            <td class="text-right">Pcs</td>
-                                            <td class="text-right">₹180.00</td>
-                                            <td class="text-right">₹1,800.00</td>
-                                            <td class="text-right">5</td>
-                                            <td class="text-right">₹90.00</td>
-                                            <td class="text-right">₹1,890.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Switch 6A </td>
-                                            <td class="text-right">10</td>
-                                            <td class="text-right">Pcs</td>
-                                            <td class="text-right">₹25.00</td>
-                                            <td class="text-right">₹250.00</td>
-                                            <td class="text-right">5</td>
-                                            <td class="text-right">₹12.50</td>
-                                            <td class="text-right">₹262.50</td>
-                                        </tr>
+                                                                <tr>
+                                                                    <td>1</td>
+                                                                    <td>Adhesive Silver 20 Kg </td>
+                                                                    <td>3824</td>
+
+                                                                    <td class="text-right">1</td>
+                                                                    <td class="text-right">Bag</td>
+                                                                    <td class="text-right">₹154.00</td>
+                                                                    <td class="text-right">₹154.00</td>
+                                                                    <td class="text-right">18%</td>
+                                                                    <td class="text-right">₹27.72</td>
+                                                                    <td class="text-right">₹181.72</td>
+                                                                </tr>
 
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="5" class="text-right"><b>TOTAL</b></td>
-                                    <td class="text-right"><b>₹2,050.00</b></td>
-                                    <td></td>
-                                    <td class="text-right"><b>₹102.50</b></td>
-                                    <td class="text-right"><b>₹2,152.50</b></td>
+                                    <td colspan="8" class="text-right"><b>SUB TOTAL</b></td>                                   
+                                    <td class="text-right"><b>₹27.72</b></td>
+                                    <td class="text-right"><b>₹154.00</b></td>
+                                </tr>
+                                <tr style="color:orange">
+                                    <td colspan="9" class="text-right"><b>DISCOUNT (-)</b></td>
+                                    <td class="text-right"><b>₹11.72</b></td>
+                                </tr>
+                                <tr style="color:green">
+                                    <td colspan="3" class="text-right"><b>TOTAL GST (+)</b></td>
+
+                                        <td>IGST</td>
+                                        <td class="text-right"><b>₹0.00</b></td>
+                                        <td>CGST</td>
+                                        <td class="text-right"><b>₹13.86</b></td>
+                                        <td>SGST</td>
+                                        <td class="text-right"><b>₹13.86</b></td>
+                                        <td class="text-right"><b>₹27.72</b></td>
+
+
+                                </tr>
+                                <tr style="color:green">
+                                    <td colspan="9" class="text-right"><b>GRAND TOTAL</b></td>
+                                    <td class="text-right"><b>₹170.00</b></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="9" class="text-right"><b>In Words :Two Thousand One Hundred Fifty Two Rupee Only</b></td>
+                                    <td colspan="10" class="text-right"><b>In Words :One Hundred Seventy Rupee Only</b></td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -115,38 +137,66 @@
                 </div>
 
                 <div class="text-right" style="margin-top: 100px;">Thank you!</div>
-                <br />
-                <div class="notices">
-                    <p>NOTICE:</p>
-                    <p class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</p>
-                    <br />
-                    <br />
-                    <p class="text-right">Submitted By</p>
-                    <br />
-                    <br />
-                    <p align="right" style="color: black">Ramesh </p>
-                    <p align="right" style="color: black"><b>Radhe Mohan Electrical </b></p>
-                </div>
-                <hr />
-                <div>
-                    Payment In favor of :,<br />
-                    Name : <b> Radha Mohan Electrical </b>
-                    <br />
-                    Bank : <b> State Bank of India </b>
-                    <br />
-                    Branch : <b> </b>
-                    <br />
-                    A/c Number: <b> 32017281484 </b>
-                    <br />
-                    A/c Type: <b> Current Account </b>
-                    <br />
-                    IFSC Code : <b> SBIN7245682 </b>
-                    <br />
-                </div>
+                <br /> 
+            </section>
+            <section>   
+                <div class="row">
+                    <div class="col-md-6">
+                        <div>
+                            <b> Payment In favor of :</b>
+                            <br />
+                            <table>
+                                <tr>
+                                    <td width="150">Beneficiary Name</td>
+                                    <td><b> VB Corporation </b></td>
+                                </tr>
+                                <tr>
+                                    <td>Bank Name</td>
+                                    <td><b> HDFC Bank </b></td>
+                                </tr>
+                                <tr>
+                                    <td>Branch Name</td>
+                                    <td><b> 597-3/2 GCF Road,Civil Line, Jabalpur </b></td>
+                                </tr>
+                                <tr>
+                                    <td>Account No</td>
+                                    <td><b> 50200049877380 </b></td>
+                                </tr>
+                                <tr>
+                                    <td>IFSC Code</td>
+                                    <td><b> HDFC0002745 </b></td>
+                                </tr>
+                                <tr>
+                                    <td>Account Type</td>
+                                    <td><b> Current Account </b></td>
+                                </tr>
+                                <tr>
+                                    <td>MICR Code</td>
+                                    <td><b> HDFC0002745 </b></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="float-right">
+                            <p class="text-right">For <b>VB Corporation</b></p>
+                            <img id="compPicture" src="CompanySeal1.jpg" height="100" />
+                            <br />
+                            <p class="text-right"> Arvind Tiwari</p>                          
+                        </div>
+                    </div>
+                </div> 
             </section>
             <footer>
                 <hr />
-                <p class="text-center">This purchase was created on a computer and is valid without the signature and seal.</p>
+                <p><b>Note:-</b></p>
+                <ul>
+                    <li>E.& O.E. Subject to Jabalpur Jurisdiction.</li>
+                    <li>Interest @2% per month will be charged on accounts not paid within 15 days from date of this bill.</li>
+                    <li>This firm does not accept any liability for the pilferagelshortage etc of goods in route.</li>
+                    <li>Goods once sold will not be taken back.</li>
+                    <li>All Subject to Jabalpur Jurisdiction.</li>
+                </ul>               
             </footer>
         </div>
     </form>

@@ -458,8 +458,8 @@
                                 <i class="feather icon-edit f-30 text-c-blue"></i>
                             </div>
                             <div class="col-auto">
-                                <h6 class="text-muted m-b-10">Estimate</h6>
-                                <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(EstimateID) From EstimateModels")</h2>
+                                <h6 class="text-muted m-b-10">Praposal</h6>
+                                <h2 class="m-b-0">@Ret.DataLib.GetCellItems("Select Count(ProposalID) From ProposalModels")</h2>
                             </div>
                         </div>
                     </div>
@@ -761,7 +761,7 @@
             <div class="card bg-c-blue order-card">
                 <div class="card-block">
                     <h6>Estimate Value</h6>
-                    @Ret.TextLib.IndianRuppes(Ret.DataLib.GetCellItems("Select SUM(EstimateTotal) From EstimateModels"))
+                    @Ret.TextLib.IndianRuppes(Ret.DataLib.GetCellItems("Select SUM(EstimateTotal) From ProposalModels"))
                     <p class="m-b-0">@Ret.TextLib.GetDateDDMMYYYY(System.DateTime.Today.ToString())<i class="feather icon-calendar m-l-10"></i></p>
                     <i class="card-icon feather icon-layout"></i>
                 </div>

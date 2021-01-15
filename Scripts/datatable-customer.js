@@ -63,7 +63,7 @@ $(document).ready(function () {
             { "data": "Address", "name": "Address", "autoWidth": true }, 
             { "data": "City", "name": "City", "autoWidth": true }, 
             { "data": "Mobile", "name": "Mobile", "autoWidth": true },
-            { "data": "Whatup", "name": "Whatup", "autoWidth": true },
+            { "data": "Whatsup", "name": "Whatsup", "autoWidth": true },
             { "data": "Email", "name": "Email", "autoWidth": true },         
             
             {

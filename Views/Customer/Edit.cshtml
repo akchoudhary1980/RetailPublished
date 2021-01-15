@@ -207,20 +207,25 @@
                             @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
                         </div>
-                        @Html.LabelFor(model => model.Whatup, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Whatsup, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-1">
                             <input id="sameas" type="checkbox" onclick="CopyMobile();" class="form-control" /> Same
                         </div>
                         <div class="col-md-3">
-                            @Html.EditorFor(model => model.Whatup, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Whatup, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Whatsup, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Whatsup, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group row">
                         @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
+                        <div class="col-md-4">
                             @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.GSTNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.GSTNo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.GSTNo, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group row">

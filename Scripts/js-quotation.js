@@ -1,4 +1,54 @@
-﻿// Date picker
+﻿var totalamt = 0;
+var totalgst = 0;
+var subtotal = 0;
+var discount = 0;
+var grandtotal = 0;
+
+SetDoubleIndian('DiscountPercent');
+SetInputNumericIndian('DiscountValue');
+SetInputNumericIndian('Discount');
+
+SetInputNumeric('PQty');
+SetInputNumeric('PRate');
+SetInputNumeric('SQty');
+SetInputNumeric('SRate');
+
+ function FormValidation() {
+        RemoveIndianCulture("DiscountValue");
+        RemoveIndianCulture("Discount");
+        RemoveIndianCulture("DiscountPercent");
+}
+
+function GetQuotationNo() {
+    //Get Quotation No
+    $.ajax({
+        type: "POST",
+        url: "/Quotation/GetQuotationNo",
+        dataType: "json",
+        data: { CompID: 1 },
+        success: function (response) {
+            var str = response;
+            $("#SerialNo").val(str);
+        }
+    });
+}
+
+function SetQuotationNo() {
+    //Set Quotation No-- >
+    var quono = $("#SerialNo").val();
+    $.ajax({
+        type: "POST",
+        url: "/Quotation/SetQuotationNo",
+        dataType: "json",
+        data: { QuotationNo: quono },
+        success: function (response) {
+            var str = response;
+            $("#SerialNo").val(str);
+        }
+    });
+}
+
+// Date picker / Auto Load Function
 $(function () {
     $("#QuotationDate").datepicker({
         changeMonth: true,
@@ -9,28 +59,41 @@ $(function () {
         changeMonth: true,
         changeYear: true,
         dateFormat: "dd-mm-yy"
-    });
+    }); 
 });
-// Get Auto Quotation No 
-$(function () {
-    //$("#CompanyID").change(function () {
-    //    var compid = $('option:selected', this).val().toString();
-    //    if (compid != "") {
-
-            $.ajax({
-                type: "POST",
-                url: "/Quotation/QuotationNo",
-                dataType: "json",
-                data: { CompID: 1 },
-                success: function (response) {
-                    var str = response;
-                    $("#SerialNo").val(str);
-                }
+// Get Update Discount No-- >    
+    function UpdateDiscount(method) {
+        var per = 0; var disamount = 0; var saleamount = 0;
+        grandtotal = ClearCulture(grandtotal);
+        alert(grandtotal);
+        if (method == "P") {            
+            per = parseFloat($("#DiscountPercent").val());
+            disamount = Math.round(grandtotal * per / 100).toFixed(2);
+            saleamount = grandtotal - disamount;
+            $("#DiscountPercent").val(per);
+            $("#DiscountValue").val(ConvertToIndian(disamount));
+            $("#Discount").val(ConvertToIndian(disamount));
+            $("#GroundTotal").text(ConvertToIndian(saleamount));
+        }
+        else {
+            disamount = ClearCulture($("#DiscountValue").val());
+            disamount = parseFloat(disamount);
+            per = Math.round(disamount / grandtotal * 100).toFixed(2);
+            saleamount = grandtotal - disamount;
+            $("#DiscountPercent").val(per);
+            $("#DiscountValue").val(ConvertToIndian(disamount));
+            $("#Discount").val(ConvertToIndian(disamount));
+            $("#GroundTotal").text(ConvertToIndian(saleamount));
+        }
+    }
+    $(function () {
+            $("#DiscountPercent").blur(function () {
+                UpdateDiscount("P");
             });
-//        }
-//    });
-});
-
+        $("#DiscountValue").blur(function () {
+            UpdateDiscount("V");
+        });
+    });
 // Customer Auto Complete
 $(document).ready(function () {
     $("#CustomerID").autocomplete({
@@ -72,6 +135,7 @@ function CustomerDetailsFill(customerid) {
             $('#WhatsApp').val(res[6]);
             $('#Email').val(res[7]);
             $('#ProfessionID').val(res[8]);
+            $('#CustomerID').val(res[1]);
         }
     });
 }
@@ -102,7 +166,6 @@ function newCustomer() {
     $("#CustomerID").val(customername);
     $('#CustomerModel').modal('hide');
 }
-
 // Product Auto Complete
 $(document).ready(function () {
     $("#ProductName").autocomplete({
@@ -174,7 +237,7 @@ function AutoFillData(itemid, itype) {
     });
 }
 // for Add Trans Data
-function AddNewRow(itype) {   
+function InsertRow(itype) {    
     var itemtype = itype;
     var itemid, qty, rate;
 
@@ -190,9 +253,8 @@ function AddNewRow(itype) {
     }
 
     $.ajax({
-        type: 'POST',
-        //url: '@Url.Action("AddTransData")',
-        url: 'AddTransData',
+        type: 'POST',       
+        url: "/Quotation/InsertRow",
         dataType: 'json',
         data: { iID: itemid, iQty: qty, iRate: rate, iType: itemtype },
         success: function (data) {
@@ -201,12 +263,11 @@ function AddNewRow(itype) {
     });
 }
 // for Remove Trans Data
-function RemoveRow(serno) {
+function DeleteRow(serno) {
    
     $.ajax({
-        type: 'POST',
-        //url: '@Url.Action("RemovSTransData")',
-        url: 'RemovSTransData',
+        type: 'POST',       
+        url: "/Quotation/RemovSTransData",      
         dataType: 'json',
         data: { iSer: serno },
         success: function (data) {
@@ -214,44 +275,61 @@ function RemoveRow(serno) {
         }
     });
 }
-//for Display Data
-function DisplayData(data) {
-    var totalamt = 0;
-    var totalgst = 0;
-    var grandtotal = 0;
-    var counter = 0;
-    $("#dtTable tbody tr").remove();
-    var items = '';
+// for Display Data-- > 
+function DisplayData(data) {       
+        var counter = 0;
+        $("#dtTable tbody tr").remove();
+        var items = '';
     $.each(data, function (i, item) {
-        counter = counter + 1;
-        var rows = "<tr>"
-            + "<td>" + counter + "</td>"
-            + "<td>" + item.ItemName + "</td>"
-            + "<td class='text-right'>" + item.Quantity + "</td>"
-            + "<td class='text-right'>" + item.Unit + "</td>"
-            + "<td class='text-right'>" + item.Rate + "</td>"
-            + "<td class='text-right'>" + item.Amount + "</td>"
-            + "<td class='text-right'>" + item.GSTSlab + "%</td>"
-            + "<td class='text-right'>" + item.GSTAmount + "</td>"
-            + "<td><button type='button' id=" + item.SerNo + " onclick='RemoveRow(this.id)' class='btn btn-danger btn-mini btn-outline-primary'><i class='icofont icofont-ui-close'></i></button></td>"
-            + "</tr>";
-        $('#dtTable tbody').append(rows);
-        totalamt = item.TotalAmount;
-        totalgst = item.TotalGST;
-        grandtotal = item.GrandTotal;
+            counter = counter + 1;
+            var rows = "<tr>"
+                + "<td>" + counter + "</td>"
+                + "<td>" + item.ItemName + "</td>"
+                + "<td>" + item.HSNCode + "</td>"
+                + "<td class='text-right'>" + item.Quantity + "</td>"
+                + "<td class='text-right'>" + item.Unit + "</td>"
+                + "<td class='text-right'>" + item.Rate + "</td>"
+                + "<td class='text-right'>" + item.Amount + "</td>"
+                + "<td class='text-right'>" + item.GSTSlab + "%</td>"
+                + "<td class='text-right'>" + item.GSTAmount + "</td>"
+                + "<td><button type='button' id=" + item.SerNo + " onclick='DeleteRow(this.id)' class='btn btn-danger btn-mini btn-outline-primary'><i class='icofont icofont-ui-close'></i></button></td>"
+                + "</tr>";
+            $('#dtTable tbody').append(rows);            
     });
 
-    $('#dtTable tbody').append('<tr><td colspan="5" align="right" > <b>Total</b></td><td class="text-right"><b style="color:green">' + totalamt + '</b></td><td></td><td class="text-right"><b style="color:green">' + totalgst + '</b></td><td></td></tr><tr><td colspan="7" class="text-right"><b>Grand Total</b></td><td class="text-right"><b style="color:green">' + grandtotal + '</b></td><td></td></tr>');
-    // Clear Product & Service Data
-    $('#ProductName').val("");
-    $('#PQty').val("");
-    $('#PUnit').val("");
-    $('#PRate').val("");
-    $('#PGST').val("");
+    // Get Calculation 
+    discount = $('#Discount').val();
+    $.ajax({
+        type: "POST",
+        url: "/Quotation/Calculation",
+        async: false,
+        dataType: "json",
+        data: { Dis: discount },
+        success: function (response) {           
+            totalamt = response.TotalAmount;          
+            totalgst = response.TotalGST;
+            subtotal = response.SubTotal;
+            discount = response.Discount
+            grandtotal = response.GrandTotal;           
+            $('#Discount').val(discount);     
+            $('#GroundTotal').text(grandtotal);    
+            
+        }
+    });
+    //
+    $('#dtTable tbody').append('<tr><td colspan="6" align="right" > <b>Total</b></td><td class="text-right"><b style="color:green">' + totalamt + '</b></td><td></td><td class="text-right"><b style="color:green">' + totalgst + '</b></td><td></td></tr><tr><td colspan="8" class="text-right"><b>Sub Total (Amount + GST Amt) </b></td><td class="text-right"><b style="color:green">' + subtotal + '</b></td><td></td></tr>');
+        // Clear Product & Service Data
+        $('#ProductName').val("");
+        $('#PQty').val("");
+        $('#PUnit').val("");
+        $('#PRate').val("");
+        $('#PGST').val("");
 
-    $('#ServiceName').val("");
-    $('#SQty').val("");
-    $('#SUnit').val("");
-    $('#SRate').val("");
-    $('#SGST').val("");
-}
+        $('#ServiceName').val("");
+        $('#SQty').val("");
+        $('#SUnit').val("");
+        $('#SRate').val("");
+        $('#SGST').val("");
+
+    }
+
