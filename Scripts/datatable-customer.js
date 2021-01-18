@@ -69,12 +69,12 @@ $(document).ready(function () {
             {
                 "render": function (data, type, full)
                 {
-                    return "<a href='Customer/Edit/" + full.CustomerID + "' class='btn btn-success btn-mini btn-outline-primary'><i class='icofont icofont-ui-edit'></i></a>";                        
+                    return "<a href='Edit/" + full.CustomerID + "' class='btn btn-success btn-mini btn-outline-primary'><i class='icofont icofont-ui-edit'></i></a>";                        
                 }
             },
             {               
                 "render": function (data, type, full) {
-                    return "<a href='Customer/Delete/" + full.CustomerID + "' class='btn btn-danger btn-mini btn-outline-primary'><i class='icofont icofont-ui-close'></i></a>";        
+                    return "<a href='Delete/" + full.CustomerID + "' class='btn btn-danger btn-mini btn-outline-primary'><i class='icofont icofont-ui-close'></i></a>";        
                 }
             },
            

@@ -129,6 +129,7 @@ function CustomerDetailsFill(customerid) {
             $('#WhatsApp').val(res[6]);
             $('#Email').val(res[7]);
             $('#ProfessionID').val(res[8]);
+            $('#GSTNo').val(res[9]);
             $('#CustomerID').val(res[1]);
         }
     });

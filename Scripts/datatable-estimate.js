@@ -94,19 +94,19 @@ $(document).ready(function () {
 
             {
                 "render": function (data, type, full) {
-                    return "<a href='Estimate/PrintPreview/" + full.EstimateID + "' class='btn btn-info btn-mini btn-outline-info'><i class='icofont icofont-print'></i></a>";
+                    return "<a href='PrintPreview/" + full.EstimateID + "' class='btn btn-info btn-mini btn-outline-info'><i class='icofont icofont-print'></i></a>";
                 }
             },            
             
             {
                 "render": function (data, type, full)
                 {
-                    return "<a href='Estimate/Edit/" + full.EstimateID + "' class='btn btn-success btn-mini btn-outline-primary'><i class='icofont icofont-ui-edit'></i></a>";                        
+                    return "<a href='Edit/" + full.EstimateID + "' class='btn btn-success btn-mini btn-outline-primary'><i class='icofont icofont-ui-edit'></i></a>";                        
                 }
             },
             {               
                 "render": function (data, type, full) {
-                    return "<a href='Estimate/Delete/" + full.EstimateID + "' class='btn btn-danger btn-mini btn-outline-primary'><i class='icofont icofont-ui-close'></i></a>";        
+                    return "<a href='Delete/" + full.EstimateID + "' class='btn btn-danger btn-mini btn-outline-primary'><i class='icofont icofont-ui-close'></i></a>";        
                 }
             },
            

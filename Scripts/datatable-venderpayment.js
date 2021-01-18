@@ -79,12 +79,12 @@ $(document).ready(function () {
             {
                 "render": function (data, type, full)
                 {
-                    return "<a href='VenderPayment/Edit/" + full.PaymentID + "' class='btn btn-success btn-mini btn-outline-primary'><i class='icofont icofont-ui-edit'></i></a>";                        
+                    return "<a href='Edit/" + full.PaymentID + "' class='btn btn-success btn-mini btn-outline-primary'><i class='icofont icofont-ui-edit'></i></a>";                        
                 }
             },
             {               
                 "render": function (data, type, full) {
-                    return "<a href='VenderPayment/Delete/" + full.PaymentID + "' class='btn btn-danger btn-mini btn-outline-primary'><i class='icofont icofont-ui-close'></i></a>";        
+                    return "<a href='Delete/" + full.PaymentID + "' class='btn btn-danger btn-mini btn-outline-primary'><i class='icofont icofont-ui-close'></i></a>";        
                 }
             },
            

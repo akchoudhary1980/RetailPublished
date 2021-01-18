@@ -67,12 +67,12 @@ $(document).ready(function () {
 
             {
                 "render": function (data, type, full) {
-                    return "<a href='Vender/Edit/" + full.VenderID + "' class='btn btn-success btn-mini btn-outline-primary'><i class='icofont icofont-ui-edit'></i></a>";
+                    return "<a href='Edit/" + full.VenderID + "' class='btn btn-success btn-mini btn-outline-primary'><i class='icofont icofont-ui-edit'></i></a>";
                 }
             },
             {
                 "render": function (data, type, full) {
-                    return "<a href='Vender/Delete/" + full.VenderID + "' class='btn btn-danger btn-mini btn-outline-primary'><i class='icofont icofont-ui-close'></i></a>";
+                    return "<a href='Delete/" + full.VenderID + "' class='btn btn-danger btn-mini btn-outline-primary'><i class='icofont icofont-ui-close'></i></a>";
                 }
             },
 

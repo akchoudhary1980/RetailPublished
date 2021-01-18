@@ -87,26 +87,26 @@ $(document).ready(function () {
 
             {
                 "render": function (data, type, full) {
-                    return "<a href='Sale/PrintPreview/" + full.SalesID + "' class='btn btn-info btn-mini btn-outline-info'><i class='icofont icofont-print'></i></a>";
+                    return "<a href='PrintPreview/" + full.SalesID + "' class='btn btn-info btn-mini btn-outline-info'><i class='icofont icofont-print'></i></a>";
                 }
             },
 
             {
                 "data": "CustomerID", "name": "CustomerID",
                 "render": function (data, type, full) {
-                    return "<a href='Sale/Payment/" + full.CustomerID + "' class='btn btn-info btn-mini btn-outline - info'><i class='icofont icofont-cur-rupee'></i>";
+                    return "<a href='Payment/" + full.CustomerID + "' class='btn btn-info btn-mini btn-outline - info'><i class='icofont icofont-cur-rupee'></i>";
                 }
             },
             
             {
                 "render": function (data, type, full)
                 {
-                    return "<a href='Sale/Edit/" + full.SalesID + "' class='btn btn-success btn-mini btn-outline-primary'><i class='icofont icofont-ui-edit'></i></a>";                        
+                    return "<a href='Edit/" + full.SalesID + "' class='btn btn-success btn-mini btn-outline-primary'><i class='icofont icofont-ui-edit'></i></a>";                        
                 }
             },
             {               
                 "render": function (data, type, full) {
-                    return "<a href='Sale/Delete/" + full.SalesID + "' class='btn btn-danger btn-mini btn-outline-primary'><i class='icofont icofont-ui-close'></i></a>";        
+                    return "<a href='Delete/" + full.SalesID + "' class='btn btn-danger btn-mini btn-outline-primary'><i class='icofont icofont-ui-close'></i></a>";        
                 }
             },
            

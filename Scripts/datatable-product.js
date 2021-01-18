@@ -93,12 +93,12 @@ $(document).ready(function () {
             {
                 "render": function (data, type, full)
                 {
-                    return "<a href='Product/Edit/" + full.ProductID + "' class='btn btn-success btn-mini btn-outline-primary'><i class='icofont icofont-ui-edit'></i></a>";                        
+                    return "<a href='Edit/" + full.ProductID + "' class='btn btn-success btn-mini btn-outline-primary'><i class='icofont icofont-ui-edit'></i></a>";                        
                 }
             },
             {
                 "render": function (data, type, full) {
-                    return "<a href='Product/Delete/" + full.ProductID + "' class='btn btn-danger btn-mini btn-outline-primary'><i class='icofont icofont-ui-close'></i></a>";        
+                    return "<a href='Delete/" + full.ProductID + "' class='btn btn-danger btn-mini btn-outline-primary'><i class='icofont icofont-ui-close'></i></a>";        
                 }
             },
            

@@ -94,19 +94,19 @@ $(document).ready(function () {
 
             {
                 "render": function (data, type, full) {
-                    return "<a href='Quotation/PrintPreview/" + full.QuotationID + "' class='btn btn-info btn-mini btn-outline-info'><i class='icofont icofont-print'></i></a>";
+                    return "<a href='PrintPreview/" + full.QuotationID + "' class='btn btn-info btn-mini btn-outline-info'><i class='icofont icofont-print'></i></a>";
                 }
             },            
             
             {
                 "render": function (data, type, full)
                 {
-                    return "<a href='Quotation/Edit/" + full.QuotationID + "' class='btn btn-success btn-mini btn-outline-primary'><i class='icofont icofont-ui-edit'></i></a>";                        
+                    return "<a href='Edit/" + full.QuotationID + "' class='btn btn-success btn-mini btn-outline-primary'><i class='icofont icofont-ui-edit'></i></a>";                        
                 }
             },
             {               
                 "render": function (data, type, full) {
-                    return "<a href='Quotation/Delete/" + full.QuotationID + "' class='btn btn-danger btn-mini btn-outline-primary'><i class='icofont icofont-ui-close'></i></a>";        
+                    return "<a href='Delete/" + full.QuotationID + "' class='btn btn-danger btn-mini btn-outline-primary'><i class='icofont icofont-ui-close'></i></a>";        
                 }
             },
            

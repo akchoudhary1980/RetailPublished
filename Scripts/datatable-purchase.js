@@ -87,26 +87,26 @@ $(document).ready(function () {
 
             {
                 "render": function (data, type, full) {
-                    return "<a href='Purchase/PrintPreview/" + full.PurchaseID + "' class='btn btn-info btn-mini btn-outline-info'><i class='icofont icofont-print'></i></a>";
+                    return "<a href='PrintPreview/" + full.PurchaseID + "' class='btn btn-info btn-mini btn-outline-info'><i class='icofont icofont-print'></i></a>";
                 }
             },
 
             {
                 "data": "VenderID", "name": "VenderID",
                 "render": function (data, type, full) {
-                    return "<a href='Purchase/Payment/" + full.VenderID + "' class='btn btn-info btn-mini btn-outline - info'><i class='icofont icofont-cur-rupee'></i>";
+                    return "<a href='Payment/" + full.VenderID + "' class='btn btn-info btn-mini btn-outline - info'><i class='icofont icofont-cur-rupee'></i>";
                 }
             },
             
             {
                 "render": function (data, type, full)
                 {
-                    return "<a href='Purchase/Edit/" + full.PurchaseID + "' class='btn btn-success btn-mini btn-outline-primary'><i class='icofont icofont-ui-edit'></i></a>";                        
+                    return "<a href='Edit/" + full.PurchaseID + "' class='btn btn-success btn-mini btn-outline-primary'><i class='icofont icofont-ui-edit'></i></a>";                        
                 }
             },
             {               
                 "render": function (data, type, full) {
-                    return "<a href='Purchase/Delete/" + full.PurchaseID + "' class='btn btn-danger btn-mini btn-outline-primary'><i class='icofont icofont-ui-close'></i></a>";        
+                    return "<a href='Delete/" + full.PurchaseID + "' class='btn btn-danger btn-mini btn-outline-primary'><i class='icofont icofont-ui-close'></i></a>";        
                 }
             },
            
