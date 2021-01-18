@@ -60,7 +60,7 @@ $(document).ready(function () {
                 "data": "Picture", "name": "Picture",
                
                 "render": function (data, type, full, meta) {
-                    return "<img src='UploadFiles/" + full.Picture+"' height='50'/>";
+                    return "<img src='../UploadFiles/" + full.Picture+"' height='50'/>";
                 },                
                 "orderable": false,
                 "searchable": false
