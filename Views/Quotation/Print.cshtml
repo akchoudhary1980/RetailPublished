@@ -47,8 +47,7 @@
                         <h3 class="text-right" style="color:darkorange">@drCompany.CompanyName</h3>
                         <p class="text-right">
                             Add: @drCompany.CompanyAddress,
-                            <br /> Email: @drCompany.CompanyEmail,
-                            <br /> Mob: @drCompany.CompanyMobile
+                            <br /> Email: @drCompany.CompanyEmail,                            
                             <br /> GST No: @drCompany.GST
                         </p>
                     </div>
@@ -65,21 +64,28 @@
                         <div>GST No : @drCustomer.GSTNo</div>
                     </div>
                     <div class="col-md-6">
-                        <h2 class="text-right">QUOTATION</h2>
-                        <br />
-                        <h6 class="text-right"><b>Quotation No: Quo/@drCompany.InvoicePrefix/@drQuotation.SerialNo</b></h6>
+                        <h3 class="text-right">QUOTATION</h3>                       
+                        <h6 class="text-right"><b>Quo. No: Quo/@drCompany.InvoicePrefix/@drQuotation.SerialNo</b></h6>
                         <p class="text-right">
                             <b>Quo. Date: @Ret.TextLib.GetDateDDMMYYYY(drQuotation.QuotationDate)</b> <br />
                             <b>Due. Date: @Ret.TextLib.GetDateDDMMYYYY(drQuotation.ExpactedDate)</b> <br />
                         </p>
                     </div>
                 </div>
+                <div div class="row mt-2">
+                    <div class="col-md-12">
+                        <p><b>SUB: - </b> @drQuotation.Remark</p>
+                        <p class="text-justify">
+                            Dear Sir,<br />
+                            We take this opportunity to thank you for the keen interest shown by yourself in STYRA products. It would be our privilege to be associated with a prestigious company as yours. As per our discussion with you, we are pleased to submit our lowest Quotation as
+                            under.
+                        </p>
+                    </div>
+                </div>
                 <div class="row">
-                    <div class="col-md-12 table-responsive">
-                        <br />
-                        <h4 class="text-center">QUOTATION DETAILS</h4>
-                        <br />
-                        <table class="table table-bordered">
+                    <div class="col-md-12 table-responsive">                       
+                        <h4 class="text-center text-underline">QUOTATION DETAILS</h4>                      
+                        <table class="table table-bordered mt-1">
                             <thead>
                                 <tr style="background-color: #F8F8F8">
                                     <th>Sr No</th>
@@ -185,7 +191,22 @@
                     </div>
                 </div>
 
-                <div class="text-right" style="margin-top: 100px;">Thank you!</div>
+                <div class="text-left" style="margin-top: 20px;">
+                    <h6><b>TERMS & CONDITION :-</b></h6>
+                    <ul>
+                        <li>Payment 100 % advance along with purchase order.</li>
+                        <li>As per Discussion, GST (18%) & Transit Insurance (1%) is included in the given price.</li>
+                        <li>Unloading Charges and freight from dealer to site from your account.</li>
+                        <li>Delivery within 10 days from confirmed purchase order and cheque.</li>
+                        <li>Payment 100 % advance along with purchase order.</li>
+                    </ul>
+                    <p>
+                        <b>VALIDITY:-</b> This offer is valid for the mentioned volume for 30 days from the date of this quotation. For supplies, you have to provide us the schedule keeping the lead time in mind, which would be informed at the time of order confirmation.
+                    </p>
+                    <p>
+                        Considering the quality of the products manufactured by STYRA, we confident that you would find our prices most competitive. We are looking forwards to receive your valued order.
+                    </p>
+                </div>
                 <br /> 
             </section>
             <section>   
@@ -228,24 +249,27 @@
                     </div>
                     <div class="col-md-6">
                         <div class="float-right">
+                            <text>
+                                Thanking you.<br />
+                                Yours Sincerely,
+                            </text>
                             <p class="text-right">For <b>@drCompany.CompanyName</b></p>
-                            <img id="compPicture" src="@drCompany.SealPicture" height="100" />
+                            <div class="float-right">
+                                <img id="compPicture" src="@drCompany.SealPicture" height="100" />
+                            </div>                            
                             <br />
-                            <p class="text-right"> @drCompany.OnwerName</p>                          
+                            <div class="float-right">
+                                <p class="text-right">
+                                    @drCompany.OnwerName
+                                    <br /> Mob: @drCompany.CompanyMobile
+                                </p>
+                            </div>
+                                                     
                         </div>
                     </div>
                 </div> 
             </section>
-            <footer>
-                <hr />
-                <p><b>Note:-</b></p>
-                <ul>
-                    <li>E.& O.E. Subject to Jabalpur Jurisdiction.</li>
-                    <li>Interest @@2% per month will be charged on accounts not paid within 15 days from date of this bill.</li>
-                    <li>This firm does not accept any liability for the pilferagelshortage etc of goods in route.</li>
-                    <li>Goods once sold will not be taken back.</li>
-                    <li>All Subject to Jabalpur Jurisdiction.</li>
-                </ul>               
+            <footer>                            
             </footer>
         </div>
     </form>
