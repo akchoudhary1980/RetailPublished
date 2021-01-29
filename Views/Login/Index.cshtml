@@ -26,18 +26,18 @@
         $('#captcha').attr("src", "/UploadFiles/captcha.jpg?" + d.getTime());
     }
 </script>
-<section class="login-block">
+<section class="login-block" style="background-color:darkcyan; margin:30px" >
     <!-- Container-fluid starts -->
-    <div class="container-fluid">
-        <div class="row">
+    <div class="container-fluid" >
+        <div class="row" >
             <div class="col-sm-12">
                 <!-- Authentication card start -->
                 <div class="md-float-material form-material">
 
-                    <div class="auth-box card vw-100 ">
+                    <div class="auth-box card min-vw-100">
                         <div class="card-block">
-                            <div class="text-center">
-                                <img src="~/UploadFiles/Common/Logo.png" class="img-fluid text-center" />                               
+                            <div class="text-center">                               
+                                <img src="~/UploadFiles/@ViewData["Picture"]" style="height:100px" class="img-fluid text-center" />
                             </div>
                             <br />
                             <div class="row m-b-20">
