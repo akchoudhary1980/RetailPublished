@@ -262,7 +262,7 @@ function DeleteRow(serno) {
    
     $.ajax({
         type: 'POST',       
-        url: "/Sale/RemovSTransData",      
+        url: "/Sale/DeleteRow",      
         dataType: 'json',
         data: { iSer: serno },
         success: function (data) {

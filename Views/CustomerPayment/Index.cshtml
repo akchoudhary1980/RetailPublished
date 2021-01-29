@@ -5,6 +5,21 @@
 <script src="~/Scripts/jquery-ui-1.10.2.js"></script>
 <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
 
+<!--for Open PDF File-->
+<script type="text/javascript">
+    // define here call here
+    function OpenPDF() {
+        window.open('../UploadFiles/Temp.pdf', '_blank');
+    }
+</script>
+@if (TempData["OpenPDFfile"] != null)
+{
+    // call here
+    <script type="text/javascript">
+      @Html.Raw(TempData["OpenPDFfile"])
+    </script>
+}
+
 <div class="page-header animated bounceInRight">
     <div class="card">
         <div class="card-block bg-primary">

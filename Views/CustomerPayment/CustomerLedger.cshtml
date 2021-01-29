@@ -10,12 +10,12 @@
     var cus = db.CustomerModels.Where(x => x.CustomerID == customerid).SingleOrDefault();
     double saletotal = 0;
     double paymenttotal = 0;
-    double balance = 0; 
+    double balance = 0;
 
     if (customerid!=0)
     {
-        saletotal = db.SalesModels.Where(x => x.CustomerID == customerid).Sum(s => s.SaleTotal);
-        paymenttotal = db.CustomerPaymentModels.Where(x => x.CustomerID == customerid).Sum(s => s.Amount);
+        saletotal = db.SalesModels.Where(x => x.CustomerID == customerid).Select(s => s.SaleTotal).DefaultIfEmpty(0).Sum();
+        paymenttotal = db.CustomerPaymentModels.Where(x => x.CustomerID == customerid).Select(l => l.Amount).DefaultIfEmpty(0).Sum();
         balance = saletotal - paymenttotal;
     }
 }
@@ -130,13 +130,13 @@
                                 <th>Mobile</th>
                                 <td>@cus.Mobile</td>
                                 <th>Whatsup</th>
-                                <td>@cus.Whatup</td>
+                                <td>@cus.Whatsup</td>
                             </tr>
                             <tr>
                                 <th>Email</th>
                                 <td>@cus.Email</td>
                                 <th>Print</th>
-                                <td><a class="btn btn-outline-success" href="@Url.Action("CLedgerPrint", "Payment",new { id = cus.CustomerID })">Print</a></td>
+                                <td><a class="btn btn-outline-success pull-right" href="@Url.Action("LedgerPrintPreview", "CustomerPayment",new { id = cus.CustomerID })">Print</a></td>
                             </tr>
                             }
                         </tbody>                       

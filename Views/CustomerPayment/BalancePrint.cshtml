@@ -1,0 +1,165 @@
+﻿@model System.Data.DataTable
+@using System.Data;
+
+@{
+    Layout = null;
+    Ret.dbContext db = new Ret.dbContext();
+    var drCompany = db.CompanyModels.Where(x => x.CompanyID == 1).SingleOrDefault();
+    DataTable dt = (DataTable)ViewData["dt"];
+    int i = 0;
+
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title> Sales</title>
+    <meta name="description" content="Dreaming Desire">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Basic Style Sheet -->
+    <link href="Common/bootstrap.min.css" rel="stylesheet" />
+    <link href="Common/font-awesome.min.css" rel="stylesheet" />
+    <title>Print Invoice</title>
+    <style type="text/css">
+        tr td {
+            padding-left: 2px !important;
+            padding-right: 2px !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            /* padding: 0 !important;*/
+            margin: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="container">
+            <header>
+                <div class="row" style="margin-top:15px;">
+                    <div class="col-md-3">
+                        <img src="@drCompany.CompanyPicture" class="img-fluid" />
+                    </div>
+                    <div class="col-md-9">
+                        <h3 class="text-right" style="color:darkorange">@drCompany.CompanyName</h3>
+                        <p class="text-right">
+                            Add: @drCompany.CompanyAddress,
+                            <br /> Email: @drCompany.CompanyEmail,
+                            <br /> Mob: @drCompany.CompanyMobile
+                            <br /> GST No: @drCompany.GST
+                        </p>
+                    </div>
+                </div>
+            </header>
+            <section class="mt-2">
+                <div class="row">
+                    <div class="col-md-12 table-responsive">
+                        <h4 class="text-center">CUSTOMER BALANCE</h4>
+                        <div class='dt-responsive table-responsive'>
+                            <table id='cbtn-selectors1' class='table table-striped table-bordered nowrap'>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Customer Name</th>
+                                        <th>Mobile</th>
+                                        <th>Whatsup</th>
+                                        <th>Email</th>
+                                        <th class="text-right">Total Sale</th>
+                                        <th class="text-right">Total Payment</th>
+                                        <th class="text-right">Balance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (DataRow row in Model.Rows)
+                                    {
+                                        i++;
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>@row["CustomerName"]</td>
+                                        <td>@row["Mobile"]</td>
+                                        <td>@row["Whatsup"]</td>
+                                        <td>@row["Email"]</td>
+
+                                        <td class="text-right">@Ret.TextLib.IndianRuppes(row["TotalSale"].ToString())</td>
+                                        <td class="text-right">@Ret.TextLib.IndianRuppes(row["TotalPayment"].ToString())</td>
+                                        <td class="text-right">@Ret.TextLib.IndianRuppes(row["Balance"].ToString())</td>
+                                    </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="text-right" style="margin-top: 100px;">Thank you!</div>
+                <br />
+            </section>
+            <section>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div>
+                            <b> Payment In favor of :</b>
+                            <br />
+                            <table>
+                                <tr>
+                                    <td width="150">Beneficiary Name</td>
+                                    <td><b> @drCompany.BeneficiaryName </b></td>
+                                </tr>
+                                <tr>
+                                    <td>Bank Name</td>
+                                    <td><b> @drCompany.BankName </b></td>
+                                </tr>
+                                <tr>
+                                    <td>Branch Name</td>
+                                    <td><b> @drCompany.BranchName </b></td>
+                                </tr>
+                                <tr>
+                                    <td>Account No</td>
+                                    <td><b> @drCompany.AccountNumber </b></td>
+                                </tr>
+                                <tr>
+                                    <td>IFSC Code</td>
+                                    <td><b> @drCompany.AccountIFSCCode </b></td>
+                                </tr>
+                                <tr>
+                                    <td>Account Type</td>
+                                    <td><b> Current Account </b></td>
+                                </tr>
+                                <tr>
+                                    <td>MICR Code</td>
+                                    <td><b> @drCompany.AccountMICRCode </b></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="float-right">
+                            <p class="text-right">For <b>@drCompany.CompanyName</b></p>
+                            <img id="compPicture" src="@drCompany.SealPicture" height="100" />
+                            <br />
+                            <p class="text-right"> @drCompany.OnwerName</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <footer>
+                <hr />
+                <p><b>Note:-</b></p>
+                <ul>
+                    <li>E.& O.E. Subject to Jabalpur Jurisdiction.</li>
+                    <li>Interest @@2% per month will be charged on accounts not paid within 15 days from date of this bill.</li>
+                    <li>This firm does not accept any liability for the pilferagelshortage etc of goods in route.</li>
+                    <li>Goods once sold will not be taken back.</li>
+                    <li>All Subject to Jabalpur Jurisdiction.</li>
+                </ul>
+            </footer>
+        </div>
+    </form>
+</body>
+</html>

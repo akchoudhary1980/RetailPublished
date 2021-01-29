@@ -65,10 +65,10 @@
                         <td> @Html.DisplayFor(modelItem => item.ProfessionName)</td>
                        
                         <td>
-                            <a href="@Url.Action("Edit", "Category",new { id = item.ProfessionID})" class="btn btn-success btn-mini btn-outline-primary"><i class='icofont icofont-ui-edit'></i></a>
+                            <a href="@Url.Action("Edit", "Profession",new { id = item.ProfessionID})" class="btn btn-success btn-mini btn-outline-primary"><i class='icofont icofont-ui-edit'></i></a>
                         </td>
                         <td>
-                            <a href="@Url.Action("Delete", "Category",new { id = item.ProfessionID})" class="btn btn-danger btn-mini btn-outline-primary"><i class='icofont icofont-ui-close '></i></a>
+                            <a href="@Url.Action("Delete", "Profession",new { id = item.ProfessionID})" class="btn btn-danger btn-mini btn-outline-primary"><i class='icofont icofont-ui-close '></i></a>
                         </td>
                     </tr>
                         }

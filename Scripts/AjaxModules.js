@@ -278,10 +278,10 @@ function SetIntegerIndian(id) {
 }
 
 function RemoveIndianCulture(id) {
-    var str = $('#' + id).val();
-    str = str.replace("₹", "");
-    str = str.replace(",", "");
-    $('#' + id).val(str);
+    var str = $('#' + id).val();    
+    var str1 = str.replace("₹", "");    
+    var str2 = (str1.trim()).replace(/[,]/g, "");
+    $('#' + id).val(str2);
 }
 
 function ClearCulture(str) {    

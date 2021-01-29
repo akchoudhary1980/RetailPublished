@@ -10,12 +10,12 @@
     var cus = db.CustomerModels.Where(x => x.CustomerID == customerid).SingleOrDefault();
     double saletotal = 0;
     double paymenttotal = 0;
-    double balance = 0; 
+    double balance = 0;
 
     if (customerid!=0)
     {
         saletotal = db.SalesModels.Where(x => x.CustomerID == customerid).Sum(s => s.SaleTotal);
-        paymenttotal = db.CustomerPaymentModels.Where(x => x.CustomerID == customerid).Sum(s => s.Amount);
+        paymenttotal = db.CustomerPaymentModels.Where(x => x.CustomerID == customerid).Select(l => l.Amount).DefaultIfEmpty(0).Sum();
         balance = saletotal - paymenttotal;
     }
 }
@@ -55,31 +55,7 @@
                     <div class="col-md-12">
                         <h4>@ViewData["PageTitle"]</h4>                       
                     </div>
-                </div>
-                @*<div class="row">
-                    <div class="col-md-12">
-                        @using (Html.BeginForm("CustomerLedger", "CustomerPayment", FormMethod.Post))
-                        {
-                            <di class="form-group row">
-                                @Html.Label("", "Customer Name", new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.TextBox("Customer", "", new { @class = "form-control" })
-                                    @Html.Hidden("CustomerHiddenID", "0")
-                                </div>
-                                
-                            </di>
-                            <di class="form-group row">
-                                @Html.Label("", "Selected Customer", new { @class = "control-label col-md-2" })
-                                <div class="col-md-9">
-                                    @Html.TextBox("CustomerName", "", new { @class = "form-control", @readonly = "readonly" })
-                                </div>
-                                <div class="col-md-1">
-                                    <button class="btn btn-primary btn-outline-primary float-right" type="submit"><i class="icofont icofont-search"></i></button>
-                                </div>
-                            </di>
-                        }
-                    </div>                      
-                </div>*@
+                </div>                
             </div>
             <div class="card-block">
                 <h5>Customer Details</h5>
@@ -103,13 +79,13 @@
                                 <th>Mobile</th>
                                 <td>@cus.Mobile</td>
                                 <th>Whatsup</th>
-                                <td>@cus.Whatup</td>
+                                <td>@cus.Whatsup</td>
                             </tr>
                             <tr>
                                 <th>Email</th>
                                 <td>@cus.Email</td>
                                 <th>Print</th>
-                                <td><a class="btn btn-outline-success" href="@Url.Action("CLedgerPrint", "Payment",new { id = cus.CustomerID })">Print</a></td>
+                                <td><a class="btn btn-outline-success pull-right" href="@Url.Action("LedgerPrintPreview", "CustomerPayment",new { id = cus.CustomerID })">Print</a></td>
                             </tr>
                             }
                         </tbody>                       

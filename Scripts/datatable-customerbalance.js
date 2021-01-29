@@ -60,7 +60,7 @@ $(document).ready(function () {
             { "data": "CustomerID", "name": "CustomerID", "autoWidth": true }, 
             { "data": "CustomerName", "name": "CustomerName", "autoWidth": true }, 
             { "data": "Mobile", "name": "Mobile", "autoWidth": true }, 
-            { "data": "Whatup", "name": "Whatup", "autoWidth": true },
+            { "data": "Whatsup", "name": "Whatsup", "autoWidth": true },
             { "data": "Email", "name": "Email", "autoWidth": true },
 
             {

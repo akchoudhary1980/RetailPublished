@@ -1,8 +1,8 @@
-﻿
-@{
+﻿@{
     Layout = "~/Views/Shared/_admin.cshtml";
-    System.Data.DataTable StockList = Session["StockQtyList"] as System.Data.DataTable;
+    //System.Data.DataTable StockList = Session["StockQtyList"] as System.Data.DataTable;
     string date = Ret.TextLib.GetDateDDMMYYYY(System.DateTime.Today.ToString());
+    int counter = 0;
 }
 
 <div class="page-header animated bounceInRight">
@@ -51,22 +51,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if (StockList.Rows.Count > 0)
-                            {
-                                int counter = 0;
-                                for (int i = 0; i < StockList.Rows.Count; i++)
-                                {
+                            @foreach (var item in ViewData.Model)
+                            {                               
                                     counter = counter + 1;
-                                    <tr>
-                                        <td>@counter</td>
-                                        <td>@Ret.DataLib.GetCellItems("Select ProductName from ProductModels Where ProductID=" + StockList.Rows[i].ItemArray[0].ToString())</td> <!--Product Name  -->
-                                        <td>@StockList.Rows[i].ItemArray[1].ToString()</td> <!--Purchase -->
-                                        <td>@StockList.Rows[i].ItemArray[2].ToString()</td> <!--Sale -->
-                                        <td>@StockList.Rows[i].ItemArray[3].ToString()</td> <!--Stock -->
-                                        <td>@Ret.DataLib.GetCellItems("Select UnitName from UnitModels Where UnitID =" + Ret.DataLib.GetCellItems("Select UnitID from ProductModels Where ProductID=" + StockList.Rows[i].ItemArray[0].ToString()))</td> <!--Unit -->
-                                        <td>@date</td> <!--Date -->
-                                    </tr>
-                                }
+                                <tr>
+                                    <td>@counter</td>
+                                    <td>@Ret.DataLib.GetCellItems("Select ProductName from ProductModels Where ProductID=" + item["ProductID"])</td> <!--Product Name  -->
+                                    <td class="text-right">@item["PQty"]</td> <!--Purchase -->
+                                    <td class="text-right">@item["SQty"]</td> <!--Sale -->
+                                    <td class="text-right">@item["Stock"]</td> <!--Stock -->
+                                    <td>@Ret.DataLib.GetCellItems("Select UnitName from UnitModels Where UnitID =" + Ret.DataLib.GetCellItems("Select UnitID from ProductModels Where ProductID=" + item["ProductID"]))</td> <!--Unit -->
+                                    <td>@date</td> <!--Date -->
+                                </tr>                               
                             }
                         </tbody>
                     </table>
